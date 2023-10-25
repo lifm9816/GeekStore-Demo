@@ -56,8 +56,14 @@
 
 .navigation ul li.active a .icon
 {
-    transform: translateY(-32px);
+    transform: translateY(-35px);
 }
+
+.navigation ul li.active a .icon .logo_movil
+{
+    transform: translateY(7px);
+}
+
 
 .navigation ul li a .text
 {
@@ -80,7 +86,7 @@
 .indicator
 {
     position: absolute;
-    top: -51%;
+    top: -49%;
     width: 58px;
     height: 58px;
     background-color: #FF914D;
@@ -123,6 +129,11 @@
 .navigation ul li:nth-child(2).active ~ .indicator
 {
     transform: translateX(calc(70px * 1));
+}
+
+.navigation ul li:nth-child(3).active ~ .indicator
+{
+    transform: translateX(calc(70px * 2));
 }
 
 .navigation ul li:nth-child(4).active ~ .indicator
