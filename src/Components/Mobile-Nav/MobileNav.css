@@ -135,7 +135,7 @@
     transform: translateX(calc(70px * 4));
 }
 
-@media screen and (min-width: 375px) 
+@media screen and (max-width: 1000px) 
 {
     .navigation
     {
@@ -145,7 +145,7 @@
     }
 }
 
-@media screen and (min-width: 800px) 
+@media screen and (min-width: 1001px) 
 {
     .navigation
     {
