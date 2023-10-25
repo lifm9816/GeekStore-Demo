@@ -139,6 +139,16 @@
 {
     .navigation
     {
+
+        position: absolute;
+        z-index: 0;
+    }
+}
+
+@media screen and (max-width: 500px) 
+{
+    .navigation
+    {
         bottom: 0;
         position: absolute;
         z-index: 0;
