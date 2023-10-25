@@ -1,10 +1,9 @@
+import { useState } from "react";
 import "./MobileNav.css"
 import { AiFillHome, AiOutlineSearch} from "react-icons/ai";
-import { useState } from "react";
-import { HiUserPlus } from "react-icons/hi";
-import logo from "../../assets/Images/icon.png"
-
+import { HiUserAdd } from "react-icons/hi";
 import { BsCircleHalf} from "react-icons/bs";
+import logo from "../../assets/Images/icon.png"
 
 
 const MobileNav = () =>
@@ -44,7 +43,7 @@ const MobileNav = () =>
                 <li className={`list ${activeIndex === 3 ? 'active' : ''}`}>
                     <a href="#" onClick={() => handleItemClick(3)}>
                         <span className="icon">
-
+                            <HiUserAdd />
                         </span>
                         <span className="text">Log In</span>
                     </a>
