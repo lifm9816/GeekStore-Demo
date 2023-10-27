@@ -59,6 +59,7 @@ const CrearCuenta = styled(Btn)`
     border-radius: 20px;
     width: auto;
     height: auto;
+    margin-bottom: 100px;
     &:hover
     {
         background-color: #e08044;
