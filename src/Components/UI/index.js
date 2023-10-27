@@ -29,5 +29,11 @@ export const Btn = styled.button`
     }
 `
 
+export const Dc = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`
+
 export const Card = styled.div`
 `

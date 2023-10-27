@@ -3,6 +3,7 @@ import styled from "styled-components";
 import logo from "../../assets/Images/logo.png";
 import { Btn } from "../UI";
 import { btnLogIn, btnSignIn, colorPrimario } from "../UI/Variables";
+import { Link } from "react-router-dom";
 
 const BtnLogIn = styled(Btn)`
     background-color: ${btnLogIn};
@@ -51,10 +52,14 @@ const Header = () =>{
         <StyledHeader>
             <div></div>
             <div>
-                <Logo src={logo} alt = "Logo de GeekStore" />
+                <Link to="/">
+                    <Logo src={logo} alt = "Logo de GeekStore" />
+                </Link>    
             </div>
             <div>
-                <BtnLogIn>Log In</BtnLogIn>
+                <Link to="/login">
+                    <BtnLogIn>Log In</BtnLogIn>
+                </Link>
                 <BtnSignIn>Sign In</BtnSignIn>
             </div>
         </StyledHeader>

@@ -4,6 +4,7 @@ import { AiFillHome, AiOutlineSearch} from "react-icons/ai";
 import { HiUserAdd } from "react-icons/hi";
 import { BsCircleHalf} from "react-icons/bs";
 import logo from "../../assets/Images/icon.png"
+import { Link } from "react-router-dom";
 
 
 const MobileNav = () =>
@@ -18,12 +19,14 @@ const MobileNav = () =>
         <div className="navigation">
             <ul>
                 <li className={`list ${activeIndex === 0 ? 'active' : ''}`}>
-                    <a href="#" onClick={() => handleItemClick(0)}>
-                        <span className="icon">
-                            <AiFillHome/>
-                        </span>
-                        <span className="text">Inicio</span>
-                    </a>
+                    <Link to="/" >
+                        <a href="#" onClick={() => handleItemClick(0)}>
+                            <span className="icon">
+                                <AiFillHome/>
+                            </span>
+                            <span className="text">Inicio</span>
+                        </a>
+                    </Link>
                 </li>
                 <li className={`list ${activeIndex === 1 ? 'active' : ''}`}>
                     <a href="#" onClick={() => handleItemClick(1)}>
@@ -41,12 +44,14 @@ const MobileNav = () =>
                     </a>
                 </li>
                 <li className={`list ${activeIndex === 3 ? 'active' : ''}`}>
-                    <a href="#" onClick={() => handleItemClick(3)}>
-                        <span className="icon">
-                            <HiUserAdd />
-                        </span>
-                        <span className="text">Log In</span>
-                    </a>
+                    <Link to = "/login">
+                        <a href="#" onClick={() => handleItemClick(3)}>
+                            <span className="icon">
+                                <HiUserAdd />
+                            </span>
+                            <span className="text">Log In</span>
+                        </a>
+                    </Link>
                 </li>
                 <li className={`list ${activeIndex === 4 ? 'active' : ''}`}>
                     <a href="#" onClick={() => handleItemClick(4)}>

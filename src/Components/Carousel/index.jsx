@@ -15,27 +15,31 @@ const Container = styled.div`
     justify-content: center;
 `
 
+const Img = styled.img`
+    border-radius: 20px;
+`
+
 const MyCarousel = () => {
     return(
         <Container>
-        <Carousel
-            autoPlay={true}
-            interval={4000}
-            infiniteLoop={true}
-        >
-            <div>
-                <img src={spiderman2} alt="" />
-            </div>
-            <div>
-                <img src={mario} alt="" />
-            </div>
-            <div>
-                <img src={aw2} alt="" />
-            </div>
-            <div>
-                <img src={gow} alt="" />
-            </div>
-        </Carousel>
+            <Carousel
+                autoPlay={true}
+                interval={4000}
+                infiniteLoop={true}
+            >
+                <div>
+                    <Img src={spiderman2} alt="" />
+                </div>
+                <div>
+                    <Img src={mario} alt="" />
+                </div>
+                <div>
+                    <Img src={aw2} alt="" />
+                </div>
+                <div>
+                    <Img src={gow} alt="" />
+                </div>
+            </Carousel>
         </Container>
     )
 }
