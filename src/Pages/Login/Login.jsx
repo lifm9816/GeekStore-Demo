@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { colorPrimario, btnSignIn } from "../../Components/UI/Variables";
+import { Link } from "react-router-dom";
 import { Btn } from "../../Components/UI";
 
 const Contenedor = styled.div`
@@ -67,13 +68,27 @@ const IniciarSesion = styled(Btn)`
     }
 `
 
+const CrearCuenta = styled(Btn)`
+    background-color: ${colorPrimario};
+    font-size: 25px;
+    padding: 20px;
+    transition: all .5s ease-in-out;
+    border-radius: 20px;
+    width: auto;
+    height: auto;
+`
+
+const Mensaje = styled.p`
+    
+`
+
 
 
 const Login = () =>{
     return(
         <Contenedor>
             <EspacioEtiqueta>
-                <Etiqueta htmlForfor="correo">Correo:</Etiqueta>
+                <Etiqueta htmlFor="correo">Correo:</Etiqueta>
             </EspacioEtiqueta>
             <CampoTexto type = "text" id="correo" placeholder = "Ingrese su correo electrónico"/>
             <EspacioEtiqueta>
@@ -81,7 +96,11 @@ const Login = () =>{
             </EspacioEtiqueta>
             <CampoTexto type="password" id="contraseña" placeholder = "Ingrese su contraseña"/>
             <span>
+                <Link to="/signin">
+                    <CrearCuenta>Crear cuenta</CrearCuenta>
+                </Link>
                 <IniciarSesion>Iniciar Sesión</IniciarSesion>
+
             </span>
         </Contenedor>
     )
