@@ -1,26 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./MobileNav.css"
 import { AiFillHome, AiOutlineSearch} from "react-icons/ai";
 import { HiUserAdd } from "react-icons/hi";
 import { BsCircleHalf} from "react-icons/bs";
 import logo from "../../assets/Images/icon.png"
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 
 const MobileNav = () =>
 {
     const [activeIndex, setActiveIndex] = useState(0);
+    const { pathname } = useLocation();//Destructura pathname directamente
 
-    const handleItemClick = (index) => {
-      setActiveIndex(index);
-    };
+    useEffect(() => {
+
+        //Definición de mapa de rutas a índices
+        const pathToIndex = {
+            "/":0,
+            "/search": 1,
+            "/about": 2,
+            "/login": 3,
+            "/signin": 3,
+            "/theme": 4,
+        };
+
+        //Estableciendo el valor de activeIndex en función de la ruta actual
+        setActiveIndex(pathToIndex[pathname]);
+    },[pathname]);
 
     return(
         <div className="navigation">
             <ul>
                 <li className={`list ${activeIndex === 0 ? 'active' : ''}`}>
                     <Link to="/" >
-                        <a href="#" onClick={() => handleItemClick(0)}>
+                        <a href="#" onClick={() => setActiveIndex(0)}>
                             <span className="icon">
                                 <AiFillHome/>
                             </span>
@@ -29,7 +42,7 @@ const MobileNav = () =>
                     </Link>
                 </li>
                 <li className={`list ${activeIndex === 1 ? 'active' : ''}`}>
-                    <a href="#" onClick={() => handleItemClick(1)}>
+                    <a href="#" onClick={() => setActiveIndex(1)}>
                         <span className="icon">
                             <AiOutlineSearch/>
                         </span>
@@ -37,7 +50,7 @@ const MobileNav = () =>
                     </a>
                 </li>
                 <li className={`list ${activeIndex === 2 ? 'active' : ''}`}>
-                    <a href="#" onClick={() => handleItemClick(2)}>
+                    <a href="#" onClick={() => setActiveIndex(2)}>
                         <span className="icon">
                             <img className="logo_movil" src={logo} alt="" />
                         </span>
@@ -45,7 +58,7 @@ const MobileNav = () =>
                 </li>
                 <li className={`list ${activeIndex === 3 ? 'active' : ''}`}>
                     <Link to = "/login">
-                        <a href="#" onClick={() => handleItemClick(3)}>
+                        <a href="#" onClick={() => setActiveIndex(3)}>
                             <span className="icon">
                                 <HiUserAdd />
                             </span>
@@ -54,7 +67,7 @@ const MobileNav = () =>
                     </Link>
                 </li>
                 <li className={`list ${activeIndex === 4 ? 'active' : ''}`}>
-                    <a href="#" onClick={() => handleItemClick(4)}>
+                    <a href="#" onClick={() => setActiveIndex(4)}>
                         <span className="icon">
                             <BsCircleHalf/>
                         </span>

@@ -12,19 +12,6 @@ const Contenedor = styled.div`
 
 
 `
-const EspacioEtiqueta = styled.div`
-    margin-bottom: 10px;
-    display: flex;
-
-    @media (max-width: 494px)
-    {
-        width: 100%;
-    }
-    @media (min-width: 495px)
-    {
-        width: 70%;
-    }
-`
 
 const Etiqueta = styled.label`
     background-color: ${colorPrimario};
@@ -42,6 +29,7 @@ const CampoTexto = styled.input`
     border: none;
     font-size: 20px;
     margin-bottom: 30px;
+    margin-top:10px;
     
     @media (max-width: 494px)
     {
@@ -78,23 +66,24 @@ const CrearCuenta = styled(Btn)`
     height: auto;
 `
 
-const Mensaje = styled.p`
-    
+const Input = styled.div`
+  width: 100%;
+  display:block; /* Asegura que los contenedores tengan el mismo ancho */
 `
-
-
 
 const Login = () =>{
     return(
         <Contenedor>
-            <EspacioEtiqueta>
+            <Input>
                 <Etiqueta htmlFor="correo">Correo:</Etiqueta>
-            </EspacioEtiqueta>
-            <CampoTexto type = "text" id="correo" placeholder = "Ingrese su correo electrónico"/>
-            <EspacioEtiqueta>
+                <CampoTexto type = "text" id="correo" placeholder = "Ingrese su correo electrónico"/>
+            </Input>
+            
+            <Input>
                 <Etiqueta htmlFor="contraseña" >Contraseña: </Etiqueta>
-            </EspacioEtiqueta>
-            <CampoTexto type="password" id="contraseña" placeholder = "Ingrese su contraseña"/>
+                <CampoTexto type="password" id="contraseña" placeholder = "Ingrese su contraseña"/>
+            </Input>
+            
             <span>
                 <Link to="/signin">
                     <CrearCuenta>Crear cuenta</CrearCuenta>
