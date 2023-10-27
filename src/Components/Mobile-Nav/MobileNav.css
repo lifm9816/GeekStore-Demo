@@ -148,25 +148,7 @@
     transform: translateX(calc(70px * 4));
 }
 
-@media screen and (max-width: 1000px) 
-{
-    .navigation
-    {
 
-        position: absolute;
-        z-index: 0;
-    }
-}
-
-@media screen and (max-width: 500px) 
-{
-    .navigation
-    {
-        bottom: 0;
-        position: absolute;
-        z-index: 0;
-    }
-}
 
 @media screen and (min-width: 1001px) 
 {
