@@ -9,16 +9,17 @@ import Login from './Pages/Login/Login';
 function App() {
 
   return (
-    
-    <Router>
-      <Header />
-      
-      <Routes>
-        <Route path = "/" element = {<Home/>} />
-        <Route path = "/login" element = {<Login />} />
-      </Routes>
-      <MobileNav />
-    </Router>
+    <div>
+      <Router>
+        <Header />
+        
+        <Routes>
+          <Route path = "/" element = {<Home/>} />
+          <Route path = "/login" element = {<Login />} />
+        </Routes>
+        <MobileNav />
+      </Router>
+    </div>
   );
 }
 
