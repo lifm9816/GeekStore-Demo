@@ -17,8 +17,9 @@ function App() {
           <Route path = "/" element = {<Home/>} />
           <Route path = "/login" element = {<Login />} />
         </Routes>
-        <MobileNav />
+        
       </Router>
+      <MobileNav />
     </div>
   );
 }
