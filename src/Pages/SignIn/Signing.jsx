@@ -1,54 +1,20 @@
 import styled from "styled-components";
-import { colorPrimario, btnSignIn } from "../../Components/UI/Variables";
-import { Btn } from "../../Components/UI";
+import { btnSignIn } from "../../Components/UI/Variables";
+import { Btn, Contenedor, Etiqueta, CampoTexto, Div} from "../../Components/UI";
 
-const Contenedor = styled.div`
+const Formulario = styled.form`
+    box-sizing: border-box;
     display: flex;
-    flex-direction: column;
-    margin-top: 50px;
-    padding: 10px 30px;
     align-items: center;
-`
-const EspacioEtiqueta = styled.div`
-    margin-bottom: 10px;
-    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0 20%;
 
-    @media (max-width: 494px)
+    @media (max-width: 929px)
     {
-        width: 100%;
+        flex-direction: column;
+        align-items: start;
     }
-    @media (min-width: 495px)
-    {
-        width: 70%;
-    }
-`
-
-const Etiqueta = styled.label`
-    background-color: ${colorPrimario};
-    font-size: 20px;
-    color: #FFFFFF;
-    padding: 5px 10px;
-    border-radius: 10px;
-    width: auto;
-    font-weight: 400;
-`
-
-const CampoTexto = styled.input`
-    border-radius: 10px;
-    padding: 5px 10px;
-    border: none;
-    font-size: 20px;
-    margin-bottom: 30px;
-    
-    @media (max-width: 494px)
-    {
-        width: 100%;
-    }
-    @media (min-width: 495px)
-    {
-        width: 70%;
-    }
-
 `
 
 const CrearCuenta = styled(Btn)`
@@ -60,53 +26,78 @@ const CrearCuenta = styled(Btn)`
     width: auto;
     height: auto;
     margin-bottom: 100px;
+    display: block;
     &:hover
     {
         background-color: #e08044;
     }
 `
 
+const DivFoto = styled.div`
+    @media (min-width: 495px)
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width:-webkit-fill-available;
+    }
+`
+
+const DivBtn = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: -webkit-fill-available;
+`
+
+
+
 const SignIn = () => {
     return(
         <Contenedor>
-            <EspacioEtiqueta>
-                <Etiqueta htmlFor="foto">Foto de perfil: </Etiqueta>
-            </EspacioEtiqueta>
-            <CampoTexto id="foto" type="image" />
+            <Formulario action="">
+                
+                <DivFoto>
+                    <Etiqueta htmlFor="foto">Foto de perfil: </Etiqueta>
+                    <CampoTexto id="foto" type="image" />
+                </DivFoto>
 
-            <EspacioEtiqueta>
-                <Etiqueta htmlFor="nombre">Nombre: </Etiqueta>
-            </EspacioEtiqueta>
-            <CampoTexto id="nombre" type="text" placeholder="Ingrese su nombre(s)" />
-
-            <EspacioEtiqueta>
-                <Etiqueta htmlFor="apellido">Apellido: </Etiqueta>
-            </EspacioEtiqueta>
-            <CampoTexto id="apellido" type="text" placeholder="Ingrese su apellido(s)"/>
-
-            <EspacioEtiqueta>
-                <Etiqueta htmlFor="email">Correo electrónico: </Etiqueta>
-            </EspacioEtiqueta>
-            <CampoTexto id="email" type="email" placeholder="Ingrese su correo electrónico" />
+                <Div>
+                    <Etiqueta htmlFor="nombre">Nombre: </Etiqueta> 
+                    <CampoTexto id="nombre" type="text" placeholder="Ingrese su nombre(s)" />
+                </Div>
+        
+                <Div>
+                
+                    <Etiqueta htmlFor="apellido">Apellido: </Etiqueta>
+                    <CampoTexto id="apellido" type="text" placeholder="Ingrese su apellido(s)"/>
+                </Div>
             
-            <EspacioEtiqueta>
-                <Etiqueta htmlFor="celular">Celular: </Etiqueta>
-            </EspacioEtiqueta>
-            <CampoTexto id="celular" type="tel" placeholder="Ingrese su número celular" />
+                <Div>
+                    <Etiqueta htmlFor="email">Correo electrónico: </Etiqueta>
+                    <CampoTexto id="email" type="email" placeholder="Ingrese su correo electrónico" />
+                </Div>
+            
+                <Div>
+                    <Etiqueta htmlFor="celular">Celular: </Etiqueta>
+                    <CampoTexto id="celular" type="tel" placeholder="Ingrese su número celular" />
+                </Div>
 
-            <EspacioEtiqueta>
-                <Etiqueta htmlFor="password">Contraseña: </Etiqueta>
-            </EspacioEtiqueta>
-            <CampoTexto id="password" type="password" placeholder="Ingrese su contraseña" />
+                <Div>
+                    <Etiqueta htmlFor="password">Contraseña: </Etiqueta>
+                    <CampoTexto id="password" type="password" placeholder="Ingrese su contraseña" />
+                </Div>
+            
+                <Div>
+                    <Etiqueta htmlFor="password-confirm">Confirmar contraseña: </Etiqueta>
+                    <CampoTexto id="password-confirm" type="password" placeholder="Confirme su contraseña"  />
+                </Div>
 
-            <EspacioEtiqueta>
-                <Etiqueta htmlFor="password-confirm">Confirmar contraseña: </Etiqueta>
-            </EspacioEtiqueta>
-            <CampoTexto id="password-confirm" type="password" placeholder="Confirme su contraseña"  />
+                <DivBtn>
+                    <CrearCuenta>Crear cuenta</CrearCuenta>
+                </DivBtn>
 
-            <span>
-                <CrearCuenta>Crear cuenta</CrearCuenta>
-            </span>
+            </Formulario>
         </Contenedor>
 
 

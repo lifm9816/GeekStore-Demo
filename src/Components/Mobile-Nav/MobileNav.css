@@ -154,6 +154,12 @@
 {
     .navigation
     {
-        display: none;
-    }   
+        transform: scale(1.5);
+        padding-bottom: 15px;
+    }
+    
+    .navigation ul li.active a .icon
+    {
+        transform: translateY(-44px);
+    }
 }

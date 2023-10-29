@@ -1,16 +1,15 @@
 import styled from "styled-components";
 import { colorPrimario, btnSignIn } from "../../Components/UI/Variables";
 import { Link } from "react-router-dom";
-import { Btn } from "../../Components/UI";
+import { Btn ,Contenedor, CampoTexto } from "../../Components/UI";
 
-const Contenedor = styled.div`
+const Formulario = styled.form`
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    margin-top: 50px;
-    padding: 10px 30px;
     align-items: center;
-
-
+    justify-content: center;
+    padding: 0 20%;
 `
 
 const Etiqueta = styled.label`
@@ -23,74 +22,69 @@ const Etiqueta = styled.label`
     font-weight: 400;
 `
 
-const CampoTexto = styled.input`
-    border-radius: 10px;
-    padding: 5px 10px;
-    border: none;
-    font-size: 20px;
-    margin-bottom: 30px;
-    margin-top:10px;
-    
-    @media (max-width: 494px)
-    {
-        width: 100%;
-    }
-    @media (min-width: 495px)
-    {
-        width: 70%;
-    }
-
+const Input = styled(CampoTexto)`
+    margin-right: 0;
 `
 
-const IniciarSesion = styled(Btn)`
-    background-color: ${btnSignIn};
+const BtnCuenta = styled(Btn)`
     font-size: 25px;
-    padding: 20px;
     transition: all .5s ease-in-out;
     border-radius: 20px;
-    width: auto;
-    height: auto;
+    width: max-content;
+`
+
+const IniciarSesion = styled(BtnCuenta)`
+    background-color: ${btnSignIn};
+    
     &:hover
     {
         background-color: #e08044;
     }
 `
 
-const CrearCuenta = styled(Btn)`
+const CrearCuenta = styled(BtnCuenta)`
     background-color: ${colorPrimario};
-    font-size: 25px;
-    padding: 20px;
-    transition: all .5s ease-in-out;
-    border-radius: 20px;
-    width: auto;
-    height: auto;
 `
 
-const Input = styled.div`
+const DivInput = styled.div`
   width: 100%;
-  display:block; /* Asegura que los contenedores tengan el mismo ancho */
+  display:block; 
+`
+
+const DivBtn = styled.div`
+    display: flex;
+    width: 100%;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+
+    @media(max-width: 600px)
+    {
+        flex-direction: column;
+    }
 `
 
 const Login = () =>{
     return(
         <Contenedor>
-            <Input>
-                <Etiqueta htmlFor="correo">Correo:</Etiqueta>
-                <CampoTexto type = "text" id="correo" placeholder = "Ingrese su correo electrónico"/>
-            </Input>
-            
-            <Input>
-                <Etiqueta htmlFor="contraseña" >Contraseña: </Etiqueta>
-                <CampoTexto type="password" id="contraseña" placeholder = "Ingrese su contraseña"/>
-            </Input>
-            
-            <span>
-                <Link to="/signin">
-                    <CrearCuenta>Crear cuenta</CrearCuenta>
-                </Link>
-                <IniciarSesion>Iniciar Sesión</IniciarSesion>
-
-            </span>
+            <Formulario>
+                <DivInput>
+                    <Etiqueta htmlFor="correo">Correo:</Etiqueta>
+                    <Input type = "text" id="correo" placeholder = "Ingrese su correo electrónico"/>
+                </DivInput>
+                
+                <DivInput>
+                    <Etiqueta htmlFor="contraseña" >Contraseña: </Etiqueta>
+                    <Input type="password" id="contraseña" placeholder = "Ingrese su contraseña"/>
+                </DivInput>
+                
+                <DivBtn>
+                    <Link to="/signin">
+                        <CrearCuenta>Crear cuenta</CrearCuenta>
+                    </Link>
+                    <IniciarSesion>Iniciar Sesión</IniciarSesion>
+                </DivBtn>
+            </Formulario>    
         </Contenedor>
     )
 }

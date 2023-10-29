@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { btnLogIn, btnSignIn } from "./Variables";
+import { colorPrimario } from "./Variables";
 
 export const Options = styled.img`
     height: 25px;
@@ -17,7 +17,7 @@ export const Btn = styled.button`
     cursor: pointer;
     font-size: 15px;
 
-    @media (min-width: 375px)
+    @media (max-width: 799px)
     {
         transform: scale(.7);
     }
@@ -29,11 +29,48 @@ export const Btn = styled.button`
     }
 `
 
-export const Dc = styled.div`
+export const Contenedor = styled.div`
+    box-sizing: border-box;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    margin-top: 50px;
     align-items: center;
+    width: 100%;
+    padding: 0 10px;
+
 `
 
-export const Card = styled.div`
+export const Etiqueta = styled.label`
+    background-color: ${colorPrimario};
+    font-size: 20px;
+    color: #FFFFFF;
+    padding: 5px 10px;
+    border-radius: 10px;
+    max-width: fit-content;
+    font-weight: 400;
+    display: block;
+`
+
+export const CampoTexto = styled.input`
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 5px 10px;
+    border: none;
+    font-size: 20px;
+    margin-bottom: 30px;
+    margin-top:10px;
+    width: 100%;
+
+    @media(min-width: 930px)
+    {
+        width: -webkit-fill-available;
+        margin-right: 35px;
+    }
+`
+
+export const Div = styled.div`
+    @media (min-width: 930px) 
+    {
+        width: 50%;
+    }
 `
