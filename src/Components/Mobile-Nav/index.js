@@ -42,12 +42,14 @@ const MobileNav = () =>
                     </Link>
                 </li>
                 <li className={`list ${activeIndex === 1 ? 'active' : ''}`}>
-                    <a href="#" onClick={() => setActiveIndex(1)}>
-                        <span className="icon">
-                            <AiOutlineSearch/>
-                        </span>
-                        <span className="text">Buscar</span>
-                    </a>
+                    <Link to="/search">
+                        <a href="#" onClick={() => setActiveIndex(1)}>
+                            <span className="icon">
+                                <AiOutlineSearch/>
+                            </span>
+                            <span className="text">Buscar</span>
+                        </a>
+                    </Link>    
                 </li>
                 <li className={`list ${activeIndex === 2 ? 'active' : ''}`}>
                     <Link to="/about">

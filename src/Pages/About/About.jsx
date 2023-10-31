@@ -1,10 +1,12 @@
 import styled from "styled-components";
 import Luis from "../../assets/Images/Luis.jpg"
-import { colorPrimario } from "../../Components/UI/Variables";
+import { colorPrimario, colorSecundario } from "../../Components/UI/Variables";
+import "./About.css"
 
 const SobreDiv = styled.div`
     margin: 10%;
-    margin-bottom: 50%;
+
+    
 `
 
 const Titulo = styled.h1`
@@ -16,6 +18,7 @@ const Titulo = styled.h1`
     border-bottom: 3px solid;
     padding-bottom: 10px;
     margin-bottom: 10px;
+    font-family: "Orbitron";
 
     @media (min-width:900px)
     {
@@ -30,38 +33,50 @@ const Parrafos = styled.div`
     margin: 0 5px 50px;
     box-sizing: border-box;
     justify-content: center;
+    text-align: justify;
 `
 
 const FundadorDiv = styled.div`
     box-sizing: border-box;
-    display:flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    flex-direction: row;
-
-    @media (max-width: 900px)
-    {
-        flex-direction:column;
-    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 `
 
-const DescripcionDiv = styled.div`
-    width: 50%;
+const FotoDiv = styled.div`
+    width: 100%;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-    @media (max-width: 900px)
+    @media (min-width: 900px)
     {
-        width: 100%;
+        width: 25%;
     }
 `
 
 const FotoFundador = styled.img`
     border-radius: 100%;
-    width: -webkit-fill-available;
-    height: -webkit-fill-available;
+    width: 100%;
     margin: 15px;
+
+
 `
 
+const NomFundador = styled.span`
+    font-family: "Orbitron";
+    font-weight: 600;
+    font-size: 30px;
+`
+
+const PuestosFundador = styled.span`
+    font-family: "Orbitron";
+    font-weight: 400;
+    font-size: 20px;
+
+`
 
 
 const About = () => {
@@ -74,12 +89,18 @@ const About = () => {
 
             <Titulo>Nuestro fundador</Titulo>
             <FundadorDiv>
-                <DescripcionDiv>
-                    <FotoFundador src={Luis} />
-                </DescripcionDiv>
-                <DescripcionDiv>
-                    <Parrafos>Y ahora con ustedes nuestro creador, fundador, desarrollador y diseñador, CEO de LTech, Luis Ignacio Flores Martínez</Parrafos>
-                </DescripcionDiv>
+                <FotoDiv>
+                <FotoFundador src={Luis} />
+                </FotoDiv>
+                
+                <NomFundador >Luis Martínez</NomFundador>
+                <PuestosFundador>CEO</PuestosFundador>
+                <PuestosFundador>Fundador</PuestosFundador>
+                <PuestosFundador>Desarrollador</PuestosFundador>
+                <PuestosFundador>y</PuestosFundador>
+                <PuestosFundador>Diseñador</PuestosFundador>
+                <PuestosFundador>de</PuestosFundador>
+                <NomFundador>LTech</NomFundador>
             </FundadorDiv>
         </SobreDiv>
     )

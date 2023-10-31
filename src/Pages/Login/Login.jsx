@@ -10,6 +10,12 @@ const Formulario = styled.form`
     align-items: center;
     justify-content: center;
     padding: 0 20%;
+
+    @media (min-width: 900px)
+    {
+        margin-top: 5%;
+        transform: scale(1.3);
+    }
 `
 
 const Etiqueta = styled.label`
@@ -29,8 +35,11 @@ const Input = styled(CampoTexto)`
 const BtnCuenta = styled(Btn)`
     font-size: 25px;
     transition: all .5s ease-in-out;
-    border-radius: 20px;
+    border-radius: 10px;
     width: max-content;
+    height: auto;
+    padding-top: 15px;
+    padding-bottom: 15px;
 `
 
 const IniciarSesion = styled(BtnCuenta)`

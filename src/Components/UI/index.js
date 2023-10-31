@@ -59,7 +59,7 @@ export const CampoTexto = styled.input`
     font-size: 20px;
     margin-bottom: 30px;
     margin-top:10px;
-    width: 100%;
+    width: auto;
 
     @media(min-width: 930px)
     {
@@ -73,4 +73,5 @@ export const Div = styled.div`
     {
         width: 50%;
     }
+    
 `
