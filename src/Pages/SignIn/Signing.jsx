@@ -8,7 +8,7 @@ const Formulario = styled.form`
     align-items: center;
     flex-wrap: wrap;
     justify-content: space-between;
-    padding: 0 20%;
+    padding: 0 15%;
 
     @media (max-width: 929px)
     {
