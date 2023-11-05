@@ -35,8 +35,6 @@ export const Contenedor = styled.div`
     flex-direction: column;
     margin-top: 50px;
     align-items: center;
-    width: 100%;
-    padding: 0 10px;
 
 `
 
