@@ -29,17 +29,19 @@ const StyledHeader = styled.nav`
     justify-content: space-evenly;
     height: auto;
     align-items: center;
+    box-sizing: border-box;
 `
 
 const Logo = styled.img`
+box-sizing: border-box;
 
-@media (min-width: 375px)
+@media (max-width: 800px)
 {
-    margin: 0 10px 0 50px;
+    margin: auto;
     width: 250px;
 }
 
-@media (min-width: 800px)
+@media (min-width: 801px)
 {
     width: 100%;
 
