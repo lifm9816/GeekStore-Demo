@@ -13,6 +13,13 @@ const Container = styled.div`
     border-radius: 20px;
     margin-top: 10px;
     justify-content: center;
+    box-sizing: border-box;
+
+    @media(max-width: 800px)
+    {
+        width: 100%;
+        margin: 10px;
+    }
 `
 
 const Img = styled.img`
