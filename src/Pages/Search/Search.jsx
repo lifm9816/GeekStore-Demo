@@ -1,10 +1,15 @@
 import SearchBar from "../../Components/SearchBar";
+import styled from "styled-components";
+
+const Div = styled.div`
+    box-sizing: border-box;
+`
 
 const Search = () => {
     return(
-        <div>
+        <Div>
             <SearchBar />
-        </div>
+            </Div>
     )
 }
 
