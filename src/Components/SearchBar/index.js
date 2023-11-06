@@ -14,7 +14,6 @@ const Search_Bar = styled.div`
     @media (max-width: 800px)
     {
         margin: 10px auto;
-        padding: 0 10px;
     }
 
 `
