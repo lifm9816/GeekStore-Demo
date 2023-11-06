@@ -1,6 +1,8 @@
+import React, {useState} from "react";
 import styled from "styled-components";
-import { btnSignIn } from "../../Components/UI/Variables";
+import { btnSignIn, colorPrimario } from "../../Components/UI/Variables";
 import { Btn, Contenedor, Etiqueta, CampoTexto} from "../../Components/UI";
+import def_user from "../../assets/Images/def-user.png"
 
 const Formulario = styled.form`
     box-sizing: border-box;
@@ -42,6 +44,26 @@ const DivFoto = styled.div`
     }
 `
 
+const InputFoto = styled.label`
+    border: 10px solid ${colorPrimario};
+    display: inline-block;
+    height: 150px;
+    width: 150px;
+    border-radius: 100%;
+    background: url(${def_user}) center center / cover no-repeat;
+    cursor: pointer;
+    margin: 15px 40%;
+    overflow: hidden;
+    input{
+        display: none;
+    }
+`
+
+const FotoPerfil = styled.img`
+    width: 150px;
+    height: 150px;
+`
+
 const DivBtn = styled.div`
     display: flex;
     flex-direction: column;
@@ -64,13 +86,29 @@ const Div = styled.div`
 
 
 const SignIn = () => {
+
+    const [selectedImage, setSelectedImage] = useState(null);
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const imageUrl = URL.createObjectURL(file);
+            setSelectedImage(imageUrl);
+        }
+    }
+
     return(
         <Contenedor>
             <Formulario action="">
                 
                 <DivFoto>
                     <Etiqueta htmlFor="foto">Foto de perfil: </Etiqueta>
-                    <CampoTexto id="foto" type="image" />
+                    <InputFoto>
+                        <input type="file" accept = "image/*" onChange = {handleImageChange} />
+                        {selectedImage ? (
+                            <FotoPerfil src = {selectedImage} alt = "Avatar"/>
+                        ) : null}
+                    </InputFoto>
                 </DivFoto>
 
                 <Div>
