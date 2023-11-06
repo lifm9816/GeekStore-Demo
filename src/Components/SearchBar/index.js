@@ -62,7 +62,7 @@ function SearchBar({onSearch}) {
                 onChange={(e) => setSearchTerm(e.target.value)}
             />
             </Search_Container>
-            <Button onClick={handleSearch} ><BsSearch /> </Button> 
+            <Button onClick={handleSearch} ><BsSearch /></Button> 
         </Search_Bar>
     )
 }
