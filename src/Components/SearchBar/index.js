@@ -11,11 +11,6 @@ const Search_Bar = styled.div`
     border-radius: 50px;
     margin: 10px;
 
-    @media (max-width: 800px)
-    {
-        margin: 10px auto;
-    }
-
 `
 
 const Search_Container = styled.div`
