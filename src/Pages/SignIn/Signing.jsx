@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { btnSignIn } from "../../Components/UI/Variables";
-import { Btn, Contenedor, Etiqueta, CampoTexto, Div} from "../../Components/UI";
+import { Btn, Contenedor, Etiqueta, CampoTexto} from "../../Components/UI";
 
 const Formulario = styled.form`
     box-sizing: border-box;
@@ -8,7 +8,6 @@ const Formulario = styled.form`
     align-items: center;
     flex-wrap: wrap;
     justify-content: space-between;
-    padding: 0 15%;
 
     @media (max-width: 929px)
     {
@@ -50,6 +49,22 @@ const DivBtn = styled.div`
     width: -webkit-fill-available;
 `
 
+const Div = styled.div`
+    box-sizing: border-box;
+    width: auto;
+    display:block; 
+    
+
+    @media(max-width: 929px)
+    {
+        margin: 0 15%;
+    }
+
+    @media (min-width: 930px) 
+    {
+        width: 50%;
+    }
+`    
 
 
 const SignIn = () => {
