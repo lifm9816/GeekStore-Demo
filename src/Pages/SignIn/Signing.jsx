@@ -55,10 +55,6 @@ const Div = styled.div`
     display:block; 
     
 
-    @media(max-width: 929px)
-    {
-        margin: 0 15%;
-    }
 
     @media (min-width: 930px) 
     {
