@@ -58,7 +58,7 @@ const DivInput = styled.div`
     box-sizing: border-box;
     width: auto;
     display:block; 
-    margin: 0 15;
+    margin: 0 15%;
 `
 
 const DivBtn = styled.div`
