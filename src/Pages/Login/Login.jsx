@@ -55,8 +55,10 @@ const CrearCuenta = styled(BtnCuenta)`
 `
 
 const DivInput = styled.div`
-  width: 100%;
-  display:block; 
+    box-sizing: border-box;
+    width: auto;
+    display:block; 
+    margin: 0 15;
 `
 
 const DivBtn = styled.div`
