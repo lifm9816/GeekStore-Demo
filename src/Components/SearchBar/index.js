@@ -4,12 +4,18 @@ import logo from "../../assets/Images/icon.png"
 import { BsSearch } from "react-icons/bs"
 
 const Search_Bar = styled.div`
+    box-sizing: border-box;
     display: flex;
     align-items: center;
     background-color: #FFFFFF;
     border-radius: 50px;
-    box-sizing: border-box;
     margin: 10px;
+
+    @media (max-width: 800px)
+    {
+        margin: 10px auto;
+    }
+
 `
 
 const Search_Container = styled.div`
