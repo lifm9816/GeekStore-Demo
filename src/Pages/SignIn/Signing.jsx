@@ -19,6 +19,11 @@ const Formulario = styled.form`
         flex-direction: column;
         align-items: start;
     }
+
+    @media (min-width: 930px)
+    {
+        margin-bottom: 10%;
+    }
 `
 
 const CrearCuenta = styled(Btn)`
@@ -72,6 +77,11 @@ const DivBtn = styled.div`
     flex-direction: column;
     align-items: center;
     width: -webkit-fill-available;
+
+    @media(min-width: 930px)
+    {
+        margin-top: 30px;
+    }
 `
 
 const Div = styled.div`
@@ -125,7 +135,6 @@ const SignIn = () => {
     return(
         <Contenedor>
             <Formulario action="">
-                
                 <DivFoto>
                     <Etiqueta htmlFor="foto">Foto de perfil: </Etiqueta>
                     <InputFoto>
