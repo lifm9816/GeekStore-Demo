@@ -1,5 +1,7 @@
 import React, {useState, useRef} from "react";
 import AvatarEditor from 'react-avatar-editor';
+import ReactCrop from "react-image-crop";
+import "react-image-crop/dist/ReactCrop.css";
 import styled from "styled-components";
 import { btnSignIn, colorPrimario } from "../../Components/UI/Variables";
 import { Btn, Contenedor, Etiqueta, CampoTexto} from "../../Components/UI";
@@ -87,8 +89,9 @@ const Div = styled.div`
 
 const CropContainer = styled.div`
   position: relative;
-  width: 150px; // Ajusta según tus necesidades
-  height: 150px; // Ajusta según tus necesidades
+  width: 175px;
+  height: 175px;
+  transform: translate(-5.8%, -5.8%);
 `;
 
 const CropPreview = styled.img`
@@ -126,22 +129,22 @@ const SignIn = () => {
                 <DivFoto>
                     <Etiqueta htmlFor="foto">Foto de perfil: </Etiqueta>
                     <InputFoto>
-                    <input type="file" accept="image/*" onChange={handleImageChange} />
-            {selectedImage ? (
-              <CropContainer>
-                <AvatarEditor
-                  ref={(editor) => setEditor(editor)}
-                  image={selectedImage}
-                  width={150} // Ajusta según tus necesidades
-                  height={150} // Ajusta según tus necesidades
-                  border={10}
-                  color={[255, 255, 255, 0.6]} // Color del fondo del editor
-                  scale={1.2} // Ajusta según tus necesidades
-                />
-                <CropPreview src={selectedImage} alt="Avatar" />
-              </CropContainer>
-            ) : null}
-                    </InputFoto>
+                        <input type="file" accept="image/*" onChange={handleImageChange} />
+                        {selectedImage ? (
+                        <CropContainer>
+                            <AvatarEditor
+                            ref={(editor) => setEditor(editor)}
+                            image={selectedImage}
+                            width={150} // Ajusta según tus necesidades
+                            height={150} // Ajusta según tus necesidades
+                            border={10}
+                            color={[255, 255, 255, 0.6]} // Color del fondo del editor
+                            scale={1.2} // Ajusta según tus necesidades
+                            />
+                            <CropPreview src={selectedImage} alt="Avatar" />
+                        </CropContainer>
+                        ) : null}
+                        </InputFoto>
                 </DivFoto>
 
                 <Div>
