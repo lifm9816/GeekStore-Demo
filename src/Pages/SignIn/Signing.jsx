@@ -1,4 +1,5 @@
-import React, {useState} from "react";
+import React, {useState, useRef} from "react";
+import AvatarEditor from 'react-avatar-editor';
 import styled from "styled-components";
 import { btnSignIn, colorPrimario } from "../../Components/UI/Variables";
 import { Btn, Contenedor, Etiqueta, CampoTexto} from "../../Components/UI";
@@ -82,20 +83,41 @@ const Div = styled.div`
     {
         width: 50%;
     }
-`    
+`
+
+const CropContainer = styled.div`
+  position: relative;
+  width: 150px; // Ajusta según tus necesidades
+  height: 150px; // Ajusta según tus necesidades
+`;
+
+const CropPreview = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+`;
 
 
 const SignIn = () => {
 
     const [selectedImage, setSelectedImage] = useState(null);
-
+    const [editor, setEditor] = useState(null);
+    
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
             const imageUrl = URL.createObjectURL(file);
             setSelectedImage(imageUrl);
         }
-    }
+    };
+
+    const handleSave = () => {
+        if (editor) {
+          const canvas = editor.getImage();
+          const dataURL = canvas.toDataURL(); // Aquí obtienes la imagen recortada
+          console.log(dataURL);
+        }
+      };
 
     return(
         <Contenedor>
@@ -104,10 +126,21 @@ const SignIn = () => {
                 <DivFoto>
                     <Etiqueta htmlFor="foto">Foto de perfil: </Etiqueta>
                     <InputFoto>
-                        <input type="file" accept = "image/*" onChange = {handleImageChange} />
-                        {selectedImage ? (
-                            <FotoPerfil src = {selectedImage} alt = "Avatar"/>
-                        ) : null}
+                    <input type="file" accept="image/*" onChange={handleImageChange} />
+            {selectedImage ? (
+              <CropContainer>
+                <AvatarEditor
+                  ref={(editor) => setEditor(editor)}
+                  image={selectedImage}
+                  width={150} // Ajusta según tus necesidades
+                  height={150} // Ajusta según tus necesidades
+                  border={10}
+                  color={[255, 255, 255, 0.6]} // Color del fondo del editor
+                  scale={1.2} // Ajusta según tus necesidades
+                />
+                <CropPreview src={selectedImage} alt="Avatar" />
+              </CropContainer>
+            ) : null}
                     </InputFoto>
                 </DivFoto>
 
