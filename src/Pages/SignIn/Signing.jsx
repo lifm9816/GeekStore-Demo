@@ -1,30 +1,10 @@
-import React, {useState, useRef} from "react";
+import React, { useState } from "react";
 import AvatarEditor from 'react-avatar-editor';
-import ReactCrop from "react-image-crop";
-import "react-image-crop/dist/ReactCrop.css";
 import styled from "styled-components";
 import { btnSignIn, colorPrimario } from "../../Components/UI/Variables";
-import { Btn, Contenedor, Etiqueta, CampoTexto} from "../../Components/UI";
+import { Formulario, Btn, Contenedor, Etiqueta, CampoTexto} from "../../Components/UI";
 import def_user from "../../assets/Images/def-user.png"
-
-const Formulario = styled.form`
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: space-between;
-
-    @media (max-width: 929px)
-    {
-        flex-direction: column;
-        align-items: start;
-    }
-
-    @media (min-width: 930px)
-    {
-        margin-bottom: 10%;
-    }
-`
+import { validateName } from "../../Validations/Validations";
 
 const CrearCuenta = styled(Btn)`
     background-color: ${btnSignIn};
@@ -67,11 +47,6 @@ const InputFoto = styled.label`
     }
 `
 
-const FotoPerfil = styled.img`
-    width: 150px;
-    height: 150px;
-`
-
 const DivBtn = styled.div`
     display: flex;
     flex-direction: column;
@@ -94,6 +69,7 @@ const Div = styled.div`
     @media (min-width: 930px) 
     {
         width: 50%;
+        padding: 0 80px;
     }
 `
 
@@ -110,11 +86,40 @@ const CropPreview = styled.img`
   border-radius: 100%;
 `;
 
+const ErrorMessage = styled.p`
+    box-sizing: border-box;
+    color: ${colorPrimario};
+    margin-top: -30px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    max-width: 70%;
+    margin-left: 7px;
+
+    @media (max-width: 939px)
+    {
+        margin-right: -85px;
+    }
+`
+
 
 const SignIn = () => {
 
     const [selectedImage, setSelectedImage] = useState(null);
     const [editor, setEditor] = useState(null);
+
+    const [name, setName] = useState("");
+    const [errorName, setErrorName] = useState({
+        name: {
+            error: false,
+            message: ""
+        }
+    });
+
+    const [lastname, setLastName] = useState("");
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
+    const [password, setPassword] = useState("");
+    const [confPass, setConfPass] = useState("");
     
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -158,7 +163,22 @@ const SignIn = () => {
 
                 <Div>
                     <Etiqueta htmlFor="nombre">Nombre: </Etiqueta> 
-                    <CampoTexto id="nombre" type="text" placeholder="Ingrese su nombre(s)" />
+                    <CampoTexto 
+                        id="nombre" 
+                        type="text" 
+                        placeholder="Ingrese su nombre(s)" 
+                        error = {errorName && errorName.name && errorName.name.error}
+                        value = {name}
+                        onChange = {(e) => {
+                            setName(e.target.value);
+                        }}
+                        onBlur = { (e) => {
+                            setErrorName(validateName(e.target.value));
+                        }}
+                    />
+                    {errorName.name.error && (
+                        <ErrorMessage> {errorName.name.message} </ErrorMessage>
+                    )}
                 </Div>
         
                 <Div>

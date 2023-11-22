@@ -71,5 +71,23 @@ export const Div = styled.div`
     {
         width: 50%;
     }
-    
+`
+
+export const Formulario = styled.form`
+box-sizing: border-box;
+display: flex;
+align-items: center;
+flex-wrap: wrap;
+justify-content: space-between;
+
+@media (max-width: 929px)
+{
+    flex-direction: column;
+    align-items: start;
+}
+
+@media (min-width: 930px)
+{
+    margin-bottom: 10%;
+}
 `
