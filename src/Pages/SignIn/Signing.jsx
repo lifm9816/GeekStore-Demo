@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { btnSignIn, colorPrimario } from "../../Components/UI/Variables";
 import { Formulario, Btn, Contenedor, Etiqueta, CampoTexto} from "../../Components/UI";
 import def_user from "../../assets/Images/def-user.png"
-import { validateName } from "../../Validations/Validations";
+import { validateName, validateLastName, validateEmail } from "../../Validations/Validations";
 
 const CrearCuenta = styled(Btn)`
     background-color: ${btnSignIn};
@@ -115,11 +115,51 @@ const SignIn = () => {
         }
     });
 
-    const [lastname, setLastName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [errorLastName, setErrorLastaName] = useState({
+        lastName: {
+            error: false,
+            message: ""
+        }
+    });
+
     const [email, setEmail] = useState("");
+    const [errorEmail, setErrorEmail] = useState({
+        email: {
+            error: false,
+            message: ""
+        }
+    })
+
     const [phone, setPhone] = useState("");
+    const [errorPhone, setErrorPhone] = useState({
+        phone: {
+            error: false,
+            message: ""
+        }
+    });
+
     const [password, setPassword] = useState("");
+    const [errorPassword, setErrorPassword] = useState({
+        password: {
+            error: false,
+            message: ""
+        }
+    });
+
     const [confPass, setConfPass] = useState("");
+    const [errorConfPass, setErrorConfPass] = useState({
+        confPass: {
+            error: false,
+            message: ""
+        }
+    });
+    const [verifyPass, setVerifyPass] = useState({
+        verifyPass: {
+            verify: false,
+            message: ""
+        }
+    })
     
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -175,6 +215,7 @@ const SignIn = () => {
                         onBlur = { (e) => {
                             setErrorName(validateName(e.target.value));
                         }}
+                        required
                     />
                     {errorName.name.error && (
                         <ErrorMessage> {errorName.name.message} </ErrorMessage>
@@ -184,17 +225,54 @@ const SignIn = () => {
                 <Div>
                 
                     <Etiqueta htmlFor="apellido">Apellido: </Etiqueta>
-                    <CampoTexto id="apellido" type="text" placeholder="Ingrese su apellido(s)"/>
+                    <CampoTexto 
+                        id="apellido" 
+                        type="text" 
+                        placeholder="Ingrese su apellido(s)"
+                        error = {errorLastName && errorLastName.name && errorLastName.lastName.error}
+                        value = {lastName}
+                        onChange = { (e) => {
+                            setLastName(e.target.value);
+                        }}
+                        onBlur = { (e) => {
+                            setErrorLastaName(validateLastName(e.target.value))
+                        }}
+                        required
+                    />
+                    {errorLastName.lastName.error && (
+                        <ErrorMessage> {errorLastName.lastName.message} </ErrorMessage>
+                    )}
                 </Div>
             
                 <Div>
                     <Etiqueta htmlFor="email">Correo electrónico: </Etiqueta>
-                    <CampoTexto id="email" type="email" placeholder="Ingrese su correo electrónico" />
+                    <CampoTexto 
+                        id="email" 
+                        type="email" 
+                        placeholder="Ingrese su correo electrónico"
+                        error = {errorEmail && errorEmail.email && errorEmail.email.error}
+                        value = {email}
+                        onChange = { (e) => {
+                            setEmail(e.target.value);
+                        }}
+                        onBlur = { (e) => {
+                            setErrorEmail(validateEmail(e.target.value))
+                        }}
+                        required
+                    />
+                    {errorEmail.email.error && (
+                        <ErrorMessage> {errorEmail.email.message} </ErrorMessage>
+                    )}
                 </Div>
             
                 <Div>
                     <Etiqueta htmlFor="celular">Celular: </Etiqueta>
-                    <CampoTexto id="celular" type="tel" placeholder="Ingrese su número celular" />
+                    <CampoTexto 
+                        id="celular" 
+                        type="tel" 
+                        placeholder="Ingrese su número celular"
+                        pattern="[0-9]*"
+                    />
                 </Div>
 
                 <Div>
