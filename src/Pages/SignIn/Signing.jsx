@@ -197,8 +197,13 @@ const SignIn = () => {
     }
 
     const [showPassword, setShowPassword] = useState(false);
+    const [showConfPass, setShowConfPass] = useState(false);
     const handleTogglePassword = () => {
-        setShowPassword(!showPassword)
+        setShowPassword(!showPassword);
+    };
+    
+    const handleToggleConfPass = () => {
+        setShowConfPass(!showConfPass);
     };
 
     const [password, setPassword] = useState("");
@@ -357,7 +362,7 @@ const SignIn = () => {
                         }}
                         required
                     />
-                    <ShowPasswordButton onClick={handleTogglePassword}>
+                    <ShowPasswordButton type = "button" onClick={handleTogglePassword}>
                         { showPassword ? <IoEyeOff /> : <IoEye /> }
                     </ShowPasswordButton>
                     { errorPassword.password.error && (
@@ -368,8 +373,8 @@ const SignIn = () => {
                 <Div>
                     <Etiqueta htmlFor="password-confirm">Confirmar contraseña: </Etiqueta>
                     <PasswordInput 
-                        id="password" 
-                        type={showPassword ? "text" : "password"}
+                        id="password-confirm" 
+                        type={showConfPass ? "text" : "password"}
                         placeholder="Confirme su contraseña"
                         error = { errorConfPass && errorConfPass.confPass && errorConfPass.confPass.error }
                         value = { confPass } 
@@ -381,8 +386,8 @@ const SignIn = () => {
                         }}
                         required
                     />
-                    <ShowPasswordButton onClick={handleTogglePassword}>
-                        { showPassword ? <IoEyeOff /> : <IoEye /> }
+                    <ShowPasswordButton type = "button" onClick={handleToggleConfPass}>
+                        { showConfPass ? <IoEyeOff /> : <IoEye /> }
                     </ShowPasswordButton>
                     { errorConfPass.confPass.error && (
                         <ErrorMessage> {errorConfPass.confPass.message} </ErrorMessage>
