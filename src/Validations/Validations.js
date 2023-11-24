@@ -20,7 +20,7 @@ export const validateName = (name) =>{
         return {
             name: {
                 error: true,
-                message: "El campo nombre debe tener al menos 3 caractéres"
+                message: "El campo nombre debe tener al menos 3 caracteres"
             }
         }
     }
@@ -47,18 +47,18 @@ export const validateLastName = (lastName) => {
         return {
             lastName: {
                 error: true,
-                message: "El campo apellido debe contener al menos 3 caractéres"
+                message: "El campo apellido debe contener al menos 3 caracteres"
             }
         }
     }
 }
 
 export const validateEmail = (email) => {
-    if(email.length > 8 && email.includes("@")){
+    if(email.length > 8 && email.includes("@") && email.includes(".") ){
         return {
             email: {
                 error: false,
-                message: null
+                message: ""
             }
         }
     }
@@ -67,7 +67,7 @@ export const validateEmail = (email) => {
             return {
                 email: {
                     error: true,
-                    message: "El correo electrónico debe contener al menos 8 caractéres"
+                    message: "El correo electrónico debe contener al menos 8 caracteres"
                 }
             }
         }
