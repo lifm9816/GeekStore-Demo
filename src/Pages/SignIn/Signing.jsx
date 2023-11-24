@@ -141,7 +141,7 @@ const ShowPasswordButton = styled.button`
     background-color: #FFFFFF;
     border-radius: 0 10px 10px 0;
     border: none;
-    padding: 5px;
+    padding: 5.5px;
     font-size: 18px;
     cursor: pointer;
 `;
@@ -217,12 +217,6 @@ const SignIn = () => {
             message: ""
         }
     });
-    const [verifyPass, setVerifyPass] = useState({
-        verifyPass: {
-            verify: false,
-            message: ""
-        }
-    })
     
     const handleImageChange = (e) => {
         const file = e.target.files[0];
