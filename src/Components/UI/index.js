@@ -58,6 +58,7 @@ export const CampoTexto = styled.input`
     margin-bottom: 30px;
     margin-top:10px;
     width: auto;
+    outline: none;
 
     @media(min-width: 930px)
     {

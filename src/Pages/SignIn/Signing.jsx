@@ -134,7 +134,7 @@ const PasswordInput = styled.input`
     width: calc(100% - 60px);
     margin-bottom: 30px;
     margin-top: 10px;
-
+    outline: none;
 `;
 
 const ShowPasswordButton = styled.button`
