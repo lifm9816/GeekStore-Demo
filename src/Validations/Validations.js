@@ -12,7 +12,7 @@ export const validateName = (name) =>{
         return {
             name: {
                 error: true,
-                message: "El campo de nombre no pude estar vacío"
+                message: "El campo de nombre no puede estar vacío"
             }
         }
     }
@@ -147,12 +147,21 @@ export const ValidatePassword = (password) => {
 }
 
 export const confirmPassword = (password, confPass) => {
-    if (password === confPass){
+    if (password === confPass && password.length > 8){
         return{
             confPass: {
                 error: false,
                 verify: true,
                 message: "Las contraseñas coinciden"
+            }
+        }
+    }
+    if (password === confPass && password.length < 8){
+        return{
+            confPass: {
+                error: true,
+                verify: false,
+                message: "Las contraseñas coinciden pero debe se mayor a 8 caracteres"
             }
         }
     }
