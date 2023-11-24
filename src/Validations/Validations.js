@@ -91,3 +91,87 @@ export const validateEmail = (email) => {
         }
     }
 }
+
+export const validatePhone = (phone) => {
+    if (phone.replace(/\D/g, "").length === 10) {
+        return {
+            phone: {
+                error: false,
+                message: ""
+            }
+        }
+    }
+    if (phone.replace(/\D/g, "").length === 0) {
+        return {
+            phone: {
+                error: true,
+                message: "El campo de número de teléfono no puede estar vacío"
+            }
+        }
+    }
+    else {
+        return {
+            phone: {
+                error: true,
+                message: "El número de teléfono debe tener 10 dígitos"
+            }
+        }
+    }
+}
+
+export const ValidatePassword = (password) => {
+    if (password.length > 8){
+        return {
+            password: {
+                error: false,
+                message: ""
+            }
+        }
+    }
+    if (password.length === 0){
+        return {
+            password: {
+                error: true,
+                message: "El campo contraseña no puede estar vacío"
+            }
+        }
+    }
+    else {
+        return {
+            password: {
+                error: true,
+                message: "La constraseña debe ser mayor a 8 caratéres"
+            }
+        }
+    }
+}
+
+export const confirmPassword = (password, confPass) => {
+    if (password === confPass){
+        return{
+            confPass: {
+                error: false,
+                verify: true,
+                message: "Las contraseñas coinciden"
+            }
+        }
+    }
+    if (confPass === 0){
+        return {
+            confPass: {
+                error: true,
+                verify: false,
+                message: "Confirme su contraseña para continuar"
+            }
+        }
+    }
+    else {
+        return {
+            confPass: {
+                error: true,
+                verify: false,
+                message: "Las contraseñas no coinciden"
+            }
+        }
+    }
+}

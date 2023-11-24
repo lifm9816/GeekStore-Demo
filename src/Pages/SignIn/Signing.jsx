@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import AvatarEditor from 'react-avatar-editor';
 import styled from "styled-components";
-import { btnSignIn, colorPrimario } from "../../Components/UI/Variables";
+import { IoEye, IoEyeOff } from "react-icons/io5";
+import { btnSignIn, colorPrimario, btnLogIn } from "../../Components/UI/Variables";
 import { Formulario, Btn, Contenedor, Etiqueta, CampoTexto} from "../../Components/UI";
 import def_user from "../../assets/Images/def-user.png"
-import { validateName, validateLastName, validateEmail } from "../../Validations/Validations";
+import { validateName, validateLastName, validateEmail, validatePhone, ValidatePassword, confirmPassword } from "../../Validations/Validations";
 
 const CrearCuenta = styled(Btn)`
     background-color: ${btnSignIn};
@@ -88,18 +89,62 @@ const CropPreview = styled.img`
 
 const ErrorMessage = styled.p`
     box-sizing: border-box;
-    color: ${colorPrimario};
-    margin-top: -30px;
+    background-color: red;
+    font-weight: 600;
+    color: #FFFFFF;
+    margin-top: -25px;
     overflow-wrap: break-word;
     word-wrap: break-word;
-    max-width: 70%;
-    margin-left: 7px;
+    max-width: 90%;
+
+    border-radius: 10px;
+    padding: 2px 2px 2px 7px;
 
     @media (max-width: 939px)
     {
-        margin-right: -85px;
+        margin-right: -151px;
     }
 `
+
+const ConfirmMessage = styled.p`
+    box-sizing: border-box;
+    background-color: #AAD936;
+    font-weight: 600;
+    color: #FFFFFF;
+    margin-top: -25px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    max-width: 90%;
+    border-radius: 10px;
+    padding: 2px 2px 2px 7px;
+
+    @media (max-width: 939px)
+    {
+        margin-right: -151px;
+    }
+`
+
+const PasswordInput = styled.input`
+    box-sizing: border-box;
+    border-radius: 10px 0 0 10px;
+    padding: 5px 10px;
+    border: none;
+    font-size: 20px;
+    margin-bottom: 10px;
+    width: calc(100% - 60px);
+    margin-bottom: 30px;
+    margin-top: 10px;
+
+`;
+
+const ShowPasswordButton = styled.button`
+    background-color: #FFFFFF;
+    border-radius: 0 10px 10px 0;
+    border: none;
+    padding: 5px;
+    font-size: 18px;
+    cursor: pointer;
+`;
 
 
 const SignIn = () => {
@@ -138,6 +183,23 @@ const SignIn = () => {
             message: ""
         }
     });
+    const formatPhoneNumber = (value) => {
+        const phoneNumber = value.replace(/\D/g, "");
+        const formattedPhoneNumber = phoneNumber
+        .replace(/(\d{3})(\d)/, "$1 $2")
+        .replace(/(\d{3})(\d)/, "$1 $2")
+        .replace(/(\d{4})$/, "$1");
+        return formattedPhoneNumber;
+    };
+    const handlePhoneChange = (e) => {
+        const formattedValue = formatPhoneNumber(e.target.value);
+        setPhone(formattedValue);
+    }
+
+    const [showPassword, setShowPassword] = useState(false);
+    const handleTogglePassword = () => {
+        setShowPassword(!showPassword)
+    };
 
     const [password, setPassword] = useState("");
     const [errorPassword, setErrorPassword] = useState({
@@ -151,6 +213,7 @@ const SignIn = () => {
     const [errorConfPass, setErrorConfPass] = useState({
         confPass: {
             error: false,
+            verify: false,
             message: ""
         }
     });
@@ -271,18 +334,68 @@ const SignIn = () => {
                         id="celular" 
                         type="tel" 
                         placeholder="Ingrese su número celular"
-                        pattern="[0-9]*"
+                        error = { errorPhone && errorPhone.phone && errorPhone.phone.error }
+                        value = { phone }
+                        onChange={handlePhoneChange}
+                        onBlur = { (e) => {
+                            setErrorPhone(validatePhone(e.target.value));
+                        }}
+                        required
                     />
+                    { errorPhone.phone.error && (
+                        <ErrorMessage> {errorPhone.phone.message} </ErrorMessage>
+                    )}
                 </Div>
 
                 <Div>
                     <Etiqueta htmlFor="password">Contraseña: </Etiqueta>
-                    <CampoTexto id="password" type="password" placeholder="Ingrese su contraseña" />
+                    <PasswordInput 
+                        id="password" 
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Ingrese su contraseña"
+                        error = { errorPassword && errorPassword.password && errorPassword.password.error }
+                        value = { password }
+                        onChange = { (e) => {
+                            setPassword(e.target.value);
+                        }}
+                        onBlur = { (e) => {
+                            setErrorPassword(ValidatePassword(e.target.value))
+                        }}
+                        required
+                    />
+                    <ShowPasswordButton onClick={handleTogglePassword}>
+                        { showPassword ? <IoEyeOff /> : <IoEye /> }
+                    </ShowPasswordButton>
+                    { errorPassword.password.error && (
+                        <ErrorMessage> {errorPassword.password.message} </ErrorMessage>
+                    )}
                 </Div>
             
                 <Div>
                     <Etiqueta htmlFor="password-confirm">Confirmar contraseña: </Etiqueta>
-                    <CampoTexto id="password-confirm" type="password" placeholder="Confirme su contraseña"  />
+                    <PasswordInput 
+                        id="password" 
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Confirme su contraseña"
+                        error = { errorConfPass && errorConfPass.confPass && errorConfPass.confPass.error }
+                        value = { confPass } 
+                        onChange = { (e) => {
+                            setConfPass(e.target.value);
+                        }}
+                        onBlur = { (e) => {
+                            setErrorConfPass(confirmPassword(password, e.target.value))
+                        }}
+                        required
+                    />
+                    <ShowPasswordButton onClick={handleTogglePassword}>
+                        { showPassword ? <IoEyeOff /> : <IoEye /> }
+                    </ShowPasswordButton>
+                    { errorConfPass.confPass.error && (
+                        <ErrorMessage> {errorConfPass.confPass.message} </ErrorMessage>
+                    )}
+                    { errorConfPass.confPass.verify && (
+                        <ConfirmMessage> {errorConfPass.confPass.message} </ConfirmMessage>
+                    )}
                 </Div>
 
                 <DivBtn>
