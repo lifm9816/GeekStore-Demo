@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import AvatarEditor from 'react-avatar-editor';
 import styled from "styled-components";
 import { IoEye, IoEyeOff } from "react-icons/io5";
-import { btnSignIn, colorPrimario, btnLogIn } from "../../Components/UI/Variables";
+import { btnSignIn, colorPrimario } from "../../Components/UI/Variables";
 import { Formulario, Btn, Contenedor, Etiqueta, CampoTexto} from "../../Components/UI";
 import def_user from "../../assets/Images/def-user.png"
 import { validateName, validateLastName, validateEmail, validatePhone, ValidatePassword, confirmPassword } from "../../Validations/Validations";
@@ -138,7 +138,8 @@ const PasswordInput = styled.input`
 `;
 
 const ShowPasswordButton = styled.button`
-    background-color: #FFFFFF;
+    background-color: ${colorPrimario};
+    color: #F9F9F9;
     border-radius: 0 10px 10px 0;
     border: none;
     padding: 5.5px;
