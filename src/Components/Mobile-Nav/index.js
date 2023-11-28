@@ -71,12 +71,14 @@ const MobileNav = () =>
                     </Link>
                 </li>
                 <li className={`list ${activeIndex === 4 ? 'active' : ''}`}>
-                    <a href="#" onClick={() => setActiveIndex(4)}>
-                        <span className="icon">
-                            <BsCircleHalf/>
-                        </span>
-                        <span className="text">Tema</span>
-                    </a>
+                    <Link to = "/theme">
+                        <a href="#" onClick={() => setActiveIndex(4)}>
+                            <span className="icon">
+                                <BsCircleHalf/>
+                            </span>
+                            <span className="text">Tema</span>
+                        </a>
+                    </Link>
                 </li>
                 <div className="indicator"></div>      
             </ul>

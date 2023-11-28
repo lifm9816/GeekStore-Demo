@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { colorPrimario, colorSecundario } from "../UI/Variables";
 
-const Card = styled.div`
+const CardProduct = styled.div`
     width: 280px;
     margin-bottom: 24px;
     position: relative;
@@ -54,12 +54,12 @@ const Price = styled.h5`
     margin: 0;
 `
 
-const Product = (props) => {
+const Card = (props) => {
     const { photo, title, description, price } = props.data;
     const { background } = props;
 
     return (
-        <Card>
+        <CardProduct>
             <Header style = {{backgroundImage: background}} >
                 <ProductImage src = {photo} alt = {title} />
             </Header>
@@ -68,8 +68,8 @@ const Product = (props) => {
                 <Description> {description} </Description>
                 <Price> {price} </Price>
             </Info>
-        </Card>
+        </CardProduct>
     )
 }
 
-export default Product;
+export default Card;

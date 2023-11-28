@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AvatarEditor from 'react-avatar-editor';
 import styled from "styled-components";
 import { IoEye, IoEyeOff } from "react-icons/io5";
@@ -149,6 +149,10 @@ const ShowPasswordButton = styled.button`
 
 
 const SignIn = () => {
+
+    useEffect(() => {
+        document.title = "GeekStore | Crear Cuenta";
+    }, []);
 
     const [selectedImage, setSelectedImage] = useState(null);
     const [editor, setEditor] = useState(null);

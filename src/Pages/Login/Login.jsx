@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { colorPrimario, btnSignIn } from "../../Components/UI/Variables";
 import { Link } from "react-router-dom";
 import { Btn ,Contenedor, CampoTexto } from "../../Components/UI";
+import { useEffect } from "react";
 
 const Formulario = styled.form`
     box-sizing: border-box;
@@ -75,6 +76,11 @@ const DivBtn = styled.div`
 `
 
 const Login = () =>{
+
+    useEffect(() => {
+        document.title = "GeekStore | Iniciar Sesión";
+    }, []);
+
     return(
         <Contenedor>
             <Formulario>

@@ -16,6 +16,7 @@ import Login from './Pages/Login/Login';
 import SignIn from './Pages/SignIn/Signing';
 import { useState } from 'react';
 import { v4 as uuid } from "uuid"
+import ProductRegister from './Pages/ProductRegister/ProductRegister';
 
 function App() {
 
@@ -68,11 +69,12 @@ function App() {
     <Router>
       <Header />
       <Routes>
-        <Route path = "/" element = {<Home/>} />
+        <Route path = "/" element = {<Home products = {products} />} />
         <Route path = "/search" element = {<Search />} />
         <Route path = "/about" element = {<About />} />
         <Route path = "/login" element = {<Login />} />
         <Route path = "/signin" element = {<SignIn />} />
+        <Route path = "/theme" element = {<ProductRegister />}/>
       </Routes>
       <MobileNav />
     </Router>

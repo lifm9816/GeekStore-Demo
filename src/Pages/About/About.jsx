@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Luis from "../../assets/Images/Luis.jpg"
 import { colorPrimario, colorSecundario } from "../../Components/UI/Variables";
 import "./About.css"
+import { useEffect } from "react";
 
 const SobreDiv = styled.div`
     margin: 10%;
@@ -80,6 +81,11 @@ const PuestosFundador = styled.span`
 
 
 const About = () => {
+
+    useEffect(() => {
+        document.title = "GeekStore | Sobre";
+    }, [])
+
     return(
         <SobreDiv>
             <Titulo>¿Quiénes somos?</Titulo>

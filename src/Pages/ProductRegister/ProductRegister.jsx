@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { btnSignIn, colorPrimario } from "../../Components/UI/Variables";
 import { Formulario, Btn, Contenedor, Etiqueta, CampoTexto} from "../../Components/UI";
@@ -32,13 +32,17 @@ const DivFoto = styled.div`
 const PortadaProducto = styled.label`
     border: 10px dashed #737373;
     display: inline-block;
-    height: 150px;
-    width: 150px;
+    height: 200px;
+    width: 170px;
     border-radius: 20px;
     background: none;
     cursor: pointer;
     margin: 15px 40%;
     overflow: hidden;
+    text-align: center;
+    color: #737373;
+    font-size: 115px;
+    font-weight: bold;
     input{
         display: none;
     }
@@ -78,13 +82,21 @@ const CropContainer = styled.div`
 `;
 
 const CropPreview = styled.img`
-  width: 100%;
-  height: 100%;
-  border-radius: 100%;
+  position: relative;
+  left: 5%;
+  top: -82.5%;
+  width: 170px;
+  height: 200px;
+  border-radius: 20px;
 `;
 
 const ProductRegister = () =>
 {
+
+    useEffect(() => {
+        document.title = "GeekStore | Registrar Producto"
+    })
+
     const [selectedImage, setSelectedImage] = useState(null);
     const [editor, setEditor] = useState(null);
 
@@ -110,13 +122,59 @@ const ProductRegister = () =>
                 <DivFoto>
                     <Etiqueta htmlFor = "portada" >Portada del producto</Etiqueta>
                     <PortadaProducto>
+                        +
                         <input type = "file" accept="image/*" onChange = {handleImageChange} />
-                        {
-                            
-                        }
+                        { selectedImage ? (
+                            <CropContainer>
+                                <CropPreview src={selectedImage} alt = "Portada del producto"/>
+                            </CropContainer>
+                        ) : null}
                     </PortadaProducto>
                 </DivFoto>
+
+                <Div>
+                    <Etiqueta htmlFor="brand" >Marca: </Etiqueta>
+                    <CampoTexto 
+                        id = "brand"
+                        type = "text"
+
+                    />
+                </Div>
+
+                <Div>
+                    <Etiqueta htmlFor="title" >Título: </Etiqueta>
+                    <CampoTexto 
+                        id = "title"
+                        type = "text"
+                        placeholder="Ingrese el título del producto"
+                    />
+                </Div>
+
+                <Div>
+                    <Etiqueta htmlFor="description">Descripción: </Etiqueta>
+                    <CampoTexto 
+                        id = "description"
+                        type = "text"
+                        placeholder="Ingrese la descripción del producto"
+                    />
+                </Div>
+                
+
+                <Div>
+                    <Etiqueta htmlFor="price" >Precio: </Etiqueta>
+                    <CampoTexto 
+                        id = "price"
+                        type = "number"
+                        placeholder = "Ingrese el precio del producto"
+                    />
+                </Div>
+
+                <DivBtn>
+                    <RegistrarProducto>Registrar Producto</RegistrarProducto>
+                </DivBtn>
             </Formulario>
         </Contenedor>
     )
 }
+
+export default ProductRegister;
