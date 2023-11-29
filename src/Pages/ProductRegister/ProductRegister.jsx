@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { btnSignIn, colorPrimario } from "../../Components/UI/Variables";
 import { Formulario, Btn, Contenedor, Etiqueta, CampoTexto} from "../../Components/UI";
+import OptionList from "../../Components/OptionList";
 
 const RegistrarProducto = styled(Btn)`
     background-color: ${btnSignIn};
@@ -134,10 +135,13 @@ const ProductRegister = () =>
 
                 <Div>
                     <Etiqueta htmlFor="brand" >Marca: </Etiqueta>
-                    <CampoTexto 
-                        id = "brand"
-                        type = "text"
-
+                    <OptionList 
+                        id = "options"
+                        placeholder = "Selecciona la marca"
+                        required
+                        value = {brand}
+                        updateValue = {updateValue}
+                        brands = {props.marcas}
                     />
                 </Div>
 

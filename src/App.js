@@ -74,7 +74,7 @@ function App() {
         <Route path = "/about" element = {<About />} />
         <Route path = "/login" element = {<Login />} />
         <Route path = "/signin" element = {<SignIn />} />
-        <Route path = "/theme" element = {<ProductRegister />}/>
+        <Route path = "/theme" element = {<ProductRegister brands = {marcas} />}/>
       </Routes>
       <MobileNav />
     </Router>
