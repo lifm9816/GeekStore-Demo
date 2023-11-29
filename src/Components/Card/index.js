@@ -54,6 +54,28 @@ const Price = styled.h5`
     margin: 0;
 `
 
+const BtnDiv = styled.did`
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+`
+
+const AddBtn = styled.button`
+    background-color: ${colorPrimario};
+    border-radius: 20px;
+    color: #F9F9F9;
+    padding: 10px;
+`
+
+const ViewBtn = styled.button`
+    background-color: ${colorSecundario};
+    border-radius: 20px;
+    color: #F9F9F9;
+    padding: 10px;
+`
+
 const Card = (props) => {
     const { photo, title, description, price } = props.data;
     const { background } = props;
@@ -65,9 +87,12 @@ const Card = (props) => {
             </Header>
             <Info>
                 <Title> {title} </Title>
-                <Description> {description} </Description>
                 <Price> {price} </Price>
             </Info>
+            <BtnDiv>
+                <AddBtn>Agregar</AddBtn>
+                <ViewBtn>Ver</ViewBtn>
+            </BtnDiv>
         </CardProduct>
     )
 }
