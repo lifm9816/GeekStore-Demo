@@ -30,9 +30,9 @@ const OptionList = (props) => {
             value = {props.value}
             onChange={ handleChange } 
         >
-            <option value = "" disabled defaultValue= "" hidden> {props.placeholder} </option>
+            <option value = "" disabled defaultValue= "" hidden> </option>
             {
-                props.brands.map((brand, index) => <option key = {index} value = {brand} > {brand} </option> )
+                props.brands && props.brands.map((marca, index) => <option key={index} value={marca}> {marca} </option>)
             }
         </Select>
     )

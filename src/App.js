@@ -24,17 +24,17 @@ function App() {
     {
       id: uuid(),
       brand: "PlayStation",
-      background: {fondo_ps},
+      background: "fondo_ps",
     },
     {
       id: uuid(),
       brand: "Xbox",
-      background: {fondo_x},
+      background: "fondo_x",
     },
     {
       id: uuid(),
       brand: "Nintendo",
-      background: {fondo_nintendo},
+      background: "fondo_nintendo",
     }
   ]);
 
@@ -42,7 +42,7 @@ function App() {
     {
       id: uuid(),
       brand: "PlayStation",
-      photo: {sm2},
+      photo: sm2,
       title: "Spider-Man 2",
       description: "Juego para PS5",
       price: 1400
@@ -50,7 +50,7 @@ function App() {
     {
       id: uuid(),
       brand: "Xbox",
-      photo: {gow4},
+      photo: gow4,
       title: "Gears of War 4",
       description: "Juego para Xbox ONE/Series X",
       price: 700
@@ -58,7 +58,7 @@ function App() {
     {
       id: uuid(),
       brand: "Nintendo",
-      photo: {mario},
+      photo: mario,
       title: "Super Mario Bros. Wonder",
       description: "Juego para Nintendo Switch",
       price: 1050
@@ -74,7 +74,7 @@ function App() {
         <Route path = "/about" element = {<About />} />
         <Route path = "/login" element = {<Login />} />
         <Route path = "/signin" element = {<SignIn />} />
-        <Route path = "/theme" element = {<ProductRegister brands = {marcas} />}/>
+        <Route path = "/theme" element = {<ProductRegister brands = {marcas.map((marca) => marca.brand)} />}/>
       </Routes>
       <MobileNav />
     </Router>

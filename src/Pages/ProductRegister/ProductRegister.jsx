@@ -38,7 +38,7 @@ const PortadaProducto = styled.label`
     border-radius: 20px;
     background: none;
     cursor: pointer;
-    margin: 15px 40%;
+    margin: 15px 25%;
     overflow: hidden;
     text-align: center;
     color: #737373;
@@ -91,7 +91,7 @@ const CropPreview = styled.img`
   border-radius: 20px;
 `;
 
-const ProductRegister = () =>
+const ProductRegister = (props) =>
 {
 
     useEffect(() => {
@@ -117,6 +117,50 @@ const ProductRegister = () =>
         }
     };
 
+    const [marca, updateBrand] = useState("");
+    const [errorBrand, setErrorBrand] = useState({
+        brand: {
+            error: false,
+            message: ""
+        }
+    });
+
+    const [title, setTitle] = useState("");
+    const [errorTitle, setErrorTitle] = useState({
+        title: {
+            error: false,
+            message: ""
+        }
+    });
+
+    const [description, setDescription] = useState("");
+    const [errorDescription, setErrorDescription] = useState({
+        description: {
+            error: false,
+            message: ""
+        }
+    });
+
+    const [price, setPrice] = useState("");
+    const [errorPrice, setErrorPrice] = useState({
+        price: {
+            error: false,
+            message: ""
+        }
+    });
+    const formatPrice = (input) => {
+        let formatted = input.value.replace(/[^0-9.]/g, "");
+        formatted = "$ " + formatted;
+
+        const parts = formatted.split(".");
+        parts[0] = parts[0].replace(/\B(?=(\d{3}) + (?!\d))/g, ","); //Agrega comas cada 3 dígitos
+        formatted = parts.join(".");
+
+        input.value = formatted;
+
+        return formatted;
+    }
+
     return(
         <Contenedor>
             <Formulario>
@@ -136,13 +180,14 @@ const ProductRegister = () =>
                 <Div>
                     <Etiqueta htmlFor="brand" >Marca: </Etiqueta>
                     <OptionList 
-                        id = "options"
+                        id = "marca"
                         placeholder = "Selecciona la marca"
                         required
-                        value = {brand}
-                        updateValue = {updateValue}
-                        brands = {props.marcas}
+                        value = {marca}
+                        updateValue = {updateBrand}
+                        brands = {props.brands}
                     />
+                    
                 </Div>
 
                 <Div>
@@ -168,8 +213,11 @@ const ProductRegister = () =>
                     <Etiqueta htmlFor="price" >Precio: </Etiqueta>
                     <CampoTexto 
                         id = "price"
-                        type = "number"
-                        placeholder = "Ingrese el precio del producto"
+                        type = "text"
+                        value = {price}
+                        onChange={ (e) => {
+                            setPrice(formatPrice(e.target))
+                        }}
                     />
                 </Div>
 
