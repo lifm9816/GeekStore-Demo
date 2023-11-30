@@ -148,18 +148,45 @@ const ProductRegister = (props) =>
             message: ""
         }
     });
-    const formatPrice = (input) => {
-        let formatted = input.value.replace(/[^0-9.]/g, "");
-        formatted = "$ " + formatted;
-
-        const parts = formatted.split(".");
-        parts[0] = parts[0].replace(/\B(?=(\d{3}) + (?!\d))/g, ","); //Agrega comas cada 3 dígitos
-        formatted = parts.join(".");
-
-        input.value = formatted;
-
-        return formatted;
-    }
+    const formatPrice = (event) => {
+        const input = event.target;
+        let value = input.value;
+      
+        // Eliminar caracteres no numéricos
+        value = value.replace(/\D/g, '');
+      
+        // Si el valor es cero, establecerlo como un valor vacío
+        if (value === '0') {
+          value = '';
+        }
+      
+        // Dar formato al valor como precio
+        let formattedValue = '';
+        if (value !== '') {
+          const cents = value.padStart(3, '0').slice(-2);
+          const dollars = value.padStart(3, '0').slice(0, -2).replace(/^0+(?=\d)/, ''); // Quita los ceros iniciales
+          formattedValue = `$ ${dollars}.${cents}`;
+        } else {
+          formattedValue = '$ 0.00';
+        }
+      
+        // Actualizar el valor en el campo de texto
+        input.value = formattedValue;
+      
+        // Actualizar el estado de 'price' si es un componente funcional
+        setPrice(formattedValue); // Asegúrate de llamar a setPrice con el nuevo valor formateado
+      };
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
 
     return(
         <Contenedor>
@@ -214,9 +241,9 @@ const ProductRegister = (props) =>
                     <CampoTexto 
                         id = "price"
                         type = "text"
-                        value = {price}
+                        defaultValue="$ 0.00"
                         onChange={ (e) => {
-                            setPrice(formatPrice(e.target))
+                            formatPrice(e);
                         }}
                     />
                 </Div>
