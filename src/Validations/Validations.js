@@ -223,3 +223,42 @@ export const validateBrand = (brand) => {
         }
     }
 }
+
+export const validateTitle = (title) => {
+    if (title !== null || title.length > 1 || title.length !== " ")
+    {
+        return {
+            title: {
+                error: false,
+                message: ""
+            }
+        }
+    }
+    else {
+        return {
+            title: {
+                error: true,
+                message: "El campo de título no puede estar vacío"
+            }
+        }
+    }
+}
+
+export const validateStock = (stock) => {
+    if (stock > 0 && stock !== null) {
+        return {
+            stock: {
+                error: false,
+                message: ""
+            }
+        }
+    }
+    else {
+        return {
+            stock: {
+                error: true,
+                message: "El campo stock no puede estar vacío"
+            }
+        }
+    }
+}

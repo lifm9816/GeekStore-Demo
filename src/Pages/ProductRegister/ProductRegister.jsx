@@ -273,6 +273,7 @@ const ProductRegister = (props) =>
                     <CampoTexto 
                         id = "stock"
                         type = "number"
+                        min="0"
                         placeholder="Ingrese la cantidad de stock del producto"
                     />
                 </Div>
