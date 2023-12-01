@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { btnSignIn, colorPrimario } from "../../Components/UI/Variables";
 import { Formulario, Btn, Contenedor, Etiqueta, CampoTexto} from "../../Components/UI";
 import OptionList from "../../Components/OptionList";
+import { validateProductCover } from "../../Validations/Validations";
 
 const RegistrarProducto = styled(Btn)`
     background-color: ${btnSignIn};
@@ -91,6 +92,25 @@ const CropPreview = styled.img`
   border-radius: 20px;
 `;
 
+const ErrorMessage = styled.p`
+    box-sizing: border-box;
+    background-color: red;
+    font-weight: 600;
+    color: #FFFFFF;
+    margin-top: -25px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    max-width: 90%;
+
+    border-radius: 10px;
+    padding: 2px 2px 2px 7px;
+
+    @media (max-width: 939px)
+    {
+        margin-right: -151px;
+    }
+`
+
 const ProductRegister = (props) =>
 {
 
@@ -99,6 +119,12 @@ const ProductRegister = (props) =>
     })
 
     const [selectedImage, setSelectedImage] = useState(null);
+    const [coverError, setCoverError] = useState({
+        cover: {
+            error: false,
+            message: ""
+        }
+    });
     const [editor, setEditor] = useState(null);
 
     const handleImageChange = (e) => {
@@ -106,8 +132,18 @@ const ProductRegister = (props) =>
         if (file) {
             const imageUrl = URL.createObjectURL(file);
             setSelectedImage(imageUrl);
+
+            //Validar la portada cuando se selecciona una imagen
+            const validation = validateProductCover(imageUrl);
+            setCoverError(validation);
         }
     };
+
+    const handleSubmit = () => {
+        //Valida la portada antes de enviar el formulario
+        const validation = validateProductCover(selectedImage);
+        setCoverError(validation)
+    }
 
     const handleSave = () => {
         if (editor) {
@@ -141,7 +177,7 @@ const ProductRegister = (props) =>
         }
     });
 
-    const [price, setPrice] = useState("");
+    const [price, setPrice] = useState(0.00);
     const [errorPrice, setErrorPrice] = useState({
         price: {
             error: false,
@@ -174,20 +210,10 @@ const ProductRegister = (props) =>
         input.value = formattedValue;
       
         // Actualizar el estado de 'price' si es un componente funcional
-        setPrice(formattedValue); // Asegúrate de llamar a setPrice con el nuevo valor formateado
+        const floatValue = parseFloat(value) / 100;
+        setPrice(floatValue); // Asegúrate de llamar a setPrice con el nuevo valor formateado
       };
       
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-
     return(
         <Contenedor>
             <Formulario>
@@ -195,13 +221,20 @@ const ProductRegister = (props) =>
                     <Etiqueta htmlFor = "portada" >Portada del producto</Etiqueta>
                     <PortadaProducto>
                         +
-                        <input type = "file" accept="image/*" onChange = {handleImageChange} />
+                        <input 
+                            type = "file" 
+                            accept="image/*" 
+                            onChange = {handleImageChange} 
+                        />
                         { selectedImage ? (
                             <CropContainer>
                                 <CropPreview src={selectedImage} alt = "Portada del producto"/>
                             </CropContainer>
                         ) : null}
                     </PortadaProducto>
+                    {coverError.cover.error && ( 
+                        <ErrorMessage> {coverError.cover.message} </ErrorMessage>
+                    )}
                 </DivFoto>
 
                 <Div>
@@ -234,14 +267,22 @@ const ProductRegister = (props) =>
                         placeholder="Ingrese la descripción del producto"
                     />
                 </Div>
-                
 
+                <Div>
+                    <Etiqueta htmlFor="stock">Stock: </Etiqueta>
+                    <CampoTexto 
+                        id = "stock"
+                        type = "number"
+                        placeholder="Ingrese la cantidad de stock del producto"
+                    />
+                </Div>
+                
                 <Div>
                     <Etiqueta htmlFor="price" >Precio: </Etiqueta>
                     <CampoTexto 
                         id = "price"
                         type = "text"
-                        defaultValue="$ 0.00"
+                        value={`$ ${price.toFixed(2)}`}//Se formatea price como string con para que incluya el signo de $ y los 0's indicados
                         onChange={ (e) => {
                             formatPrice(e);
                         }}

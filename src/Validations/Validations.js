@@ -184,3 +184,42 @@ export const confirmPassword = (password, confPass) => {
         }
     }
 }
+
+export const validateProductCover = (cover) =>{
+    if(cover !== null) {
+        return {
+            cover: {
+                error: false,
+                message: ""
+            }
+        }
+    }
+    else {
+        return {
+            cover: {
+                error: true,
+                message: "El campo portada no puede estar vacío"
+            }
+        }
+    }
+}
+
+export const validateBrand = (brand) => {
+    if (brand !== "")
+    {
+        return {
+            brand: {
+                error: false,
+                message: ""
+            }
+        }
+    }
+    else {
+        return {
+            brand: {
+                error: true,
+                message: "Seleccone una marca"
+            }
+        }
+    }
+}
