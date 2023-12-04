@@ -14,7 +14,7 @@ const Header = styled.div`
 
 const ProductImage = styled.img`
     width: 100px;
-    border-radius: 20px;
+    border-radius: 5px;
     position: relative;
     bottom: -50px;
 `
@@ -23,7 +23,7 @@ const Info = styled.div`
     background-color: #FFFFFF;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.08);
     border-radius: 0px 0px 10px 10px;
-    padding-top: 90px;
+    padding-top: 50px;
     padding-bottom: 40px;
     min-height: 100px;
 `
@@ -54,45 +54,58 @@ const Price = styled.h5`
     margin: 0;
 `
 
-const BtnDiv = styled.did`
+const BtnDiv = styled.div`
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-evenly;
+    margin-top: 20px;
 `
 
 const AddBtn = styled.button`
     background-color: ${colorPrimario};
-    border-radius: 20px;
+    border-radius: 7px;
     color: #F9F9F9;
     padding: 10px;
+    cursor: pointer;
+    width: 90px;
+    border:none;
+    font-weight: bold;
 `
 
 const ViewBtn = styled.button`
     background-color: ${colorSecundario};
-    border-radius: 20px;
+    border-radius: 7px;
     color: #F9F9F9;
     padding: 10px;
+    cursor: pointer;
+    width: 90px;
+    border: none;
+    font-weight: bold;
 `
 
 const Card = (props) => {
-    const { photo, title, description, price } = props.data;
-    const { background } = props;
+    const { photo, title, price } = props.data;
+
+    const { marcas } = props;
+    
+    const brandBackground = marcas.find((marca) => marca.brand === props.data.brand)?.background;
 
     return (
         <CardProduct>
-            <Header style = {{backgroundImage: background}} >
+            <Header style = {{backgroundImage: `url(${brandBackground})`}} >
                 <ProductImage src = {photo} alt = {title} />
             </Header>
             <Info>
                 <Title> {title} </Title>
                 <Price> {price} </Price>
-            </Info>
-            <BtnDiv>
+                <BtnDiv>
                 <AddBtn>Agregar</AddBtn>
                 <ViewBtn>Ver</ViewBtn>
             </BtnDiv>
+            </Info>
+            
         </CardProduct>
     )
 }

@@ -3,6 +3,7 @@ import MyCarousel from "../../Components/Carousel";
 import { Dc } from "../../Components/UI";
 import "./Home.css";
 import { useEffect } from "react";
+import Card from "../../Components/Card";
 
 const Brand = styled.section`
     width: 100%;
@@ -10,22 +11,46 @@ const Brand = styled.section`
     box-sizing: border-box;
     text-align: center;
     position: relative;
+    margin-bottom: 10%;
 `
 
-const Home = () => {
+const ProductDiv = styled.div`
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+`
+
+const Home = (props) => {
 
     useEffect(() => {
         document.title = "GeekStore | Inicio"
     }, []);
+
+
+
+    const { products, marcas } = props;
 
     return(
         <div>
             <div className = "carousel-container">
                 <MyCarousel />
             </div>
-            <Brand>
-                
-            </Brand>
+            {
+                products.length > 0 && 
+                <Brand>
+                {
+                    <ProductDiv>
+                        {
+                            products.map((product, index) => <Card 
+                                data = {product}
+                                key = {index}
+                                marcas = {marcas}
+                            />)
+                        }
+                    </ProductDiv>
+                }
+                </Brand>
+            }
         </div>
     )
 }

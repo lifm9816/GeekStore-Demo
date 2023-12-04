@@ -14,7 +14,7 @@ import Search from './Pages/Search/Search';
 import About from './Pages/About/About';
 import Login from './Pages/Login/Login';
 import SignIn from './Pages/SignIn/Signing';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { v4 as uuid } from "uuid"
 import ProductRegister from './Pages/ProductRegister/ProductRegister';
 
@@ -24,17 +24,17 @@ function App() {
     {
       id: uuid(),
       brand: "PlayStation",
-      background: "fondo_ps",
+      background: fondo_ps,
     },
     {
       id: uuid(),
       brand: "Xbox",
-      background: "fondo_x",
+      background: fondo_x,
     },
     {
       id: uuid(),
       brand: "Nintendo",
-      background: "fondo_nintendo",
+      background: fondo_nintendo,
     }
   ]);
 
@@ -65,16 +65,33 @@ function App() {
     }
   ]);
 
+  useEffect(() => {
+    const storedProducts = localStorage.getItem('products');
+    if(storedProducts) {
+      updateProducts(JSON.parse(storedProducts));
+    }
+  }, [])
+
   return (
     <Router>
       <Header />
       <Routes>
-        <Route path = "/" element = {<Home products = {products} />} />
+        <Route path = "/" element = {<Home 
+          products={products.map((product) => ({
+            title: product.title,
+            photo: product.photo,
+            description: product.description,
+            price: product.price,
+            brand: product.brand
+          }))}
+          marcas={marcas} />} 
+        />
         <Route path = "/search" element = {<Search />} />
         <Route path = "/about" element = {<About />} />
         <Route path = "/login" element = {<Login />} />
         <Route path = "/signin" element = {<SignIn />} />
-        <Route path = "/theme" element = {<ProductRegister brands = {marcas.map((marca) => marca.brand)} />}/>
+        <Route path = "/theme" element = {<ProductRegister brands = {marcas.map((marca) => marca.brand)} 
+         products = {products} updateProducts = {updateProducts} />}/>
       </Routes>
       <MobileNav />
     </Router>

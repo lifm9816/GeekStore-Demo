@@ -225,7 +225,7 @@ export const validateBrand = (brand) => {
 }
 
 export const validateTitle = (title) => {
-    if (title !== null || title.length > 1 || title.length !== " ")
+    if (title !== null && title.length > 1 && title !== " ")
     {
         return {
             title: {
@@ -258,6 +258,25 @@ export const validateStock = (stock) => {
             stock: {
                 error: true,
                 message: "El campo stock no puede estar vacío"
+            }
+        }
+    }
+}
+
+export const validatePrice = (price) => {
+    if(price !== null && price !== 0) {
+        return {
+            price: {
+                error: false,
+                message: ""
+            }
+        }
+    }
+    else {
+        return {
+            price: {
+                error: true,
+                message: "El precio del producto debe ser mayor a 0"
             }
         }
     }

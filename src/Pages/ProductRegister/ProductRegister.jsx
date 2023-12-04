@@ -3,7 +3,8 @@ import styled from "styled-components";
 import { btnSignIn, colorPrimario } from "../../Components/UI/Variables";
 import { Formulario, Btn, Contenedor, Etiqueta, CampoTexto} from "../../Components/UI";
 import OptionList from "../../Components/OptionList";
-import { validateProductCover } from "../../Validations/Validations";
+import { validatePrice, validateProductCover, validateStock, validateTitle } from "../../Validations/Validations";
+import { v4 as uuid } from "uuid"
 
 const RegistrarProducto = styled(Btn)`
     background-color: ${btnSignIn};
@@ -142,7 +143,28 @@ const ProductRegister = (props) =>
     const handleSubmit = () => {
         //Valida la portada antes de enviar el formulario
         const validation = validateProductCover(selectedImage);
-        setCoverError(validation)
+        setCoverError(validation);
+        
+        if(!validation.cover.error){
+            const newProduct = {
+                id: uuid(),
+                brand: marca,
+                photo: selectedImage,
+                title,
+                description,
+                price
+            };
+    
+            //Agregar el nuevo producto al arreglo existente
+            const updateProducts = [...props.products, newProduct];
+    
+            //Actualizar el estade de 'products' usando la función de actualización proporpcionada por props
+            props.updateProducts(updateProducts);
+    
+            //Almacenar en localStorage
+            localStorage.setItem('products', JSON.stringify(updateProducts));
+        }
+        
     }
 
     const handleSave = () => {
@@ -172,6 +194,14 @@ const ProductRegister = (props) =>
     const [description, setDescription] = useState("");
     const [errorDescription, setErrorDescription] = useState({
         description: {
+            error: false,
+            message: ""
+        }
+    });
+
+    const [stock, setStock] = useState();
+    const [errorStock, setErrorStock] = useState({
+        stock: {
             error: false,
             message: ""
         }
@@ -224,7 +254,8 @@ const ProductRegister = (props) =>
                         <input 
                             type = "file" 
                             accept="image/*" 
-                            onChange = {handleImageChange} 
+                            onChange = {handleImageChange}
+                            required 
                         />
                         { selectedImage ? (
                             <CropContainer>
@@ -256,7 +287,19 @@ const ProductRegister = (props) =>
                         id = "title"
                         type = "text"
                         placeholder="Ingrese el título del producto"
+                        error = {errorTitle && errorTitle.title && errorTitle.title.error}
+                        value = {title}
+                        onChange = {(e) => {
+                            setTitle(e.target.value);
+                        }}
+                        onBlur = {(e) => {
+                            setErrorTitle(validateTitle(e.target.value))
+                        }}
+                        required
                     />
+                    {errorTitle.title.error && (
+                        <ErrorMessage> {errorTitle.title.message} </ErrorMessage>
+                    )}
                 </Div>
 
                 <Div>
@@ -275,7 +318,19 @@ const ProductRegister = (props) =>
                         type = "number"
                         min="0"
                         placeholder="Ingrese la cantidad de stock del producto"
+                        error = {errorStock && errorStock.stock && errorStock.stock.error}
+                        value = {stock}
+                        onChange = { (e) => {
+                            setStock(e.target.value);
+                        }}
+                        onBlur = { (e) => {
+                            setErrorStock(validateStock(e.target.value));
+                        }}
+                        required
                     />
+                    {errorStock.stock.error && (
+                        <ErrorMessage> {errorStock.stock.message} </ErrorMessage>
+                    )}
                 </Div>
                 
                 <Div>
@@ -283,15 +338,23 @@ const ProductRegister = (props) =>
                     <CampoTexto 
                         id = "price"
                         type = "text"
+                        error = {errorPrice && errorPrice.price && errorPrice.price.error}
                         value={`$ ${price.toFixed(2)}`}//Se formatea price como string con para que incluya el signo de $ y los 0's indicados
                         onChange={ (e) => {
                             formatPrice(e);
                         }}
+                        onBlur = { (e) => {
+                            setErrorPrice(validatePrice(formatPrice(e)));
+                        }}
+                        required
                     />
+                    {errorPrice.price.error && (
+                        <ErrorMessage> {errorPrice.price.message} </ErrorMessage>
+                    )}
                 </Div>
 
                 <DivBtn>
-                    <RegistrarProducto>Registrar Producto</RegistrarProducto>
+                    <RegistrarProducto onClick={handleSubmit} >Registrar Producto</RegistrarProducto>
                 </DivBtn>
             </Formulario>
         </Contenedor>
