@@ -86,7 +86,16 @@ function App() {
           }))}
           marcas={marcas} />} 
         />
-        <Route path = "/search" element = {<Search />} />
+        <Route path = "/search" element = {<Search 
+          products = {products.map((product) => ({
+            title: product.title,
+            photo: product.photo,
+            description: product.description,
+            price: product.price,
+            brand: product.brand
+          }))}
+          marcas={marcas}
+        />} />
         <Route path = "/about" element = {<About />} />
         <Route path = "/login" element = {<Login />} />
         <Route path = "/signin" element = {<SignIn />} />

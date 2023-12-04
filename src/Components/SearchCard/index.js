@@ -1,31 +1,41 @@
 import styled from "styled-components";
 import { colorPrimario, colorSecundario } from "../UI/Variables";
 
-const CardProduct = styled.div`
-    width: 280px;
+
+
+const Card = styled.div`
+    box-sizing: border-box;
+    width: 100%;
+    height: 150px;
     margin-bottom: 24px;
     position: relative;
+    display: flex;
+    flex-direction: row;
 `
 
-const Header = styled.div`
+const ImageDiv = styled.div`
+    height: 100%;
+    width: 33%;
     background-color: #F0F0F0;
-    border-radius: 10px 10px 0px 0px;
+    border-radius: 10px 0px 0px 10px;
 `
 
 const ProductImage = styled.img`
-    width: 100px;
+    height: -webkit-fill-available;
+    width: -webkit-fill-available;
     border-radius: 5px;
     position: relative;
-    bottom: -50px;
 `
 
 const Info = styled.div`
     background-color: #FFFFFF;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.08);
-    border-radius: 0px 0px 10px 10px;
-    padding-top: 50px;
-    padding-bottom: 40px;
+    border-radius: 0px 10px 10px 0px;
     min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 67%;
 `
 
 const Title = styled.h4`
@@ -34,15 +44,6 @@ const Title = styled.h4`
     line-height: 22px;
     font-weight: bold;
     margin-bottom: 8px;
-`
-
-const Description = styled.h5`
-    font-size: 18px;
-    line-height: 22px;
-    color: #212121;
-    padding: 0 24px;
-    font-weight: 400;
-    margin: 0;
 `
 
 const Price = styled.h5`
@@ -56,6 +57,7 @@ const Price = styled.h5`
 
 const BtnDiv = styled.div`
     box-sizing: border-box;
+    width: 100%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -85,29 +87,25 @@ const ViewBtn = styled.button`
     font-weight: bold;
 `
 
-const Card = (props) => {
-    const { photo, title, price } = props.data;
-
-    const { marcas } = props;
-    
-    const brandBackground = marcas.find((marca) => marca.brand === props.data.brand)?.background;
+const SearchCard = (props) => {
+    const { photo, title, description, price } = props.data;
 
     return (
-        <CardProduct>
-            <Header style = {{backgroundImage: `url(${brandBackground})`}} >
+        <Card>
+            <ImageDiv>
                 <ProductImage src = {photo} alt = {title} />
-            </Header>
+            </ImageDiv>
             <Info>
-                <Title> {title} </Title>
-                <Price> {`$ ${price.toFixed(2)}`} </Price>
+                <Title> { title } </Title>
+                <Price> { `$ ${price.toFixed(2)}` } </Price>
                 <BtnDiv>
                     <AddBtn>Agregar</AddBtn>
                     <ViewBtn>Ver</ViewBtn>
                 </BtnDiv>
             </Info>
-            
-        </CardProduct>
+        </Card>
+
     )
 }
 
-export default Card;
+export default SearchCard;
