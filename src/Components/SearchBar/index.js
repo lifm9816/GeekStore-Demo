@@ -53,10 +53,28 @@ const Button = styled.button`
 function SearchBar({onSearch}) {
     const [searchTerm, setSearchTerm] = useState("");
 
-    const handleSearch = () => {
-        onSearch(searchTerm);
-    };
+    //Resultados automáticos
+    const handleInputChange = (e) => {
+        const term = e.target.value;
+        setSearchTerm(term);
+        onSearch(term)
+      };
 
+    const handleSearch = () => {
+        onSearch(searchTerm); // Pasar el término de búsqueda como argumento
+        setSearchTerm(""); // Limpiar el término de búsqueda después de realizar la búsqueda
+      };
+
+    /*  
+      const handleInputChange = (e) => {
+        setSearchTerm(e.target.value);
+      };
+    
+      const handleSearch = () => {
+        onSearch(searchTerm);
+        setSearchTerm(""); // Limpiamos el campo de búsqueda después de realizar la búsqueda
+      };
+    */
     return(
         <Search_Bar>
            <Search_Container>
@@ -65,7 +83,7 @@ function SearchBar({onSearch}) {
                 type="text"
                 placeholder="¿Qué comprarás hoy?"
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={handleInputChange}
             />
             </Search_Container>
             <Button onClick={handleSearch} ><BsSearch /></Button> 

@@ -18,6 +18,11 @@ const ImageDiv = styled.div`
     width: 33%;
     background-color: #F0F0F0;
     border-radius: 10px 0px 0px 10px;
+
+    @media (min-width: 931px)
+    {
+        width: 12%;
+    }
 `
 
 const ProductImage = styled.img`
@@ -36,6 +41,11 @@ const Info = styled.div`
     flex-direction: column;
     align-items: center;
     width: 67%;
+
+    @media (min-width: 931px)
+    {
+        width: 88%;
+    }
 `
 
 const Title = styled.h4`
