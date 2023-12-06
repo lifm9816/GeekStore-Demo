@@ -181,11 +181,20 @@ const Account = (props) => {
 
     const { photo, name, lastName, font } = props.data || {}; // Uso de destructuring con un objeto vacío por defecto
 
+    
+
     const history = useNavigate();
 
     useEffect(() => {
         document.title = "GeekStore | Crear Cuenta";
     }, []);
+
+    const handleLogout = () => {
+        // Lógica para cerrar sesión
+        props.setIsLoggedIn(false); // Establece isLoggedIn como falso
+        localStorage.removeItem('isLoggedIn'); // Elimina el estado de inicio de sesión del Local Storage
+        history('/'); // Redirige a la página de inicio de sesión
+    };
 
     const [selectedImage, setSelectedImage] = useState(null);
     const [editor, setEditor] = useState(null);
@@ -336,6 +345,10 @@ const Account = (props) => {
                 </InputFoto>
             </DivFoto>
             <Info>{`${name} ${lastName}`}</Info>
+            <DivBtn>
+                {/* Agrega un botón para cerrar sesión */}
+                <CrearCuenta onClick={handleLogout}>Cerrar Sesión</CrearCuenta>
+            </DivBtn>
         </Container>
 
 
