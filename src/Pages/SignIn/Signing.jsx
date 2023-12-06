@@ -5,7 +5,10 @@ import { IoEye, IoEyeOff } from "react-icons/io5";
 import { btnSignIn, colorPrimario } from "../../Components/UI/Variables";
 import { Formulario, Btn, Contenedor, Etiqueta, CampoTexto} from "../../Components/UI";
 import def_user from "../../assets/Images/def-user.png"
+import portada from "../../assets/Images/portada_miles.jpeg"
 import { validateName, validateLastName, validateEmail, validatePhone, ValidatePassword, confirmPassword } from "../../Validations/Validations";
+import { v4 as uuid } from "uuid"
+import { useNavigate } from "react-router-dom";
 
 const CrearCuenta = styled(Btn)`
     background-color: ${btnSignIn};
@@ -148,7 +151,9 @@ const ShowPasswordButton = styled.button`
 `;
 
 
-const SignIn = () => {
+const SignIn = (props) => {
+
+    const history = useNavigate();
 
     useEffect(() => {
         document.title = "GeekStore | Crear Cuenta";
@@ -240,9 +245,68 @@ const SignIn = () => {
         if (editor) {
           const canvas = editor.getImage();
           const dataURL = canvas.toDataURL(); // Aquí obtienes la imagen recortada
-          console.log(dataURL);
+          return dataURL;
+        }
+        else {
+            return null;
         }
       };
+
+
+    const handleSubmit = () => {
+        const photo = handleSave();
+        if(photo) {
+            const newUser = {
+                id: uuid(),
+                photo: photo,
+                name,
+                lastName,
+                email,
+                phone,
+                password,
+                role: "cliente",
+                font: portada
+            };
+
+            props.updateUsers([...props.users, newUser]); // Corregido aquí, usa props.updateUsers
+
+            localStorage.setItem('users', JSON.stringify(props.updateUsers)); // Corregido aquí, usa props.updateUsers
+
+            // Agregar la función handleUserLogin para establecer al usuario como activo
+            props.handleUserLogin(newUser);
+        }
+        else {
+            const newUser = {
+                id: uuid(),
+                photo: def_user,
+                name,
+                lastName,
+                email,
+                phone,
+                password,
+                role: "cliente",
+                font: portada
+            };
+
+            props.updateUsers([...props.users, newUser]); // Corregido aquí, usa props.updateUsers
+
+            localStorage.setItem('users', JSON.stringify(props.updateUsers)); // Corregido aquí, usa props.updateUsers
+
+            // Agregar la función handleUserLogin para establecer al usuario como activo
+            props.handleUserLogin(newUser);
+        }
+
+        
+        // Después de crear la cuenta con éxito, establece isLoggedIn como true
+        props.setIsLoggedIn(true);
+
+        // Almacena el estado de inicio de sesión en el Local Storage
+        localStorage.setItem('isLoggedIn', true); 
+        
+        // Redirigir a la página de inicio
+        history('/'); // Cambia '/' por la ruta de tu página de inicio
+    }  
+
 
     return(
         <Contenedor>
@@ -403,7 +467,7 @@ const SignIn = () => {
                 </Div>
 
                 <DivBtn>
-                    <CrearCuenta>Crear cuenta</CrearCuenta>
+                    <CrearCuenta onClick={handleSubmit} >Crear cuenta</CrearCuenta>
                 </DivBtn>
 
             </Formulario>

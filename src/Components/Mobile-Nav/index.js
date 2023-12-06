@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import "./MobileNav.css"
 import { AiFillHome, AiOutlineSearch} from "react-icons/ai";
-import { HiUserAdd } from "react-icons/hi";
+import { HiUserAdd, HiUser } from "react-icons/hi";
 import { BsCircleHalf} from "react-icons/bs";
 import logo from "../../assets/Images/icon.png"
 import { Link, useLocation } from "react-router-dom";
 
 
-const MobileNav = () =>
+const MobileNav = ({isLoggedIn}) =>
 {
     const [activeIndex, setActiveIndex] = useState(0);
     const { pathname } = useLocation();//Destructura pathname directamente
@@ -16,17 +16,19 @@ const MobileNav = () =>
 
         //Definición de mapa de rutas a índices
         const pathToIndex = {
-            "/":0,
+            "/": 0,
             "/search": 1,
             "/about": 2,
-            "/login": 3,
-            "/signin": 3,
+            ...(isLoggedIn
+              ? { "/account": 3 }
+              : { "/login": 3, "/signin": 3 }
+            ),
             "/theme": 4,
-        };
+          };
 
         //Estableciendo el valor de activeIndex en función de la ruta actual
         setActiveIndex(pathToIndex[pathname]);
-    },[pathname]);
+    },[pathname, isLoggedIn]);
 
     return(
         <div className="navigation">
@@ -61,12 +63,12 @@ const MobileNav = () =>
                     </Link>
                 </li>
                 <li className={`list ${activeIndex === 3 ? 'active' : ''}`}>
-                    <Link to = "/login">
+                    <Link to = {isLoggedIn ? "/account" : "/login"}>
                         <a href="#" onClick={() => setActiveIndex(3)}>
                             <span className="icon">
-                                <HiUserAdd />
+                            {isLoggedIn ? <HiUser /> : <HiUserAdd />}
                             </span>
-                            <span className="text">Log In</span>
+                            <span className="text">{isLoggedIn ? "Cuenta" : "Log In"}</span>
                         </a>
                     </Link>
                 </li>
