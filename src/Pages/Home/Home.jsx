@@ -30,6 +30,8 @@ const Home = (props) => {
 
     const { products, marcas } = props;
 
+    console.log(props);
+
     return(
         <div>
             <div className = "carousel-container">

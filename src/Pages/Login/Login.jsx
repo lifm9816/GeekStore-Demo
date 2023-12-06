@@ -95,8 +95,11 @@ const Login = ({ users, handleUserLogin }) =>{
         const user = users.find((u) => u.email === email && u.password === password);
     
         if (user) {
-          handleUserLogin(user); // Establece el usuario activo
-          localStorage.setItem('isLoggedIn', true); // Marca la sesión como iniciada
+            handleUserLogin(user); // Establece el usuario activo
+
+            localStorage.setItem('isLoggedIn', true); // Marca la sesión como iniciada
+            localStorage.setItem('userData', JSON.stringify(user)); // Almacena los datos del usuario
+        
     
           // Redirecciona al home
           navigate("/");
@@ -111,7 +114,7 @@ const Login = ({ users, handleUserLogin }) =>{
             <Formulario onSubmit={handleLogin}>
                 <DivInput>
                     <Etiqueta htmlFor="correo">Correo:</Etiqueta>
-                    <Input type="text"
+                    <Input type="email"
                         id="correo"
                         placeholder="Ingrese su correo electrónico"
                         value={email}

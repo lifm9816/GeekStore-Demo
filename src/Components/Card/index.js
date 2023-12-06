@@ -14,6 +14,7 @@ const Header = styled.div`
 
 const ProductImage = styled.img`
     width: 100px;
+    max-height: 128.5px;
     border-radius: 5px;
     position: relative;
     bottom: -50px;

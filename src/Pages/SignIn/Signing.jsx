@@ -236,8 +236,12 @@ const SignIn = (props) => {
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            const imageUrl = URL.createObjectURL(file);
-            setSelectedImage(imageUrl);
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                const imageUrl = reader.result;
+                setSelectedImage(imageUrl);
+            };
+            reader.readAsDataURL(file);
         }
     };
 
@@ -293,18 +297,14 @@ const SignIn = (props) => {
             localStorage.setItem('users', JSON.stringify(props.updateUsers)); // Corregido aquí, usa props.updateUsers
 
             // Agregar la función handleUserLogin para establecer al usuario como activo
-            props.handleUserLogin(newUser);
+            props.handleUserLogin(newUser); 
         }
 
         
-        // Después de crear la cuenta con éxito, establece isLoggedIn como true
-        props.setIsLoggedIn(true);
-
-        // Almacena el estado de inicio de sesión en el Local Storage
-        localStorage.setItem('isLoggedIn', true); 
+        
         
         // Redirigir a la página de inicio
-        history('/'); // Cambia '/' por la ruta de tu página de inicio
+        history('/login'); // Cambia '/' por la ruta de tu página de inicio
     }  
 
 

@@ -131,41 +131,47 @@ const ProductRegister = (props) =>
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            const imageUrl = URL.createObjectURL(file);
-            setSelectedImage(imageUrl);
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                const imageUrl = reader.result;
+                setSelectedImage(imageUrl);
 
-            //Validar la portada cuando se selecciona una imagen
-            const validation = validateProductCover(imageUrl);
-            setCoverError(validation);
+                //Validar la portada cuando se selecciona una imagen
+                const validation = validateProductCover(imageUrl);
+                setCoverError(validation);
+            };
+            reader.readAsDataURL(file);
         }
+        
     };
 
     const handleSubmit = () => {
-        //Valida la portada antes de enviar el formulario
-        const validation = validateProductCover(selectedImage);
-        setCoverError(validation);
-        
-        if(!validation.cover.error){
-            const newProduct = {
-                id: uuid(),
-                brand: marca,
-                photo: selectedImage,
-                title,
-                description,
-                price
-            };
-    
-            //Agregar el nuevo producto al arreglo existente
-            const updateProducts = [...props.products, newProduct];
-    
-            //Actualizar el estade de 'products' usando la función de actualización proporpcionada por props
-            props.updateProducts(updateProducts);
-    
-            //Almacenar en localStorage
-            localStorage.setItem('products', JSON.stringify(updateProducts));
-        }
-        
-    }
+        // Valida la portada antes de enviar el formulario
+  const validation = validateProductCover(selectedImage);
+  setCoverError(validation);
+
+  if (!validation.cover.error) {
+    const newProduct = {
+      id: uuid(),
+      brand: marca,
+      photo: selectedImage,
+      title,
+      description,
+      price,
+    };
+// Obtener los productos actuales
+const updatedProducts = [...props.products, newProduct];
+
+// Actualizar el estado de los productos
+props.updateProducts(updatedProducts);
+
+// Mantener la imagen seleccionada en el estado local
+setSelectedImage(selectedImage);
+
+// Almacenar los productos actualizados en el localStorage
+localStorage.setItem('products', JSON.stringify(updatedProducts));
+}
+};
 
     const handleSave = () => {
         if (editor) {

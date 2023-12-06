@@ -26,19 +26,28 @@ function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [activeUser, setActiveUser] = useState(null); // Nuevo estado para almacenar al usuario activo
+  const [userData, setUserData] = useState(null); // Define el estado de los datos del usuario
   
   const handleUserLogin = (user) => {
     setActiveUser(user); // Establecer el usuario que inició sesión como activo
     setIsLoggedIn(true); // Establecer el estado de inicio de sesión como verdadero
+    setUserData(user); // Actualizar el estado de userData con los datos del usuario
     // Otras acciones después del inicio de sesión si las hay
   };
 
   useEffect(() => {
-    const isLoggedInStorage = localStorage.getItem("isLoggedIn");
-    if(isLoggedInStorage){
-      setIsLoggedIn(true)
+    // Verificar si hay datos de usuario almacenados en localStorage al cargar la página
+    const storedUserData = localStorage.getItem('userData');
+    if (storedUserData) {
+      const parsedUserData = JSON.parse(storedUserData);
+      setUserData(parsedUserData);
     }
-  }, [])
+  }, []);
+
+
+  const handleSetUserData = (userData) => {
+    setUserData(userData); // Actualiza el estado de los datos del usuario
+  };
 
   const [marcas, actualizarMarca] = useState ([
     {
@@ -155,15 +164,23 @@ function App() {
           handleUserLogin = {handleUserLogin} // Pasar la función handleUserLogin a SignIn
         />} />
         <Route path = "/account" element = {<Account 
-          isLoggedIn={isLoggedIn}
-          setIsLoggedIn={setIsLoggedIn}
-          users={users}
-          updateUsers={updateUsers}
-          activeUser={activeUser} // Pasar el usuario activo a Account
-          data={activeUser} // Pasar los datos de activeUser como props.data a Account
+           isLoggedIn={isLoggedIn}
+           setIsLoggedIn={setIsLoggedIn}
+           users={users}
+           updateUsers={updateUsers}
+           activeUser={activeUser} // Pasar el usuario activo a Account
+           userData={userData} // Pasar el estado userData como props.userData a Account
+           setData={handleSetUserData} // Pasa la función para establecer los datos del usuario
         />} />
-        <Route path = "/theme" element = {<ProductRegister brands = {marcas.map((marca) => marca.brand)} 
-         products = {products} updateProducts = {updateProducts} />}/>
+        <Route path = "/theme" element = {<ProductRegister
+          brands={marcas.map((marca) => marca.brand)}
+          products={products} // Pasar el estado de los productos
+          updateProducts={(newProduct) => {
+            const updatedProducts = [...products, newProduct]; // Agregar el nuevo producto a los productos existentes
+            updateProducts(updatedProducts); // Actualizar el estado de los productos
+            localStorage.setItem('products', JSON.stringify(updatedProducts)); // Actualizar el localStorage con los productos actualizados
+          }} 
+        />}/>
       </Routes>
       <MobileNav  isLoggedIn={isLoggedIn} />
     </Router>
