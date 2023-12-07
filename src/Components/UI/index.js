@@ -35,7 +35,7 @@ export const Contenedor = styled.div`
     flex-direction: column;
     margin-top: 50px;
     align-items: center;
-
+    margin-bottom: 20%;
 `
 
 export const Etiqueta = styled.label`

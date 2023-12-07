@@ -5,10 +5,6 @@ import SearchCard from "../../Components/SearchCard";
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import "./Search.css";
 
-const Div = styled.div`
-    width: 100%;
-`
-
 const ResultsDiv = styled.div`
     display: flex;
     flex-direction: column;

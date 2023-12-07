@@ -5,6 +5,7 @@ import { Formulario, Btn, Contenedor, Etiqueta, CampoTexto} from "../../Componen
 import OptionList from "../../Components/OptionList";
 import { validatePrice, validateProductCover, validateStock, validateTitle } from "../../Validations/Validations";
 import { v4 as uuid } from "uuid"
+import { useNavigate } from "react-router-dom";
 
 const RegistrarProducto = styled(Btn)`
     background-color: ${btnSignIn};
@@ -114,10 +115,21 @@ const ErrorMessage = styled.p`
 
 const ProductRegister = (props) =>
 {
+    const navigate = useNavigate();
+    console.log(props);
+    
 
     useEffect(() => {
-        document.title = "GeekStore | Registrar Producto"
-    })
+        document.title = "GeekStore | Registrar Producto";
+
+        if (!props.isLoggedIn || props.userRole !== "administrador") {
+            // Si el usuario no tiene acceso, redirigir a otra página (por ejemplo, la página de inicio)
+            navigate('/'); // Redirigir a la página de inicio
+            console.log(props);
+          }
+        }, [props.isLoggedIn, props.userRole]);
+      
+
 
     const [selectedImage, setSelectedImage] = useState(null);
     const [coverError, setCoverError] = useState({
@@ -147,31 +159,31 @@ const ProductRegister = (props) =>
 
     const handleSubmit = () => {
         // Valida la portada antes de enviar el formulario
-  const validation = validateProductCover(selectedImage);
-  setCoverError(validation);
+        const validation = validateProductCover(selectedImage);
+        setCoverError(validation);
 
-  if (!validation.cover.error) {
-    const newProduct = {
-      id: uuid(),
-      brand: marca,
-      photo: selectedImage,
-      title,
-      description,
-      price,
+        if (!validation.cover.error) {
+            const newProduct = {
+            id: uuid(),
+            brand: marca,
+            photo: selectedImage,
+            title,
+            description,
+            price,
+            };
+        // Obtener los productos actuales
+        const updatedProducts = [...props.products, newProduct];
+
+        // Actualizar el estado de los productos
+        props.updateProducts(updatedProducts);
+
+        // Mantener la imagen seleccionada en el estado local
+        setSelectedImage(selectedImage);
+
+        // Almacenar los productos actualizados en el localStorage
+        localStorage.setItem('products', JSON.stringify(updatedProducts));
+        }
     };
-// Obtener los productos actuales
-const updatedProducts = [...props.products, newProduct];
-
-// Actualizar el estado de los productos
-props.updateProducts(updatedProducts);
-
-// Mantener la imagen seleccionada en el estado local
-setSelectedImage(selectedImage);
-
-// Almacenar los productos actualizados en el localStorage
-localStorage.setItem('products', JSON.stringify(updatedProducts));
-}
-};
 
     const handleSave = () => {
         if (editor) {

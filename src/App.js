@@ -21,6 +21,7 @@ import Account from './Pages/Account/Account';
 import { useState, useEffect } from 'react';
 import { v4 as uuid } from "uuid"
 import ProductRegister from './Pages/ProductRegister/ProductRegister';
+import ShoppingCart from './Pages/ShoppingCart/ShoppingCart';
 
 function App() {
 
@@ -32,6 +33,8 @@ function App() {
     setActiveUser(user); // Establecer el usuario que inició sesión como activo
     setIsLoggedIn(true); // Establecer el estado de inicio de sesión como verdadero
     setUserData(user); // Actualizar el estado de userData con los datos del usuario
+    localStorage.setItem('isLoggedIn', true); // Guardar el estado de inicio de sesión en el localStorage
+    localStorage.setItem('userData', JSON.stringify(user)); // Guardar los datos del usuario en el localStorage
     // Otras acciones después del inicio de sesión si las hay
   };
 
@@ -47,6 +50,8 @@ function App() {
 
   const handleSetUserData = (userData) => {
     setUserData(userData); // Actualiza el estado de los datos del usuario
+    // Guardar en localStorage
+    localStorage.setItem('userData', JSON.stringify(userData));
   };
 
   const [marcas, actualizarMarca] = useState ([
@@ -121,10 +126,28 @@ function App() {
 
   useEffect(() => {
     const storedProducts = localStorage.getItem('products');
-    if(storedProducts) {
+    if(storedProducts && isLoggedIn) {
       updateProducts(JSON.parse(storedProducts));
     }
-  }, [])
+  }, [isLoggedIn, updateProducts]);
+
+  useEffect(() => {
+    // Verificar el estado de inicio de sesión al cargar la aplicación
+    const loggedIn = localStorage.getItem('isLoggedIn');
+    const userData = localStorage.getItem('userData');
+    if (loggedIn && userData) {
+      setIsLoggedIn(true);
+      setUserData(JSON.parse(userData));
+    }
+  }, []);
+
+  // Función para cerrar sesión
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setUserData(null);
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('userData');
+  };
 
   return (
     <Router>
@@ -138,8 +161,12 @@ function App() {
             price: product.price,
             brand: product.brand
           }))}
-          marcas={marcas} />} 
+          marcas={marcas}
+          isLoggedIn={isLoggedIn} 
+          userData={userData} 
+          />} 
         />
+
         <Route path = "/search" element = {<Search 
           products = {products.map((product) => ({
             title: product.title,
@@ -149,13 +176,19 @@ function App() {
             brand: product.brand
           }))}
           marcas={marcas}
+          isLoggedIn={isLoggedIn} 
+          userData={userData}
         />} />
-        <Route path = "/about" element = {<About />} />
+
+        <Route path = "/about" element = {<About isLoggedIn={isLoggedIn} 
+          userData={userData}/>} />
+
         <Route path = "/login" element = {<Login 
           users={users}
           handleUserLogin={handleUserLogin}
           setIsLoggedIn={setIsLoggedIn} // Pasar setIsLoggedIn al componente Login  
         />} />
+
         <Route path = "/signin" element = {<SignIn 
           isLoggedIn={isLoggedIn} 
           setIsLoggedIn={setIsLoggedIn} 
@@ -163,6 +196,7 @@ function App() {
           updateUsers = {updateUsers}
           handleUserLogin = {handleUserLogin} // Pasar la función handleUserLogin a SignIn
         />} />
+
         <Route path = "/account" element = {<Account 
            isLoggedIn={isLoggedIn}
            setIsLoggedIn={setIsLoggedIn}
@@ -172,17 +206,35 @@ function App() {
            userData={userData} // Pasar el estado userData como props.userData a Account
            setData={handleSetUserData} // Pasa la función para establecer los datos del usuario
         />} />
-        <Route path = "/theme" element = {<ProductRegister
+
+        <Route path="/shopping" element={<ShoppingCart 
+          products = {products.map((product) => ({
+            title: product.title,
+            photo: product.photo,
+            description: product.description,
+            price: product.price,
+            brand: product.brand
+          }))}
+          marcas={marcas}
+        />} />
+
+        <Route path="/productRegister" element={<ProductRegister
           brands={marcas.map((marca) => marca.brand)}
-          products={products} // Pasar el estado de los productos
+          products={products}
           updateProducts={(newProduct) => {
-            const updatedProducts = [...products, newProduct]; // Agregar el nuevo producto a los productos existentes
-            updateProducts(updatedProducts); // Actualizar el estado de los productos
-            localStorage.setItem('products', JSON.stringify(updatedProducts)); // Actualizar el localStorage con los productos actualizados
-          }} 
-        />}/>
+            const updatedProducts = [...products, newProduct];
+            updateProducts(updatedProducts);
+            localStorage.setItem('products', JSON.stringify(updatedProducts));
+          }}
+          isLoggedIn={isLoggedIn} // Pasar el estado de la sesión
+          userRole={activeUser ? activeUser.role : null} // Pasar el rol del usuario si está activo
+
+          userData={userData}
+        />} />
       </Routes>
-      <MobileNav  isLoggedIn={isLoggedIn} />
+      <MobileNav  isLoggedIn={isLoggedIn}
+        userRole={activeUser ? activeUser.role : null} 
+      />
     </Router>
   );
 }

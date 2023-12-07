@@ -2,12 +2,14 @@ import { useState, useEffect } from "react";
 import "./MobileNav.css"
 import { AiFillHome, AiOutlineSearch} from "react-icons/ai";
 import { HiUserAdd, HiUser } from "react-icons/hi";
+import { FaShoppingCart } from "react-icons/fa";
 import { BsCircleHalf} from "react-icons/bs";
+import { MdAssignmentAdd } from "react-icons/md";
 import logo from "../../assets/Images/icon.png"
 import { Link, useLocation } from "react-router-dom";
 
 
-const MobileNav = ({isLoggedIn}) =>
+const MobileNav = ({isLoggedIn, userRole}) =>
 {
     const [activeIndex, setActiveIndex] = useState(0);
     const { pathname } = useLocation();//Destructura pathname directamente
@@ -23,7 +25,9 @@ const MobileNav = ({isLoggedIn}) =>
               ? { "/account": 3 }
               : { "/login": 3, "/signin": 3 }
             ),
-            "/theme": 4,
+            ...( isLoggedIn && userRole === "administrador"
+                ?{"/productRegister":4}    
+                : {"/shopping": 4})
           };
 
         //Estableciendo el valor de activeIndex en función de la ruta actual
@@ -73,12 +77,12 @@ const MobileNav = ({isLoggedIn}) =>
                     </Link>
                 </li>
                 <li className={`list ${activeIndex === 4 ? 'active' : ''}`}>
-                    <Link to = "/theme">
+                    <Link to = {isLoggedIn && userRole === "administrador" ? "/productRegister" : "/shopping"}>
                         <a href="#" onClick={() => setActiveIndex(4)}>
                             <span className="icon">
-                                <BsCircleHalf/>
+                            { isLoggedIn && userRole === "administrador" ? <MdAssignmentAdd /> : <FaShoppingCart />}
                             </span>
-                            <span className="text">Tema</span>
+                            <span className="text">{ isLoggedIn && userRole === "administrador" ? "Producto +" : "Carrito"}</span>
                         </a>
                     </Link>
                 </li>
