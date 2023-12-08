@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import ShoppingCard from "../../Components/ShoppingCard";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const Div = styled.div`
     margin-bottom: 20%;
@@ -20,24 +20,43 @@ const ProductsDiv = styled.div`
     }
 `
 
-const ShoppingCart = (props) => {
+const ShoppingCart = () => {
 
-    const {products, marcas} = props
+
+    const [cartItems, setCartItems] = useState([]);
+
+    useEffect(() => {
+        const storedCartItems = localStorage.getItem('cartItems');
+        if (storedCartItems) {
+        setCartItems(JSON.parse(storedCartItems));
+        }
+    }, []);
+
+    const updateCartItems = (newItems) => {
+        setCartItems(newItems);
+        localStorage.setItem('cartItems', JSON.stringify(newItems));
+    };  
+
+    console.log("productos en el carrito: ",cartItems)
 
     useEffect(() => {
         document.title = "Geekstore | Carrito";
-    }, [products])
+    }, [cartItems])
 
     return (
         <Div>
             <ProductsDiv>
-            {
-                products.map((product, index) => (<ShoppingCard 
-                    key = {index}
-                    data={product}
-                    marcas={marcas}
-                />))
-            }
+            {cartItems.map((cartItem, index) => (
+          <ShoppingCard
+            key={index}
+            data={cartItem.product}
+            quantity={cartItem.quantity}
+            updateCartItems={updateCartItems}
+            cartItems={cartItems}
+            setCartItems={setCartItems}
+          />
+        ))}
+
             </ProductsDiv>
         </Div>
     )

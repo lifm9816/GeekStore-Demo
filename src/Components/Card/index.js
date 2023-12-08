@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import {AiFillCloseCircle, AiOutlineHeart, AiFillHeart} from "react-icons/ai"
 import { colorPrimario, colorSecundario } from "../UI/Variables";
-
+import { useState } from "react";
 const CardProduct = styled.div`
     width: 280px;
     margin-bottom: 24px;
@@ -90,9 +90,17 @@ const ViewBtn = styled.button`
 const Card = (props) => {
     const { photo, title, price } = props.data;
 
-    const { marcas } = props;
+    const { marcas, addToCart } = props;
     
     const brandBackground = marcas.find((marca) => marca.brand === props.data.brand)?.background;
+
+    const handleAddToCart = () => {
+        addToCart({
+            ...props.data,
+            quantity: 1
+        });
+        console.log("Producto agregado al carrito con éxito");
+    };
 
     return (
         <CardProduct>
@@ -103,7 +111,7 @@ const Card = (props) => {
                 <Title> {title} </Title>
                 <Price> {`$ ${price.toFixed(2)}`} </Price>
                 <BtnDiv>
-                    <AddBtn>Agregar</AddBtn>
+                    <AddBtn onClick={handleAddToCart}>Agregar</AddBtn>
                     <ViewBtn>Ver</ViewBtn>
                 </BtnDiv>
             </Info>

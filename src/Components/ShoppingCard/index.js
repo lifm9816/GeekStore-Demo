@@ -2,6 +2,7 @@ import styled from "styled-components";
 import "./ShoppingCard.css"
 import { AiFillCloseCircle } from "react-icons/ai"
 import { colorPrimario, colorSecundario } from "../UI/Variables";
+import { useState } from "react";
 
 
 
@@ -100,25 +101,35 @@ const Quantity = styled.input`
 `
 
 const ShoppingCard = (props) => {
-    const { photo, title, description, price } = props.data;
-
+    const { photo, title, price, stock, marcas } = props.data || {};
+    
+  
+    const [quantity, setQuantity] = useState(1);
+  
     return (
-        <Card>
-            <AiFillCloseCircle className="delete" />
-            <ImageDiv>
-                <ProductImage src = {photo} alt = {title} />
-            </ImageDiv>
-            <Info>
-                <Title> { title } </Title>
-                <Price> { `$ ${price.toFixed(2)}` } </Price>
-                <QuantityDiv>
-                    <QuantityMessage>Cantidad: </QuantityMessage>
-                    <Quantity />
-                </QuantityDiv>
-            </Info>
-        </Card>
 
-    )
-}
-
-export default ShoppingCard;
+      <Card>
+        <AiFillCloseCircle className="delete" />
+        <ImageDiv>
+          <ProductImage src={photo} alt={title} />
+        </ImageDiv>
+        <Info>
+          <Title>{title}</Title>
+          <Price>{price}</Price>
+          <QuantityDiv>
+            <QuantityMessage>Cantidad:</QuantityMessage>
+            <Quantity
+              type="number"
+              value={quantity}
+              min={1}
+              max={stock}
+              onChange={(e) => setQuantity(parseInt(e.target.value))}
+            />
+          </QuantityDiv>
+        </Info>
+      </Card>
+        
+    );
+  };
+  
+  export default ShoppingCard;

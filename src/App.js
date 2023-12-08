@@ -79,7 +79,8 @@ function App() {
       photo: sm2,
       title: "Spider-Man 2",
       description: "Juego para PS5",
-      price: 1400
+      price: 1400,
+      stock: 15
     },
     {
       id: uuid(),
@@ -87,7 +88,8 @@ function App() {
       photo: gow4,
       title: "Gears of War 4",
       description: "Juego para Xbox ONE/Series X",
-      price: 700
+      price: 700,
+      stock: 15
     },
     {
       id: uuid(),
@@ -95,7 +97,8 @@ function App() {
       photo: mario,
       title: "Super Mario Bros. Wonder",
       description: "Juego para Nintendo Switch",
-      price: 1050
+      price: 1050,
+      stock: 15
     }
   ]);
 
@@ -126,18 +129,36 @@ function App() {
 
   useEffect(() => {
     const storedProducts = localStorage.getItem('products');
-    if(storedProducts && isLoggedIn) {
+    if(storedProducts) {
       updateProducts(JSON.parse(storedProducts));
     }
-  }, [isLoggedIn, updateProducts]);
+  }, [updateProducts]);
 
   useEffect(() => {
     // Verificar el estado de inicio de sesión al cargar la aplicación
     const loggedIn = localStorage.getItem('isLoggedIn');
     const userData = localStorage.getItem('userData');
-    if (loggedIn && userData) {
+    const activeUser = localStorage.getItem("userData");
+    if (loggedIn && userData && activeUser) {
       setIsLoggedIn(true);
       setUserData(JSON.parse(userData));
+      setActiveUser({ role: JSON.parse(userData).role });
+    }
+  }, []);
+
+  useEffect(() => {
+    // Verificar si hay datos de usuarios almacenados en localStorage al cargar la página
+    const storedUserData = localStorage.getItem('userData');
+    if (storedUserData) {
+      const parsedUserData = JSON.parse(storedUserData);
+      setUserData(parsedUserData);
+    }
+  
+    // Verificar si hay datos de productos almacenados en localStorage al cargar la página
+    const storedProducts = localStorage.getItem('products');
+    if (storedProducts) {
+      const parsedProducts = JSON.parse(storedProducts);
+      updateProducts(parsedProducts);
     }
   }, []);
 
@@ -145,8 +166,19 @@ function App() {
   const handleLogout = () => {
     setIsLoggedIn(false);
     setUserData(null);
+    setActiveUser(null)
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('userData');
+  };
+
+  const [cartItems, setCartItems] = useState([]);
+
+  const [addedProduct, setAddedProduct] = useState(null); // Estado para el producto recién agregado
+
+  // Modifica la función addToCart para establecer el producto recién agregado
+  const addToCart = (product) => {
+    setCartItems([...cartItems, product]); // Agregar un nuevo producto al carrito
+    setAddedProduct(product); // Establecer el producto recién agregado
   };
 
   return (
@@ -163,7 +195,9 @@ function App() {
           }))}
           marcas={marcas}
           isLoggedIn={isLoggedIn} 
-          userData={userData} 
+          userData={userData}
+          userRole={activeUser ? activeUser.role : null} // Pasar el rol del usuario si está activo 
+          addToCart={addToCart}
           />} 
         />
 
@@ -178,15 +212,19 @@ function App() {
           marcas={marcas}
           isLoggedIn={isLoggedIn} 
           userData={userData}
+          userRole={activeUser ? activeUser.role : null} // Pasar el rol del usuario si está activo
         />} />
 
         <Route path = "/about" element = {<About isLoggedIn={isLoggedIn} 
-          userData={userData}/>} />
+          userData={userData}
+          userRole={activeUser ? activeUser.role : null} // Pasar el rol del usuario si está activo
+        />}/>
 
         <Route path = "/login" element = {<Login 
           users={users}
           handleUserLogin={handleUserLogin}
-          setIsLoggedIn={setIsLoggedIn} // Pasar setIsLoggedIn al componente Login  
+          setIsLoggedIn={setIsLoggedIn} // Pasar setIsLoggedIn al componente Login
+            
         />} />
 
         <Route path = "/signin" element = {<SignIn 
@@ -205,6 +243,8 @@ function App() {
            activeUser={activeUser} // Pasar el usuario activo a Account
            userData={userData} // Pasar el estado userData como props.userData a Account
            setData={handleSetUserData} // Pasa la función para establecer los datos del usuario
+           userRole={activeUser ? activeUser.role : null} // Pasar el rol del usuario si está activo
+           logOut={handleLogout}
         />} />
 
         <Route path="/shopping" element={<ShoppingCart 
@@ -213,9 +253,13 @@ function App() {
             photo: product.photo,
             description: product.description,
             price: product.price,
-            brand: product.brand
+            brand: product.brand,
+            stock: product.stock
           }))}
           marcas={marcas}
+          userRole={activeUser ? activeUser.role : null} // Pasar el rol del usuario si está activo
+          addedProduct={addedProduct} // Pasa el producto recién agregado a ShoppingCart
+          cartItems={cartItems}
         />} />
 
         <Route path="/productRegister" element={<ProductRegister
@@ -228,7 +272,6 @@ function App() {
           }}
           isLoggedIn={isLoggedIn} // Pasar el estado de la sesión
           userRole={activeUser ? activeUser.role : null} // Pasar el rol del usuario si está activo
-
           userData={userData}
         />} />
       </Routes>

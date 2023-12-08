@@ -113,21 +113,22 @@ const ErrorMessage = styled.p`
     }
 `
 
-const ProductRegister = (props) =>
+const ProductRegister = ({ brands, products, updateProducts, isLoggedIn, userRole, userData}) =>
 {
     const navigate = useNavigate();
-    console.log(props);
+    console.log(isLoggedIn, userRole);
     
 
     useEffect(() => {
         document.title = "GeekStore | Registrar Producto";
 
-        if (!props.isLoggedIn || props.userRole !== "administrador") {
+        if (!isLoggedIn || userRole !== "administrador") {
             // Si el usuario no tiene acceso, redirigir a otra página (por ejemplo, la página de inicio)
             navigate('/'); // Redirigir a la página de inicio
-            console.log(props);
+            
+ 
           }
-        }, [props.isLoggedIn, props.userRole]);
+        }, [isLoggedIn, userRole]);
       
 
 
@@ -170,18 +171,30 @@ const ProductRegister = (props) =>
             title,
             description,
             price,
+            stock
             };
         // Obtener los productos actuales
-        const updatedProducts = [...props.products, newProduct];
+        const updatedProducts = [...products];
+        const productExists = updatedProducts.some(product => product.title === newProduct.title && product.brand === newProduct.brand)
 
+        if(!productExists){
+            updatedProducts.push(newProduct);
+            updateProducts(updatedProducts);
+            localStorage.setItem('products', JSON.stringify(updatedProducts));
+        }
+        else{
+            {errorTitle.title.error && (
+                <ErrorMessage> El producto ya existe </ErrorMessage>
+            )}
+        }
         // Actualizar el estado de los productos
-        props.updateProducts(updatedProducts);
+        //props.updateProducts(updatedProducts);
 
         // Mantener la imagen seleccionada en el estado local
         setSelectedImage(selectedImage);
 
         // Almacenar los productos actualizados en el localStorage
-        localStorage.setItem('products', JSON.stringify(updatedProducts));
+        //localStorage.setItem('products', JSON.stringify(updatedProducts));
         }
     };
 
@@ -294,7 +307,7 @@ const ProductRegister = (props) =>
                         required
                         value = {marca}
                         updateValue = {updateBrand}
-                        brands = {props.brands}
+                        brands = {brands}
                     />
                     
                 </Div>
