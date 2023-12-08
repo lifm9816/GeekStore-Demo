@@ -100,22 +100,38 @@ const Quantity = styled.input`
     font-weight: bold;
 `
 
+const DeleteButton = styled(AiFillCloseCircle)`
+    position: absolute;
+    right: 2px;
+    top: 2px;
+    font-size: 32px;
+    cursor: pointer;
+    color: #19222D;
+`;
+
 const ShoppingCard = (props) => {
     const { photo, title, price, stock, marcas } = props.data || {};
-    
+    console.log("stock del producto",stock);
+    console.log("nombre del producto",title);
   
     const [quantity, setQuantity] = useState(1);
+
+    const handleDelete = () => {
+      const updatedCartItems = props.cartItems.filter((item) => item.product.id !== props.data.id);
+      props.setCartItems(updatedCartItems);
+      props.updateCartItems(updatedCartItems);
+  };
   
     return (
 
       <Card>
-        <AiFillCloseCircle className="delete" />
+        <DeleteButton onClick={handleDelete} />
         <ImageDiv>
           <ProductImage src={photo} alt={title} />
         </ImageDiv>
         <Info>
           <Title>{title}</Title>
-          <Price>{price}</Price>
+          <Price>{`$ ${price.toFixed(2)}`}</Price>
           <QuantityDiv>
             <QuantityMessage>Cantidad:</QuantityMessage>
             <Quantity
@@ -123,7 +139,14 @@ const ShoppingCard = (props) => {
               value={quantity}
               min={1}
               max={stock}
-              onChange={(e) => setQuantity(parseInt(e.target.value))}
+              onChange={(e) => {
+                const selectedQuantity = parseInt(e.target.value);
+                if (selectedQuantity > stock) {
+                  setQuantity(stock); // Establecer la cantidad al máximo disponible (stock)
+                } else {
+                  setQuantity(selectedQuantity);
+                }
+              }}
             />
           </QuantityDiv>
         </Info>

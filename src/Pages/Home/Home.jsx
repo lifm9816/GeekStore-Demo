@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import Card from "../../Components/Card";
 import { useState } from "react";
 
+
 const Brand = styled.section`
     width: 100%;
     padding: 32px;
@@ -37,7 +38,9 @@ const Home = (props) => {
 
     
 
-    const { products, marcas } = props;
+    const { products, marcas, handleShopCart } = props;
+
+
 
     const [cartItems, setCartItems] = useState([]); // Estado para almacenar los elementos del carrito
     const [addedProduct, setAddedProduct] = useState(null); // Estado para el producto recién agregado
@@ -46,11 +49,16 @@ const Home = (props) => {
 
     useEffect(() => {
         localStorage.setItem('cartItems', JSON.stringify(cartItems));
-      }, [cartItems]);
+    }, [cartItems]);
 
-      const addToCart = (product) => {
-        const existingItem = cartItems.find(item => item.product.id === product.id);
+    const updateCartItems = (updatedCartItems) => {
+        setCartItems(updatedCartItems);
+        localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+    };
     
+    const addToCart = (product) => {
+        const existingItem = cartItems.find(item => item.product.id === product.id);
+      
         if (existingItem) {
           const updatedCartItems = cartItems.map(item =>
             item.product.id === product.id
@@ -58,11 +66,14 @@ const Home = (props) => {
               : item
           );
           setCartItems(updatedCartItems);
+          // Llamar a la función handleShopCart para actualizar el carrito y el localStorage
+          handleShopCart(updatedCartItems);
         } else {
           const updatedCartItems = [...cartItems, { product: product, quantity: 1 }];
           setCartItems(updatedCartItems);
+          // Llamar a la función handleShopCart para actualizar el carrito y el localStorage
+          handleShopCart(updatedCartItems);
         }
-        setAddedProduct(product);
       };
     
 

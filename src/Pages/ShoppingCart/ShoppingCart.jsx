@@ -38,10 +38,11 @@ const ShoppingCart = () => {
     };  
 
     console.log("productos en el carrito: ",cartItems)
+    
 
     useEffect(() => {
         document.title = "Geekstore | Carrito";
-    }, [cartItems])
+    }, [])
 
     return (
         <Div>
@@ -51,6 +52,7 @@ const ShoppingCart = () => {
             key={index}
             data={cartItem.product}
             quantity={cartItem.quantity}
+            stock={cartItem.product.stock}
             updateCartItems={updateCartItems}
             cartItems={cartItems}
             setCartItems={setCartItems}

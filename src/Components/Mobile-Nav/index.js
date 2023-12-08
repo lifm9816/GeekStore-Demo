@@ -7,9 +7,10 @@ import { BsCircleHalf} from "react-icons/bs";
 import { MdAssignmentAdd } from "react-icons/md";
 import logo from "../../assets/Images/icon.png"
 import { Link, useLocation } from "react-router-dom";
+import CartIcon from "../CartIcon";
 
 
-const MobileNav = ({isLoggedIn, userRole}) =>
+const MobileNav = ({isLoggedIn, userRole, cartItems}) =>
 {
     const [activeIndex, setActiveIndex] = useState(0);
     const { pathname } = useLocation();//Destructura pathname directamente
@@ -79,9 +80,11 @@ const MobileNav = ({isLoggedIn, userRole}) =>
                 <li className={`list ${activeIndex === 4 ? 'active' : ''}`}>
                     <Link to = {isLoggedIn && userRole === "administrador" ? "/productRegister" : "/shopping"}>
                         <a href="#" onClick={() => setActiveIndex(4)}>
+                            { isLoggedIn && userRole === "administrador" ? 
                             <span className="icon">
-                            { isLoggedIn && userRole === "administrador" ? <MdAssignmentAdd /> : <FaShoppingCart />}
-                            </span>
+                                <MdAssignmentAdd /> 
+                            </span>: <CartIcon itemCount={cartItems.length}/>}
+                            
                             <span className="text">{ isLoggedIn && userRole === "administrador" ? "Producto +" : "Carrito"}</span>
                         </a>
                     </Link>
