@@ -8,10 +8,12 @@ import { MdAssignmentAdd } from "react-icons/md";
 import logo from "../../assets/Images/icon.png"
 import { Link, useLocation } from "react-router-dom";
 import CartIcon from "../CartIcon";
+import { useCart } from "../../Contexts/CartContext";
 
 
-const MobileNav = ({isLoggedIn, userRole, cartItems}) =>
+const MobileNav = ({isLoggedIn, userRole}) =>
 {
+    const { cartItems, setCartItems } = useCart();
     const [activeIndex, setActiveIndex] = useState(0);
     const { pathname } = useLocation();//Destructura pathname directamente
 

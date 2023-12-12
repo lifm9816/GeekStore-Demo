@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import ShoppingCard from "../../Components/ShoppingCard";
 import { useState, useEffect } from "react";
+import { useCart } from "../../Contexts/CartContext";
 
 const Div = styled.div`
     margin-bottom: 20%;
@@ -22,22 +23,14 @@ const ProductsDiv = styled.div`
 
 const ShoppingCart = () => {
 
-
-    const [cartItems, setCartItems] = useState([]);
-
-    useEffect(() => {
-        const storedCartItems = localStorage.getItem('cartItems');
-        if (storedCartItems) {
-        setCartItems(JSON.parse(storedCartItems));
-        }
-    }, []);
+    const { cartItems, setCartItems } = useCart();
 
     const updateCartItems = (newItems) => {
         setCartItems(newItems);
         localStorage.setItem('cartItems', JSON.stringify(newItems));
     };  
 
-    console.log("productos en el carrito: ",cartItems)
+    console.log("productos en el carrito: ",cartItems);
     
 
     useEffect(() => {
