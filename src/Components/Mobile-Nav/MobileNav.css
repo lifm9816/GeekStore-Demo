@@ -148,6 +148,10 @@
     transform: translateX(calc(70px * 4));
 }
 
+li.active .cart-counter {
+    color: #FF914D; /* Cambia el color del contador cuando el elemento li tiene la clase "active" */
+  }
+
 
 
 @media screen and (min-width: 1001px) 

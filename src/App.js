@@ -129,13 +129,6 @@ function App() {
   ])
 
   useEffect(() => {
-    const storedProducts = localStorage.getItem('products');
-    if(storedProducts) {
-      updateProducts(JSON.parse(storedProducts));
-    }
-  }, [updateProducts]);
-
-  useEffect(() => {
     // Verificar el estado de inicio de sesión al cargar la aplicación
     const loggedIn = localStorage.getItem('isLoggedIn');
     const userData = localStorage.getItem('userData');
@@ -155,12 +148,6 @@ function App() {
       setUserData(parsedUserData);
     }
   
-    // Verificar si hay datos de productos almacenados en localStorage al cargar la página
-    const storedProducts = localStorage.getItem('products');
-    if (storedProducts) {
-      const parsedProducts = JSON.parse(storedProducts);
-      updateProducts(parsedProducts);
-    }
   }, []);
 
   // Función para cerrar sesión
@@ -171,16 +158,6 @@ function App() {
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('userData');
   };
-
-  //const [cartItems, setCartItems] = useState([]);
-
-  const [addedProduct, setAddedProduct] = useState(null); // Estado para el producto recién agregado
-
-  /*/ Modifica la función addToCart para establecer el producto recién agregado
-  const addToCart = (product) => {
-    setCartItems([...cartItems, product]); // Agregar un nuevo producto al carrito
-    setAddedProduct(product); // Establecer el producto recién agregado
-  };*/
 
   return (
     <Router>
@@ -261,7 +238,6 @@ function App() {
               brand: product.brand,
               stock: product.stock
             }))}
-            marcas={marcas}
             userRole={activeUser ? activeUser.role : null} // Pasar el rol del usuario si está activo
           />} />
 

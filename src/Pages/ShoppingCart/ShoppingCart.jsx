@@ -25,11 +25,6 @@ const ShoppingCart = () => {
 
     const { cartItems, setCartItems } = useCart();
 
-    const updateCartItems = (newItems) => {
-        setCartItems(newItems);
-        localStorage.setItem('cartItems', JSON.stringify(newItems));
-    };  
-
     console.log("productos en el carrito: ",cartItems);
     
 
@@ -46,7 +41,7 @@ const ShoppingCart = () => {
             data={cartItem.product}
             quantity={cartItem.quantity}
             stock={cartItem.product.stock}
-            updateCartItems={updateCartItems}
+
             cartItems={cartItems}
             setCartItems={setCartItems}
           />

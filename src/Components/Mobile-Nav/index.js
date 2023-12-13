@@ -13,7 +13,7 @@ import { useCart } from "../../Contexts/CartContext";
 
 const MobileNav = ({isLoggedIn, userRole}) =>
 {
-    const { cartItems, setCartItems } = useCart();
+    const { cartItems, getTotalItems } = useCart();
     const [activeIndex, setActiveIndex] = useState(0);
     const { pathname } = useLocation();//Destructura pathname directamente
 
@@ -85,7 +85,7 @@ const MobileNav = ({isLoggedIn, userRole}) =>
                             { isLoggedIn && userRole === "administrador" ? 
                             <span className="icon">
                                 <MdAssignmentAdd /> 
-                            </span>: <CartIcon itemCount={cartItems.length}/>}
+                            </span>: <CartIcon className={`list ${activeIndex === 4 ? 'active' : ''}`} itemCount={getTotalItems()}/>}
                             
                             <span className="text">{ isLoggedIn && userRole === "administrador" ? "Producto +" : "Carrito"}</span>
                         </a>

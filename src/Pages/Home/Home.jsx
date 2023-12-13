@@ -33,11 +33,6 @@ const Home = (props) => {
 
     console.log("elemento agregado al carrito",cartItems)
 
-    useEffect(() => {
-        localStorage.setItem('cartItems', JSON.stringify(cartItems));
-    }, [cartItems]);
-    
-
     return(
         <div>
             <div className = "carousel-container">

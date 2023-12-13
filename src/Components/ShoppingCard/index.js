@@ -3,6 +3,7 @@ import "./ShoppingCard.css"
 import { AiFillCloseCircle } from "react-icons/ai"
 import { colorPrimario, colorSecundario } from "../UI/Variables";
 import { useState } from "react";
+import { useCart } from "../../Contexts/CartContext";
 
 
 
@@ -110,17 +111,33 @@ const DeleteButton = styled(AiFillCloseCircle)`
 `;
 
 const ShoppingCard = (props) => {
-    const { photo, title, price, stock, marcas } = props.data || {};
-    console.log("stock del producto",stock);
-    console.log("nombre del producto",title);
-  
-    const [quantity, setQuantity] = useState(1);
 
-    const handleDelete = () => {
-      const updatedCartItems = props.cartItems.filter((item) => item.product.id !== props.data.id);
-      props.setCartItems(updatedCartItems);
-      props.updateCartItems(updatedCartItems);
+  const {cartItems, removeFromCart, updateCartItemQuantity, getTotalItems} = useCart();
+
+  const { photo, title, price, stock, marcas } = props.data || {};
+
+  
+  const cartProduct = cartItems.find(item => item.product.id === props.data.id)
+  
+  const [quantity, setQuantity] = useState(cartProduct ? cartProduct.quantity: 0);
+
+  const handleQuantityChange = (newQuantity) => {
+    const parsedQuantity = parseInt(newQuantity);
+    if(!isNaN(parsedQuantity)){
+      setQuantity(parsedQuantity);
+      if(parsedQuantity <= stock) {
+        updateCartItemQuantity(props.data.id, parsedQuantity);
+        const totalItems = getTotalItems();
+      }
+    }
+  }
+
+
+  const handleDelete = () => {
+      removeFromCart(props.data.id)
   };
+
+
   
     return (
 
@@ -140,12 +157,7 @@ const ShoppingCard = (props) => {
               min={1}
               max={stock}
               onChange={(e) => {
-                const selectedQuantity = parseInt(e.target.value);
-                if (selectedQuantity > stock) {
-                  setQuantity(stock); // Establecer la cantidad al máximo disponible (stock)
-                } else {
-                  setQuantity(selectedQuantity);
-                }
+                handleQuantityChange(e.target.value);
               }}
             />
           </QuantityDiv>
