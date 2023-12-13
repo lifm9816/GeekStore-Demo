@@ -147,8 +147,17 @@ function App() {
       const parsedUserData = JSON.parse(storedUserData);
       setUserData(parsedUserData);
     }
+
+    // Verificar si hay datos de productos almacenados en localStorage al cargar la página
+    const storedProducts = localStorage.getItem('products');
+    if (storedProducts) {
+      const parsedProducts = JSON.parse(storedProducts);
+      updateProducts(parsedProducts);
+    }
   
   }, []);
+
+  
 
   // Función para cerrar sesión
   const handleLogout = () => {
