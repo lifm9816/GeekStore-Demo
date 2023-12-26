@@ -29,23 +29,22 @@ const ShoppingCart = () => {
     
 
     useEffect(() => {
-        document.title = "Geekstore | Carrito";
+        document.title = "GeekStore | Carrito";
     }, [])
 
     return (
         <Div>
             <ProductsDiv>
             {cartItems.map((cartItem, index) => (
-          <ShoppingCard
-            key={index}
-            data={cartItem.product}
-            quantity={cartItem.quantity}
-            stock={cartItem.product.stock}
-
-            cartItems={cartItems}
-            setCartItems={setCartItems}
-          />
-        ))}
+                <ShoppingCard
+                    key={index}
+                    data={cartItem.product}
+                    quantity={cartItem.quantity}
+                    stock={cartItem.product.stock}
+                    cartItems={cartItems}
+                    setCartItems={setCartItems}
+                />
+            ))}
 
             </ProductsDiv>
         </Div>
