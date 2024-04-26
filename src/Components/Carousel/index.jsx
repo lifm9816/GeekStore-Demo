@@ -4,27 +4,8 @@ import aw2 from "../../assets/Images/aw2.jpg";
 import spiderman2 from "../../assets/Images/spiderman2.jpg";
 import gow from "../../assets/Images/gow.jpeg";
 import mario from "../../assets/Images/mario.jpeg";
-import styled from "styled-components";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-
-const Container = styled.div`
-    width: 50%;
-    height: 25%;
-    border-radius: 20px;
-    margin-top: 10px;
-    justify-content: center;
-    box-sizing: border-box;
-
-    @media(max-width: 800px)
-    {
-        width: 100%;
-        margin: 10px;
-    }
-`
-
-const Img = styled.img`
-    border-radius: 20px;
-`
+import { Container, Img } from "./Styles";
 
 const MyCarousel = () => {
     return(

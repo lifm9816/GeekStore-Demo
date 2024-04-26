@@ -1,39 +1,9 @@
 import { useEffect, useState } from "react";
-import styled from "styled-components";
 import SearchBar from "../../Components/SearchBar";
 import SearchCard from "../../Components/SearchCard";
+import { ResultsDiv } from "./Styles";
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import "./Search.css";
-
-const ResultsDiv = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 0 2%;
-    margin-top: 20px;
-
-    @media (min-width: 931px)
-    {
-        padding: 0 25%;
-    }
-`
-
-const FadeDiv = styled.div`
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-
-    &.fade-enter {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    &.fade-enter-active {
-        opacity: 1;
-        transform: translateY(0px);
-    }
-`;
 
 const Search = (props) => {
 

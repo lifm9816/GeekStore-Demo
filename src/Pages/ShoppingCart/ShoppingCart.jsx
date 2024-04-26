@@ -1,25 +1,8 @@
-import styled from "styled-components";
 import ShoppingCard from "../../Components/ShoppingCard";
+import { Div, ProductsDiv } from "./Styles";
 import { useState, useEffect } from "react";
 import { useCart } from "../../Contexts/CartContext";
-
-const Div = styled.div`
-    margin-bottom: 20%;
-`
-
-const ProductsDiv = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 0 2%;
-    margin-top: 20px;
-
-    @media (min-width: 931px)
-    {
-        padding: 0 25%;
-    }
-`
+import { Div } from "./Styles";
 
 const ShoppingCart = () => {
 

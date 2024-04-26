@@ -1,24 +1,9 @@
-import styled from "styled-components";
 import MyCarousel from "../../Components/Carousel";
 import "./Home.css";
 import { useEffect } from "react";
 import Card from "../../Components/Card";
 import { useCart } from "../../Contexts/CartContext";
-
-const Brand = styled.section`
-    width: 100%;
-    padding: 32px;
-    box-sizing: border-box;
-    text-align: center;
-    position: relative;
-    margin-bottom: 10%;
-`
-
-const ProductDiv = styled.div`
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-`
+import { Brand, ProductDiv } from "./Styles";
 
 const Home = (props) => {
 
