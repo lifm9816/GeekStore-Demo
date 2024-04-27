@@ -3,9 +3,11 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Formulario, Etiqueta, Input, BtnCuenta, IniciarSesion, CrearCuenta, DivBtn, DivInput } from "./Styles";
 import { Contenedor } from "../../Components/UI";
+import { useSession } from "../../Contexts/SessionContext";
 
-const Login = ({ users, handleUserLogin }) =>{
+const Login = ({ users }) =>{
 
+    const { handleUserLogin } = useSession();
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -23,11 +25,6 @@ const Login = ({ users, handleUserLogin }) =>{
     
         if (user) {
             handleUserLogin(user); // Establece el usuario activo
-
-            localStorage.setItem('isLoggedIn', true); // Marca la sesión como iniciada
-            localStorage.setItem('userData', JSON.stringify(user)); // Almacena los datos del usuario
-        
-    
           // Redirecciona al home
           navigate("/");
         } else {

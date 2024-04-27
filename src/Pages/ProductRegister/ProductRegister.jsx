@@ -5,23 +5,25 @@ import { Formulario, Contenedor, Etiqueta, CampoTexto} from "../../Components/UI
 import { RegistrarProducto, DivFoto, PortadaProducto, DivBtn, Div, CropContainer, CropPreview, ErrorMessage } from "./Styles";
 import { v4 as uuid } from "uuid"
 import { useNavigate } from "react-router-dom";
+import { useSession } from "../../Contexts/SessionContext";
 
-const ProductRegister = ({ brands, products, updateProducts, isLoggedIn, userRole, userData}) =>
+const ProductRegister = ({ brands, products, updateProducts}) =>
 {
+    const { isLoggedIn, userData } = useSession();
     const navigate = useNavigate();
-    console.log(isLoggedIn, userRole);
+    console.log(isLoggedIn, userData.role);
     
 
     useEffect(() => {
         document.title = "GeekStore | Registrar Producto";
 
-        if (!isLoggedIn || userRole !== "administrador") {
+        if (!isLoggedIn || userData.role !== "administrador") {
             // Si el usuario no tiene acceso, redirigir a otra página (por ejemplo, la página de inicio)
             navigate('/'); // Redirigir a la página de inicio
             
  
           }
-        }, [isLoggedIn, userRole]);
+        }, [isLoggedIn, userData.role]);
       
 
 

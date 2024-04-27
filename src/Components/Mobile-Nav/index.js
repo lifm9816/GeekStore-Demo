@@ -9,10 +9,12 @@ import logo from "../../assets/Images/icon.png"
 import { Link, useLocation } from "react-router-dom";
 import CartIcon from "../CartIcon";
 import { useCart } from "../../Contexts/CartContext";
+import { useSession } from "../../Contexts/SessionContext";
 
 
-const MobileNav = ({isLoggedIn, userRole}) =>
+const MobileNav = () =>
 {
+    const { isLoggedIn, userData } = useSession();
     const { cartItems, getTotalItems } = useCart();
     const [activeIndex, setActiveIndex] = useState(0);
     const { pathname } = useLocation();//Destructura pathname directamente
@@ -28,7 +30,7 @@ const MobileNav = ({isLoggedIn, userRole}) =>
               ? { "/account": 3 }
               : { "/login": 3, "/signin": 3 }
             ),
-            ...( isLoggedIn && userRole === "administrador"
+            ...( isLoggedIn && userData.role === "administrador"
                 ?{"/productRegister":4}    
                 : {"/shopping": 4})
           };
@@ -80,14 +82,14 @@ const MobileNav = ({isLoggedIn, userRole}) =>
                     </Link>
                 </li>
                 <li className={`list ${activeIndex === 4 ? 'active' : ''}`}>
-                    <Link to = {isLoggedIn && userRole === "administrador" ? "/productRegister" : "/shopping"}>
+                    <Link to = {isLoggedIn && userData.role === "administrador" ? "/productRegister" : "/shopping"}>
                         <a href="#" onClick={() => setActiveIndex(4)}>
-                            { isLoggedIn && userRole === "administrador" ? 
+                            { isLoggedIn && userData.role === "administrador" ? 
                             <span className="icon">
                                 <MdAssignmentAdd /> 
                             </span>: <CartIcon className={`list ${activeIndex === 4 ? 'active' : ''}`} itemCount={getTotalItems()}/>}
                             
-                            <span className="text">{ isLoggedIn && userRole === "administrador" ? "Producto +" : "Carrito"}</span>
+                            <span className="text">{ isLoggedIn && userData.role === "administrador" ? "Producto +" : "Carrito"}</span>
                         </a>
                     </Link>
                 </li>

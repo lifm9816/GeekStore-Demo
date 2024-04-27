@@ -2,7 +2,6 @@ import ShoppingCard from "../../Components/ShoppingCard";
 import { Div, ProductsDiv } from "./Styles";
 import { useState, useEffect } from "react";
 import { useCart } from "../../Contexts/CartContext";
-import { Div } from "./Styles";
 
 const ShoppingCart = () => {
 

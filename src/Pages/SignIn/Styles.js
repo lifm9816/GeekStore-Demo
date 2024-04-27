@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { btnSignIn, colorPrimario } from "../../Components/UI/Variables";
+import def_user from "../../assets/Images/def-user.png"
 import { Btn } from "../../Components/UI";
 
 export const CrearCuenta = styled(Btn)`

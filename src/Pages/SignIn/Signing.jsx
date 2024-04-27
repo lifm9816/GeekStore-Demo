@@ -8,9 +8,11 @@ import portada from "../../assets/Images/portada_miles.jpeg"
 import { validateName, validateLastName, validateEmail, validatePhone, ValidatePassword, confirmPassword } from "../../Validations/Validations";
 import { v4 as uuid } from "uuid"
 import { useNavigate } from "react-router-dom";
+import { useSession } from "../../Contexts/SessionContext";
 
 const SignIn = (props) => {
 
+    const { handleUserLogin } = useSession();
     const history = useNavigate();
 
     useEffect(() => {
@@ -135,7 +137,7 @@ const SignIn = (props) => {
             localStorage.setItem('users', JSON.stringify(props.updateUsers)); // Corregido aquí, usa props.updateUsers
 
             // Agregar la función handleUserLogin para establecer al usuario como activo
-            props.handleUserLogin(newUser);
+            handleUserLogin(newUser);
         }
         else {
             const newUser = {
@@ -155,14 +157,10 @@ const SignIn = (props) => {
             localStorage.setItem('users', JSON.stringify(props.updateUsers)); // Corregido aquí, usa props.updateUsers
 
             // Agregar la función handleUserLogin para establecer al usuario como activo
-            props.handleUserLogin(newUser); 
+            handleUserLogin(newUser); 
         }
-
-        
-        
-        
         // Redirigir a la página de inicio
-        history('/login'); // Cambia '/' por la ruta de tu página de inicio
+        history('/'); // Cambia '/' por la ruta de tu página de inicio
     }  
 
 

@@ -23,37 +23,9 @@ import { v4 as uuid } from "uuid"
 import ProductRegister from './Pages/ProductRegister/ProductRegister';
 import ShoppingCart from './Pages/ShoppingCart/ShoppingCart';
 import { CartProvider } from './Contexts/CartContext';
+import { SessionProvider } from './Contexts/SessionContext';
 
 function App() {
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [activeUser, setActiveUser] = useState(null); // Nuevo estado para almacenar al usuario activo
-  const [userData, setUserData] = useState(null); // Define el estado de los datos del usuario
-  
-  const handleUserLogin = (user) => {
-    setActiveUser(user); // Establecer el usuario que inició sesión como activo
-    setIsLoggedIn(true); // Establecer el estado de inicio de sesión como verdadero
-    setUserData(user); // Actualizar el estado de userData con los datos del usuario
-    localStorage.setItem('isLoggedIn', true); // Guardar el estado de inicio de sesión en el localStorage
-    localStorage.setItem('userData', JSON.stringify(user)); // Guardar los datos del usuario en el localStorage
-    // Otras acciones después del inicio de sesión si las hay
-  };
-
-  useEffect(() => {
-    // Verificar si hay datos de usuario almacenados en localStorage al cargar la página
-    const storedUserData = localStorage.getItem('userData');
-    if (storedUserData) {
-      const parsedUserData = JSON.parse(storedUserData);
-      setUserData(parsedUserData);
-    }
-  }, []);
-
-
-  const handleSetUserData = (userData) => {
-    setUserData(userData); // Actualiza el estado de los datos del usuario
-    // Guardar en localStorage
-    localStorage.setItem('userData', JSON.stringify(userData));
-  };
 
   const [marcas, actualizarMarca] = useState ([
     {
@@ -129,24 +101,6 @@ function App() {
   ])
 
   useEffect(() => {
-    // Verificar el estado de inicio de sesión al cargar la aplicación
-    const loggedIn = localStorage.getItem('isLoggedIn');
-    const userData = localStorage.getItem('userData');
-    const activeUser = localStorage.getItem("userData");
-    if (loggedIn && userData && activeUser) {
-      setIsLoggedIn(true);
-      setUserData(JSON.parse(userData));
-      setActiveUser({ role: JSON.parse(userData).role });
-    }
-  }, []);
-
-  useEffect(() => {
-    // Verificar si hay datos de usuarios almacenados en localStorage al cargar la página
-    const storedUserData = localStorage.getItem('userData');
-    if (storedUserData) {
-      const parsedUserData = JSON.parse(storedUserData);
-      setUserData(parsedUserData);
-    }
 
     // Verificar si hay datos de productos almacenados en localStorage al cargar la página
     const storedProducts = localStorage.getItem('products');
@@ -157,116 +111,80 @@ function App() {
   
   }, []);
 
-  
-
-  // Función para cerrar sesión
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    setUserData(null);
-    setActiveUser(null)
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('userData');
-  };
-
   return (
     <Router>
-      <CartProvider>
-        <Header />
-        <Routes>
-          <Route path = "/" element = {<Home 
-            products={products.map((product) => ({
-              id: product.id,
-              title: product.title,
-              photo: product.photo,
-              description: product.description,
-              price: product.price,
-              brand: product.brand,
-              stock: product.stock
-            }))}
-            marcas={marcas}
-            isLoggedIn={isLoggedIn} 
-            userData={userData}
-            userRole={activeUser ? activeUser.role : null} // Pasar el rol del usuario si está activo 
-            />} 
-          />
+      <SessionProvider>
+        <CartProvider>
+          <Header />
+            <Routes>
+              <Route path = "/" element = {<Home 
+                products={products.map((product) => ({
+                  id: product.id,
+                  title: product.title,
+                  photo: product.photo,
+                  description: product.description,
+                  price: product.price,
+                  brand: product.brand,
+                  stock: product.stock
+                }))}
+                marcas={marcas}
+              />} />
 
-          <Route path = "/search" element = {<Search 
-            products = {products.map((product) => ({
-              id: product.id,
-              title: product.title,
-              photo: product.photo,
-              description: product.description,
-              price: product.price,
-              brand: product.brand,
-              stock: product.stock
-            }))}
-            marcas={marcas}
-            isLoggedIn={isLoggedIn} 
-            userData={userData}
-            userRole={activeUser ? activeUser.role : null} // Pasar el rol del usuario si está activo
-          />} />
+              <Route path = "/search" element = {<Search 
+                products = {products.map((product) => ({
+                  id: product.id,
+                  title: product.title,
+                  photo: product.photo,
+                  description: product.description,
+                  price: product.price,
+                  brand: product.brand,
+                  stock: product.stock
+                }))}
+                marcas={marcas}
+              />} />
 
-          <Route path = "/about" element = {<About isLoggedIn={isLoggedIn} 
-            userData={userData}
-            userRole={activeUser ? activeUser.role : null} // Pasar el rol del usuario si está activo
-          />}/>
+              <Route path = "/about" element = {<About
+              />} />
 
-          <Route path = "/login" element = {<Login 
-            users={users}
-            handleUserLogin={handleUserLogin}
-            setIsLoggedIn={setIsLoggedIn} // Pasar setIsLoggedIn al componente Login
-          />} />
+              <Route path = "/login" element = {<Login 
+                users={users}
+              />} />
 
-          <Route path = "/signin" element = {<SignIn 
-            isLoggedIn={isLoggedIn} 
-            setIsLoggedIn={setIsLoggedIn} 
-            users = {users} 
-            updateUsers = {updateUsers}
-            handleUserLogin = {handleUserLogin} // Pasar la función handleUserLogin a SignIn
-          />} />
+              <Route path = "/signin" element = {<SignIn  
+                users = {users} 
+                updateUsers = {updateUsers}
+              />} />
 
-          <Route path = "/account" element = {<Account 
-            isLoggedIn={isLoggedIn}
-            setIsLoggedIn={setIsLoggedIn}
-            users={users}
-            updateUsers={updateUsers}
-            activeUser={activeUser} // Pasar el usuario activo a Account
-            userData={userData} // Pasar el estado userData como props.userData a Account
-            setData={handleSetUserData} // Pasa la función para establecer los datos del usuario
-            userRole={activeUser ? activeUser.role : null} // Pasar el rol del usuario si está activo
-            logOut={handleLogout}
-          />} />
+              <Route path = "/account" element = {<Account 
+                users={users}
+                updateUsers={updateUsers}                
+              />} />
 
-          <Route path="/shopping" element={<ShoppingCart 
-            products = {products.map((product) => ({
-              id: product.id,
-              title: product.title,
-              photo: product.photo,
-              description: product.description,
-              price: product.price,
-              brand: product.brand,
-              stock: product.stock
-            }))}
-            userRole={activeUser ? activeUser.role : null} // Pasar el rol del usuario si está activo
-          />} />
+              <Route path="/shopping" element={<ShoppingCart 
+                products = {products.map((product) => ({
+                  id: product.id,
+                  title: product.title,
+                  photo: product.photo,
+                  description: product.description,
+                  price: product.price,
+                  brand: product.brand,
+                  stock: product.stock
+                }))}                
+              />} />
 
-          <Route path="/productRegister" element={<ProductRegister
-            brands={marcas.map((marca) => marca.brand)}
-            products={products}
-            updateProducts={(newProduct) => {
-              const updatedProducts = [...products, newProduct];
-              updateProducts(updatedProducts);
-              localStorage.setItem('products', JSON.stringify(updatedProducts));
-            }}
-            isLoggedIn={isLoggedIn} // Pasar el estado de la sesión
-            userRole={activeUser ? activeUser.role : null} // Pasar el rol del usuario si está activo
-            userData={userData}
-          />} />
-        </Routes>
-        <MobileNav  isLoggedIn={isLoggedIn}
-          userRole={activeUser ? activeUser.role : null} 
-        />
-      </CartProvider>
+              <Route path="/productRegister" element={<ProductRegister
+                brands={marcas.map((marca) => marca.brand)}
+                products={products}
+                updateProducts={(newProduct) => {
+                  const updatedProducts = [...products, newProduct];
+                  updateProducts(updatedProducts);
+                  localStorage.setItem('products', JSON.stringify(updatedProducts));
+                }}
+              />} />
+            </Routes>
+          <MobileNav/>
+        </CartProvider>
+      </SessionProvider>          
     </Router>
   );
 }
