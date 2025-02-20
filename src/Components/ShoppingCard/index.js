@@ -1,4 +1,4 @@
-import { Card, ImageDiv, ProductImage, Info, Title, Price, QuantityDiv, QuantityMessage, Quantity, DeleteButton } from "./Styles";
+import { Card, ProductImage, Info, Title, Price, QuantityDiv, QuantityMessage, Quantity, DeleteButton } from "./Styles";
 import { useState } from "react";
 import { useCart } from "../../Contexts/CartContext";
 
@@ -35,9 +35,9 @@ const ShoppingCard = (props) => {
 
       <Card>
         <DeleteButton onClick={handleDelete} />
-        <ImageDiv>
+        
           <ProductImage src={photo} alt={title} />
-        </ImageDiv>
+        
         <Info>
           <Title>{title}</Title>
           <Price>{`$ ${price.toFixed(2)}`}</Price>

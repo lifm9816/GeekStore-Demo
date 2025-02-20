@@ -1,15 +1,19 @@
-import React from "react";
-import logo from "../../assets/Images/logo.png";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { BtnLogIn, BtnSignIn, StyledHeader, Logo } from "./Styles";
+import { ThemeContext } from "../../App";
+import { Dark, Light } from "../UI/Themes";
 
-const Header = () =>{
+const Header = () => {
+    const { theme } = useContext(ThemeContext);
+    const themeStyle = theme === "light" ? Dark : Light;
+
     return(
         <StyledHeader>
             <div></div>
             <div>
                 <Link to="/">
-                    <Logo src={logo} alt = "Logo de GeekStore" />
+                    <Logo src={themeStyle.logo} alt="Logo de GeekStore" />
                 </Link>    
             </div>
             <div>

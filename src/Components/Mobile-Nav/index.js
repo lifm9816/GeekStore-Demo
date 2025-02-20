@@ -5,11 +5,14 @@ import { HiUserAdd, HiUser } from "react-icons/hi";
 import { FaShoppingCart } from "react-icons/fa";
 import { BsCircleHalf} from "react-icons/bs";
 import { MdAssignmentAdd } from "react-icons/md";
-import logo from "../../assets/Images/icon.png"
 import { Link, useLocation } from "react-router-dom";
 import CartIcon from "../CartIcon";
 import { useCart } from "../../Contexts/CartContext";
 import { useSession } from "../../Contexts/SessionContext";
+import { NavBar } from "./Styles";
+import { ThemeContext } from "../../App";
+import { Light, Dark } from "../UI/Themes";
+import React, { useContext } from "react";
 
 
 const MobileNav = () =>
@@ -18,6 +21,9 @@ const MobileNav = () =>
     const { cartItems, getTotalItems } = useCart();
     const [activeIndex, setActiveIndex] = useState(0);
     const { pathname } = useLocation();//Destructura pathname directamente
+
+    const { theme } = useContext(ThemeContext);
+    const themeStyle = theme === "light" ? Dark : Light;
 
     useEffect(() => {
 
@@ -40,7 +46,7 @@ const MobileNav = () =>
     },[pathname, isLoggedIn]);
 
     return(
-        <div className="navigation">
+        <NavBar className = "navigation">
             <ul>
                 <li className={`list ${activeIndex === 0 ? 'active' : ''}`}>
                     <Link to="/" >
@@ -66,7 +72,7 @@ const MobileNav = () =>
                     <Link to="/about">
                         <a href="#" onClick={() => setActiveIndex(2)}>
                             <span className="icon">
-                                <img className="logo_movil" src={logo} alt="" />
+                                <img className="logo_movil" src={themeStyle.icon} alt="" />
                             </span>
                         </a>
                     </Link>
@@ -95,7 +101,7 @@ const MobileNav = () =>
                 </li>
                 <div className="indicator"></div>      
             </ul>
-        </div>
+        </NavBar>
     )
 }
 

@@ -18,12 +18,17 @@ import About from './Pages/About/About';
 import Login from './Pages/Login/Login';
 import SignIn from './Pages/SignIn/Signing';
 import Account from './Pages/Account/Account';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { v4 as uuid } from "uuid"
 import ProductRegister from './Pages/ProductRegister/ProductRegister';
 import ShoppingCart from './Pages/ShoppingCart/ShoppingCart';
 import { CartProvider } from './Contexts/CartContext';
 import { SessionProvider } from './Contexts/SessionContext';
+import { NavContainer } from './Components/UI/Elements';
+import { ThemeProvider } from 'styled-components';
+import { Light, Dark } from './Components/UI/Themes';
+
+export const ThemeContext = React.createContext(null);
 
 function App() {
 
@@ -111,78 +116,92 @@ function App() {
   
   }, []);
 
+  const [ theme, setTheme ] = useState('light');
+  const themeStyle = theme === "light" ? Dark : Light;
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme") || "light"
+    setTheme(savedTheme); // Establece el tema dese el LocalStorage
+  });
+
   return (
     <Router>
       <SessionProvider>
         <CartProvider>
-          <Header />
-            <Routes>
-              <Route path = "/" element = {<Home 
-                products={products.map((product) => ({
-                  id: product.id,
-                  title: product.title,
-                  photo: product.photo,
-                  description: product.description,
-                  price: product.price,
-                  brand: product.brand,
-                  stock: product.stock
-                }))}
-                marcas={marcas}
-              />} />
+          <ThemeContext.Provider value = { { setTheme, theme } }>
+            <ThemeProvider theme = { themeStyle }>
+              <NavContainer>
+                <Header />
+                  <Routes>
+                    <Route path = "/" element = {<Home 
+                      products={products.map((product) => ({
+                        id: product.id,
+                        title: product.title,
+                        photo: product.photo,
+                        description: product.description,
+                        price: product.price,
+                        brand: product.brand,
+                        stock: product.stock
+                      }))}
+                      marcas={marcas}
+                    />} />
 
-              <Route path = "/search" element = {<Search 
-                products = {products.map((product) => ({
-                  id: product.id,
-                  title: product.title,
-                  photo: product.photo,
-                  description: product.description,
-                  price: product.price,
-                  brand: product.brand,
-                  stock: product.stock
-                }))}
-                marcas={marcas}
-              />} />
+                    <Route path = "/search" element = {<Search 
+                      products = {products.map((product) => ({
+                        id: product.id,
+                        title: product.title,
+                        photo: product.photo,
+                        description: product.description,
+                        price: product.price,
+                        brand: product.brand,
+                        stock: product.stock
+                      }))}
+                      marcas={marcas}
+                    />} />
 
-              <Route path = "/about" element = {<About
-              />} />
+                    <Route path = "/about" element = {<About
+                    />} />
 
-              <Route path = "/login" element = {<Login 
-                users={users}
-              />} />
+                    <Route path = "/login" element = {<Login 
+                      users={users}
+                    />} />
 
-              <Route path = "/signin" element = {<SignIn  
-                users = {users} 
-                updateUsers = {updateUsers}
-              />} />
+                    <Route path = "/signin" element = {<SignIn  
+                      users = {users} 
+                      updateUsers = {updateUsers}
+                    />} />
 
-              <Route path = "/account" element = {<Account 
-                users={users}
-                updateUsers={updateUsers}                
-              />} />
+                    <Route path = "/account" element = {<Account 
+                      users={users}
+                      updateUsers={updateUsers}                
+                    />} />
 
-              <Route path="/shopping" element={<ShoppingCart 
-                products = {products.map((product) => ({
-                  id: product.id,
-                  title: product.title,
-                  photo: product.photo,
-                  description: product.description,
-                  price: product.price,
-                  brand: product.brand,
-                  stock: product.stock
-                }))}                
-              />} />
+                    <Route path="/shopping" element={<ShoppingCart 
+                      products = {products.map((product) => ({
+                        id: product.id,
+                        title: product.title,
+                        photo: product.photo,
+                        description: product.description,
+                        price: product.price,
+                        brand: product.brand,
+                        stock: product.stock
+                      }))}                
+                    />} />
 
-              <Route path="/productRegister" element={<ProductRegister
-                brands={marcas.map((marca) => marca.brand)}
-                products={products}
-                updateProducts={(newProduct) => {
-                  const updatedProducts = [...products, newProduct];
-                  updateProducts(updatedProducts);
-                  localStorage.setItem('products', JSON.stringify(updatedProducts));
-                }}
-              />} />
-            </Routes>
-          <MobileNav/>
+                    <Route path="/productRegister" element={<ProductRegister
+                      brands={marcas.map((marca) => marca.brand)}
+                      products={products}
+                      updateProducts={(newProduct) => {
+                        const updatedProducts = [...products, newProduct];
+                        updateProducts(updatedProducts);
+                        localStorage.setItem('products', JSON.stringify(updatedProducts));
+                      }}
+                    />} />
+                  </Routes>
+                <MobileNav/>
+              </NavContainer>
+            </ThemeProvider>
+          </ThemeContext.Provider>
         </CartProvider>
       </SessionProvider>          
     </Router>

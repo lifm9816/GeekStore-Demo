@@ -1,27 +1,22 @@
-.icon {
-    position: relative;
-  }
-  
-  .cart-counter {
+import styled from "styled-components";
+
+export const Icon = styled.div`
+.cart-counter {
     width: 17px;
   height: 17px;
   position: absolute;
-  top: 20px;
+  top: 13px;
   right: -11px;
- 
+  background-color: ${({theme}) => theme.primary};
   border-radius: 100%;
   font-weight: bold;
   font-size: 0.8rem;
-  
+  color: #19222D;
   display: flex;
   align-items: center;
   justify-content: center;
   line-height: 1; /* Ajusta el espacio vertical del texto */
   text-align: center; /* Centra el texto horizontalmente */
   }
-
-  @media screen and (min-width: 1001px){
-    .cart-counter{
-      top:20px;
-    }
-  }
+    
+`

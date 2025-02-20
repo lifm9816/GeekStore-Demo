@@ -12,7 +12,7 @@ export const BtnLogIn = styled(Btn)`
 `
 
 export const BtnSignIn = styled(Btn)`
-    background-color: ${btnSignIn};
+    background-color: ${ ({ theme }) => theme. secondary };
 
     @media (max-width: 799px)
     {
@@ -21,7 +21,7 @@ export const BtnSignIn = styled(Btn)`
 `
 
 export const StyledHeader = styled.nav`
-    background-color: ${colorPrimario};
+    background-color: ${({ theme }) => theme.primary};
     display: flex;
     justify-content: space-evenly;
     height: auto;
