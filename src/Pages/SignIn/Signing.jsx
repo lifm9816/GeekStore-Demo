@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import AvatarEditor from 'react-avatar-editor';
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { Formulario, Contenedor, Etiqueta, CampoTexto} from "../../Components/UI";
@@ -8,10 +8,10 @@ import portada from "../../assets/Images/portada_miles.jpeg"
 import { validateName, validateLastName, validateEmail, validatePhone, ValidatePassword, confirmPassword } from "../../Validations/Validations";
 import { v4 as uuid } from "uuid"
 import { useNavigate } from "react-router-dom";
-import { useSession } from "../../Contexts/SessionContext";
+import { useSession } from "../../Contexts/SessionContext"
 
 const SignIn = (props) => {
-
+ 
     const { handleUserLogin } = useSession();
     const history = useNavigate();
 

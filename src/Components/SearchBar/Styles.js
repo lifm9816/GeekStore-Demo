@@ -23,7 +23,7 @@ export const Search_Container = styled.div`
 `
 
 export const Logo = styled.img`
-    max-width: 50px;
+    max-width: 55px;
     z-index: 1;
     border-radius: 50% 0 0 50%;
 `
@@ -39,10 +39,10 @@ export const Search = styled.input`
 `
 
 export const Button = styled.button`
-    background-color: #19222D;
+    background-color: ${ ({ theme }) => theme.primary};
     color: #FFFFFF;
     border: none;
-    padding: 18px;
+    padding: 19px;
     border-radius: 0 50% 50% 0;
     cursor: pointer;
 `

@@ -1,13 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 import { MdOutlineLightMode, MdOutlineNightlightRound } from "react-icons/md";
 import { ButtonContainer, TButton } from "./Styles";
+import { ThemeContext } from "../../App";
 
-const ThemeButton = ({ theme, setTheme }) => {
+const ThemeButton = () => {
+
+    const { theme, setTheme } = useContext(ThemeContext)
+
+    const ChangeTheme = () => {
+
+        setTheme(( prevTheme ) => {
+            const newTheme = prevTheme === "light" ? "dark" : "light";
+            localStorage.setItem("theme", newTheme);
+            return newTheme;
+        })
+
+    }
 
     return(
         <ButtonContainer>
-            <TButton onClick={ ()  => setTheme(theme === "light" ? "dark" : "light")}>
-                { theme === "light" ? <MdOutlineLightMode/> : <MdOutlineNightlightRound/>}
+            <TButton onClick={ChangeTheme}>
+                { theme === "light" ? <MdOutlineNightlightRound/> : <MdOutlineLightMode/>}
             </TButton>
         </ButtonContainer>
     )

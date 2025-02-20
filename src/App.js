@@ -117,12 +117,8 @@ function App() {
   
   }, []);
 
-  const [ theme, setTheme ] = useState('light');
-  const themeStyle = theme === "light" ? Dark : Light;
-
-  useEffect(() => {
-    localStorage.setItem("theme", theme)
-  }, [theme]);
+  const [ theme, setTheme ] = useState(localStorage.getItem("theme") || "light");
+  const themeStyle = theme === "light" ? Light : Dark;
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") || "light"
@@ -203,7 +199,7 @@ function App() {
                       }}
                     />} />
                   </Routes>
-                  <ThemeButton theme = { theme } setTheme = { setTheme }/>
+                  <ThemeButton/>
                 <MobileNav/>
               </NavContainer>
             </ThemeProvider>

@@ -6,7 +6,7 @@ import { Dark, Light } from "../UI/Themes";
 
 const Header = () => {
     const { theme } = useContext(ThemeContext);
-    const themeStyle = theme === "light" ? Dark : Light;
+    const themeStyle = theme === "light" ? Light : Dark;
 
     return(
         <StyledHeader>

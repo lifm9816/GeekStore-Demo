@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import logo from "../../assets/Images/icon.png"
 import { BsSearch } from "react-icons/bs"
 import { Search_Bar, Search_Container, Logo, Search, Button } from "./Styles";
+import { ThemeContext } from "../../App";
+import { Light, Dark } from "../UI/Themes";
 
 function SearchBar({onSearch}) {
     const [searchTerm, setSearchTerm] = useState("");
+
+    const { theme } = useContext(ThemeContext);
+    const themeStyle = theme === "light" ? Light : Dark;
 
     //Resultados automáticos
     const handleInputChange = (e) => {
@@ -31,7 +36,7 @@ function SearchBar({onSearch}) {
     return(
         <Search_Bar>
            <Search_Container>
-            <Logo src={logo} />
+            <Logo src={themeStyle.icon} />
             <Search 
                 type="text"
                 placeholder="¿Qué comprarás hoy?"

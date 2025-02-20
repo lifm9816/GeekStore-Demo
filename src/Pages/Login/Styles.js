@@ -17,7 +17,7 @@ export const Formulario = styled.form`
 `
 
 export const Etiqueta = styled.label`
-    background-color: ${colorPrimario};
+    background-color: ${ ({ theme }) => theme.primary};
     font-size: 20px;
     color: #FFFFFF;
     padding: 5px 10px;
@@ -41,16 +41,20 @@ export const BtnCuenta = styled(Btn)`
 `
 
 export const IniciarSesion = styled(BtnCuenta)`
-    background-color: ${btnSignIn};
+    background-color: ${ ({ theme }) => theme.secondary };
     
     &:hover
     {
-        background-color: #e08044;
+        background-color: ${ ({ theme }) => theme.secondary_hover };
     }
 `
 
 export const CrearCuenta = styled(BtnCuenta)`
-    background-color: ${colorPrimario};
+    background-color: ${ ({ theme }) => theme.primary };
+
+    &:hover{
+        background-color: ${ ({ theme }) => theme.primary_hover };
+    }
 `
 
 export const DivInput = styled.div`

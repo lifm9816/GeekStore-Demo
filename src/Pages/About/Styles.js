@@ -3,15 +3,15 @@ import { colorPrimario, colorSecundario } from "../../Components/UI/Variables";
 import "./About.css"
 
 export const SobreDiv = styled.div`
-    margin: 10%;  
+    color: ${ ({ theme }) => theme.text_about};
+    margin: 20px 10% 10% 10%;  
 `
 
 export const Titulo = styled.h1`
-    color: ${colorPrimario};
     text-align: center;
     font-size: 30px;
     font-weight: 400;
-    border-color: ${colorPrimario};
+    border-color: ${ ({ theme }) => theme.text_about };
     border-bottom: 3px solid;
     padding-bottom: 10px;
     margin-bottom: 10px;
@@ -63,6 +63,7 @@ export const FotoFundador = styled.img`
 `
 
 export const NomFundador = styled.span`
+    color: ${ ({ theme }) => theme.text_about};
     font-family: "Orbitron";
     font-weight: 600;
     font-size: 30px;

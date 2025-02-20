@@ -2,9 +2,13 @@ import styled from "styled-components";
 import { btnSignIn, colorPrimario } from "../../Components/UI/Variables";
 import def_user from "../../assets/Images/def-user.png"
 import { Btn } from "../../Components/UI";
+import { ThemeContext } from "../../App";
+import { Light, Dark } from "../../Components/UI/Themes";
 
 export const CrearCuenta = styled(Btn)`
-    background-color: ${btnSignIn};
+
+
+    background-color: ${ ({ theme }) => theme.secondary };
     font-size: 25px;
     padding: 20px;
     transition: all .5s ease-in-out;
@@ -15,7 +19,7 @@ export const CrearCuenta = styled(Btn)`
     display: block;
     &:hover
     {
-        background-color: #e08044;
+        background-color: ${ ({ theme }) => theme.secondary_hover};
     }
 `
 
@@ -35,7 +39,7 @@ export const InputFoto = styled.label`
     height: 150px;
     width: 150px;
     border-radius: 100%;
-    background: url(${def_user}) center center / cover no-repeat;
+    background: ${ ({ theme }) =>  `url(${theme.def_user})`} center center / cover no-repeat;
     cursor: pointer;
     margin: 15px 40%;
     overflow: hidden;
@@ -134,7 +138,7 @@ export const PasswordInput = styled.input`
 `;
 
 export const ShowPasswordButton = styled.button`
-    background-color: ${colorPrimario};
+    background-color: ${ ({ theme }) => theme.primary };
     color: #F9F9F9;
     border-radius: 0 10px 10px 0;
     border: none;

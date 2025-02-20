@@ -7,6 +7,7 @@ export const ResultsDiv = styled.div`
     justify-content: center;
     padding: 0 2%;
     margin-top: 20px;
+    margin-bottom: 10%;
 
     @media (min-width: 931px)
     {

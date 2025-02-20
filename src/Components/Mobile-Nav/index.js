@@ -23,7 +23,7 @@ const MobileNav = () =>
     const { pathname } = useLocation();//Destructura pathname directamente
 
     const { theme } = useContext(ThemeContext);
-    const themeStyle = theme === "light" ? Dark : Light;
+    const themeStyle = theme === "light" ? Light : Dark;
 
     useEffect(() => {
 

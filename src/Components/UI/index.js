@@ -39,7 +39,7 @@ export const Contenedor = styled.div`
 `
 
 export const Etiqueta = styled.label`
-    background-color: ${colorPrimario};
+    background-color: ${ ({ theme }) => theme.primary };
     font-size: 20px;
     color: #FFFFFF;
     padding: 5px 10px;

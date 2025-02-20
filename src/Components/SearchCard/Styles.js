@@ -21,7 +21,7 @@ export const ProductImage = styled.img`
 `
 
 export const Info = styled.div`
-    background-color: #FFFFFF;
+    background-color: ${ ({ theme }) => theme.chart_color};
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.08);
     border-radius: 0px 10px 10px 0px;
     min-height: 100px;
@@ -32,7 +32,7 @@ export const Info = styled.div`
 `
 
 export const Title = styled.h4`
-    color: ${colorPrimario};
+    color: ${ ({ theme }) => theme.chart_title};
     font-size: 18px;
     line-height: 22px;
     font-weight: bold;
@@ -42,7 +42,7 @@ export const Title = styled.h4`
 export const Price = styled.h5`
     font-size: 18px;
     line-height: 22px;
-    color: ${colorSecundario};
+    color: ${ ({ theme }) => theme.chart_price };
     padding: 0 24px;
     font-weight: bold;
     margin: 0;
@@ -59,7 +59,7 @@ export const BtnDiv = styled.div`
 `
 
 export const AddBtn = styled.button`
-    background-color: ${colorPrimario};
+    background-color: ${ ({ theme }) => theme.add_button };
     border-radius: 7px;
     color: #F9F9F9;
     padding: 10px;
@@ -70,7 +70,7 @@ export const AddBtn = styled.button`
 `
 
 export const ViewBtn = styled.button`
-    background-color: ${colorSecundario};
+    background-color: ${ ({ theme }) => theme.view_button };
     border-radius: 7px;
     color: #F9F9F9;
     padding: 10px;
