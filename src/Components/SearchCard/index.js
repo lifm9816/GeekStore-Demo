@@ -5,9 +5,9 @@ const SearchCard = (props) => {
 
     return (
         <Card>
-            <ImageDiv>
-                <ProductImage src = {photo} alt = {title} />
-            </ImageDiv>
+            
+            <ProductImage src = {photo} alt = {title} />
+            
             <Info>
                 <Title> { title } </Title>
                 <Price> { `$ ${price.toFixed(2)}` } </Price>

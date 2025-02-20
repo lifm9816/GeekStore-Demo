@@ -14,7 +14,7 @@ export const Card = styled.div`
 
 export const ProductImage = styled.img`
     height: 100%;
-    width: fit-content;
+    width: auto;
     border-radius: 5px;
     position: relative;
     border-radius: 10px 0px 0px 10px;

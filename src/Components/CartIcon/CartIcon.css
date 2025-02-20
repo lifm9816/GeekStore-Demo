@@ -3,16 +3,14 @@
   }
   
   .cart-counter {
-    width: 17px;
+  width: 17px;
   height: 17px;
   position: absolute;
-  top: 20px;
+  top: 10px;
   right: -11px;
- 
   border-radius: 100%;
   font-weight: bold;
   font-size: 0.8rem;
-  
   display: flex;
   align-items: center;
   justify-content: center;

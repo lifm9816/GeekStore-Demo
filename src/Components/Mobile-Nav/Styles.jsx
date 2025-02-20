@@ -40,9 +40,16 @@ export const NavBar = styled.nav`
 
     li.active .cart-counter {
         color: ${({theme}) => theme.secondary}; /* Cambia el color del contador cuando el elemento li tiene la clase "active" */
+        background-color: ${({theme}) => theme.menu_logo_icon_active};
+        
+        @media(max-width:900px){
+            top:13px;
+        }
     }
 
-
+    li .cart-counter{
+        background-color: transparent;
+    }
 
    
 `

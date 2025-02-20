@@ -12,9 +12,11 @@ export const Light = {
     add_button: "#19222D",
     view_button: "#FF914D",
     text_menu: "#D9D9D9",
+    menu_logo_icon: "#D9D9D9",
+    menu_logo_icon_active: "#D9D9D9",
     logo: light_logo,
     icon: light_icon,
-    transition: 'all 0.3s ease in out'
+    transition: 'all 0.3s ease-in-out'
 }
 
 export const Dark = {
@@ -30,5 +32,5 @@ export const Dark = {
     menu_logo_icon_active: "#0E141A",
     logo: dark_logo,
     icon: dark_icon,
-    transition: 'all 0.3s ease in out',
+    transition: 'all 0.3s ease-inout',
 }

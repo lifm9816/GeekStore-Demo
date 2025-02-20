@@ -27,6 +27,7 @@ import { SessionProvider } from './Contexts/SessionContext';
 import { NavContainer } from './Components/UI/Elements';
 import { ThemeProvider } from 'styled-components';
 import { Light, Dark } from './Components/UI/Themes';
+import ThemeButton from './Components/ThemeButton/ThemeButton';
 
 export const ThemeContext = React.createContext(null);
 
@@ -120,9 +121,13 @@ function App() {
   const themeStyle = theme === "light" ? Dark : Light;
 
   useEffect(() => {
+    localStorage.setItem("theme", theme)
+  }, [theme]);
+
+  useEffect(() => {
     const savedTheme = localStorage.getItem("theme") || "light"
     setTheme(savedTheme); // Establece el tema dese el LocalStorage
-  });
+  }, []);
 
   return (
     <Router>
@@ -198,6 +203,7 @@ function App() {
                       }}
                     />} />
                   </Routes>
+                  <ThemeButton theme = { theme } setTheme = { setTheme }/>
                 <MobileNav/>
               </NavContainer>
             </ThemeProvider>
