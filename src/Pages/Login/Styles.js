@@ -11,6 +11,7 @@ export const Formulario = styled.form`
     justify-content: center;
     padding: 5%;
     border-radius: 20px;
+    width: fit-content;
 
     @media(max-width: 800px){
         margin: 25% 10px;
@@ -48,6 +49,7 @@ export const BtnCuenta = styled(Btn)`
     width: max-content;
     height: auto;
     padding: 10px;
+    font-weight: normal;
 
     
 `
@@ -71,7 +73,7 @@ export const CrearCuenta = styled(BtnCuenta)`
 
 export const DivInput = styled.div`
     box-sizing: border-box;
-    width: auto;
+    width: 100%;
     display:flex;
     flex-direction: column;
     align-items: start;
