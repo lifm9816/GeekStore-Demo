@@ -72,7 +72,9 @@ export const CrearCuenta = styled(BtnCuenta)`
 export const DivInput = styled.div`
     box-sizing: border-box;
     width: auto;
-    display:block; 
+    display:flex;
+    flex-direction: column;
+    align-items: start;
     margin: 0 15%;
 `
 
