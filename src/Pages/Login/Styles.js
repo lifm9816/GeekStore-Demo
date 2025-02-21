@@ -3,21 +3,32 @@ import { colorPrimario, btnSignIn } from "../../Components/UI/Variables";
 import { Btn , CampoTexto } from "../../Components/UI";
 
 export const Formulario = styled.form`
+    background-color: ${ ({ theme }) => theme.primary };
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: 5%;
+    border-radius: 20px;
 
-    @media (min-width: 900px)
+    @media(max-width: 800px){
+        margin: 25% 10px;
+    }
+
+    @media (max-width: 950px)
     {
-        margin-top: 5%;
-        transform: scale(1.3);
+        margin-top: 15%;
+    }
+
+    @media (min-width: 951px)
+    {
+        margin-top: 10%;
     }
 `
 
 export const Etiqueta = styled.label`
-    background-color: ${ ({ theme }) => theme.primary};
+    background-color: ${ ({ theme }) => theme.label};
     font-size: 20px;
     color: #FFFFFF;
     padding: 5px 10px;
@@ -31,13 +42,14 @@ export const Input = styled(CampoTexto)`
 `
 
 export const BtnCuenta = styled(Btn)`
-    font-size: 25px;
+    font-size: 18px;
     transition: all .5s ease-in-out;
     border-radius: 10px;
     width: max-content;
     height: auto;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding: 10px;
+
+    
 `
 
 export const IniciarSesion = styled(BtnCuenta)`
@@ -50,7 +62,7 @@ export const IniciarSesion = styled(BtnCuenta)`
 `
 
 export const CrearCuenta = styled(BtnCuenta)`
-    background-color: ${ ({ theme }) => theme.primary };
+    background-color: ${ ({ theme }) => theme.create_account_button };
 
     &:hover{
         background-color: ${ ({ theme }) => theme.primary_hover };
