@@ -17,6 +17,7 @@ export const ProductContainer = styled.div`
 `
 
 export const ImagesContainer = styled.div`
+    border-radius: 20px;
     box-sizing: border-box;
     display: flex;
     justify-content: center;
