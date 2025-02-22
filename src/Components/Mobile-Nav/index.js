@@ -59,7 +59,7 @@ const MobileNav = () =>
         <NavBar className = "navigation">
             <ul>
                 <li className={`list ${activeIndex === 0 ? 'active' : ''}`}>
-                    <Link to={pathname === "/" || pathname.includes("/product") ? "/" : "/product/fallback-id" }>
+                    <Link to={pathname === "/" || pathname.includes("/product") ? "/" : "/" }>
                         <a href="#" onClick={() => setActiveIndex(0)}>
                             <span className="icon">
                                 {pathname === "/" ? <AiFillHome/> : pathname.includes("/product") ? <MdAssignmentReturn /> : <AiFillHome />}
