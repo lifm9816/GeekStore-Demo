@@ -30,11 +30,15 @@ export const Contenedor = styled.div`
     flex-direction: column;
     margin-top: 50px;
     align-items: center;
-    margin-bottom: 20%;
+    margin-bottom: 10%;
+
+    @media(max-width: 800px){
+        margin-bottom: 25%;
+    }
 `
 
 export const Etiqueta = styled.label`
-    background-color: ${ ({ theme }) => theme.primary };
+    background-color: ${ ({ theme }) => theme.label };
     font-size: 20px;
     color: #FFFFFF;
     padding: 5px 10px;
@@ -70,20 +74,19 @@ export const Div = styled.div`
 `
 
 export const Formulario = styled.form`
-box-sizing: border-box;
-display: flex;
-align-items: center;
-flex-wrap: wrap;
-justify-content: space-between;
+    background-color: ${ ({ theme }) => theme.primary };
+    border-radius: 20px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 5%;
+    margin: 0 5%;
 
-@media (max-width: 929px)
-{
-    flex-direction: column;
-    align-items: start;
-}
-
-@media (min-width: 930px)
-{
-    margin-bottom: 10%;
-}
+    @media (max-width: 929px)
+    {
+        flex-direction: column;
+        align-items: start;
+    }
 `

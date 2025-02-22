@@ -27,6 +27,11 @@ export const Formulario = styled.form`
     {
         margin-top: 10%;
     }
+
+    @media (min-width: 1100px)
+    {
+        margin-top: 5%;
+    }
 `
 
 export const Etiqueta = styled.label`
