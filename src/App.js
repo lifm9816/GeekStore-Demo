@@ -28,10 +28,16 @@ import { NavContainer } from './Components/UI/Elements';
 import { ThemeProvider } from 'styled-components';
 import { Light, Dark } from './Components/UI/Themes';
 import ThemeButton from './Components/ThemeButton/ThemeButton';
+import ProductView from './Pages/ProductView/ProductView';
 
 export const ThemeContext = React.createContext(null);
 
 function App() {
+
+  const getStoredData = (key, defaultValue) => {
+    const storedData = localStorage.getItem(key);
+    return storedData ? JSON.parse(storedData) : defaultValue;
+  };
 
   const [marcas, actualizarMarca] = useState ([
     {
@@ -51,35 +57,11 @@ function App() {
     }
   ]);
 
-  const [products, updateProducts] = useState([
-    {
-      id: uuid(),
-      brand: "PlayStation",
-      photo: sm2,
-      title: "Spider-Man 2",
-      description: "Juego para PS5",
-      price: 1400,
-      stock: 15
-    },
-    {
-      id: uuid(),
-      brand: "Xbox",
-      photo: gow4,
-      title: "Gears of War 4",
-      description: "Juego para Xbox ONE/Series X",
-      price: 700,
-      stock: 15
-    },
-    {
-      id: uuid(),
-      brand: "Nintendo",
-      photo: mario,
-      title: "Super Mario Bros. Wonder",
-      description: "Juego para Nintendo Switch",
-      price: 1050,
-      stock: 15
-    }
-  ]);
+  const [products, updateProducts] = useState(() => getStoredData("products", [
+    { id: uuid(), brand: "PlayStation", photo: sm2, title: "Spider-Man 2", description: "Juego para PS5", price: 1400, stock: 15 },
+    { id: uuid(), brand: "Xbox", photo: gow4, title: "Gears of War 4", description: "Juego para Xbox ONE/Series X", price: 700, stock: 15 },
+    { id: uuid(), brand: "Nintendo", photo: mario, title: "Super Mario Bros. Wonder", description: "Juego para Nintendo Switch", price: 1050, stock: 15 }
+  ]));
 
   const [users, updateUsers] = useState([
     {
@@ -125,6 +107,10 @@ function App() {
     setTheme(savedTheme); // Establece el tema dese el LocalStorage
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem("products", JSON.stringify(products));
+  }, [products]);
+
   return (
     <Router>
       <SessionProvider>
@@ -135,7 +121,7 @@ function App() {
                 <Header />
                   <Routes>
                     <Route path = "/" element = {<Home 
-                      products={products.map((product) => ({
+                      products = {products.map((product) => ({
                         id: product.id,
                         title: product.title,
                         photo: product.photo,
@@ -158,6 +144,11 @@ function App() {
                         stock: product.stock
                       }))}
                       marcas={marcas}
+                    />} />
+
+                    <Route path = "/product/:id" element = { 
+                      <ProductView 
+                        products = { products }  
                     />} />
 
                     <Route path = "/about" element = {<About

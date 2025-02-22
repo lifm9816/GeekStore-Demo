@@ -17,11 +17,6 @@ export const Btn = styled.button`
     cursor: pointer;
     font-size: 15px;
 
-    @media (max-width: 799px)
-    {
-        transform: scale(.7);
-    }
-
     @media (min-width: 800px)
     {
         height: 50px;

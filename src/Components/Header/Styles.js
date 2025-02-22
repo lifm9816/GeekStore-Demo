@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Btn } from "../UI";
-import { btnLogIn, btnSignIn, colorPrimario } from "../UI/Variables";
+import { btnLogIn } from "../UI/Variables";
 
 export const BtnLogIn = styled(Btn)`
     background-color: ${btnLogIn};

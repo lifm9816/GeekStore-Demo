@@ -4,8 +4,8 @@ import { AiFillHome, AiOutlineSearch} from "react-icons/ai";
 import { HiUserAdd, HiUser } from "react-icons/hi";
 import { FaShoppingCart } from "react-icons/fa";
 import { BsCircleHalf} from "react-icons/bs";
-import { MdAssignmentAdd } from "react-icons/md";
-import { Link, useLocation } from "react-router-dom";
+import { MdAssignmentAdd, MdAssignmentReturn } from "react-icons/md";
+import { Link, useLocation, useParams } from "react-router-dom";
 import CartIcon from "../CartIcon";
 import { useCart } from "../../Contexts/CartContext";
 import { useSession } from "../../Contexts/SessionContext";
@@ -17,10 +17,12 @@ import React, { useContext } from "react";
 
 const MobileNav = () =>
 {
+
     const { isLoggedIn, userData } = useSession();
     const { cartItems, getTotalItems } = useCart();
     const [activeIndex, setActiveIndex] = useState(0);
     const { pathname } = useLocation();//Destructura pathname directamente
+    const productId = useParams()
 
     const { theme } = useContext(ThemeContext);
     const themeStyle = theme === "light" ? Light : Dark;
@@ -30,6 +32,7 @@ const MobileNav = () =>
         //Definición de mapa de rutas a índices
         const pathToIndex = {
             "/": 0,
+            "/product/:id": 0,
             "/search": 1,
             "/about": 2,
             ...(isLoggedIn
@@ -39,22 +42,29 @@ const MobileNav = () =>
             ...( isLoggedIn && userData.role === "administrador"
                 ?{"/productRegister":4}    
                 : {"/shopping": 4})
-          };
+        };
 
+        // Si la URL tiene un productId, trata de mapearlo
+        if (pathname.includes("/product")) {
+            setActiveIndex(0); // El índice 0 puede usarse para productos
+        } else {
+            setActiveIndex(pathToIndex[pathname]);
+        }
+        
         //Estableciendo el valor de activeIndex en función de la ruta actual
-        setActiveIndex(pathToIndex[pathname]);
+        
     },[pathname, isLoggedIn]);
 
     return(
         <NavBar className = "navigation">
             <ul>
                 <li className={`list ${activeIndex === 0 ? 'active' : ''}`}>
-                    <Link to="/" >
+                    <Link to={pathname === "/" || pathname.includes("/product") ? "/" : "/product/fallback-id" }>
                         <a href="#" onClick={() => setActiveIndex(0)}>
                             <span className="icon">
-                                <AiFillHome/>
+                                {pathname === "/" ? <AiFillHome/> : pathname.includes("/product") ? <MdAssignmentReturn /> : <AiFillHome />}
                             </span>
-                            <span className="text">Inicio</span>
+                            <span className="text">{pathname === "/" ? "Inicio" : pathname.includes("/product") ? "Regresar" : "Inicio"}</span>
                         </a>
                     </Link>
                 </li>

@@ -25,6 +25,7 @@ export const Light = {
     icon: light_icon,
     text_about: "#19222D",
     def_user: def_user ,
+    product_title: "#19222D",
     transition: 'all 0.3s ease-in-out'
 }
 
@@ -48,5 +49,6 @@ export const Dark = {
     icon: dark_icon,
     text_about: "#7A94AD",
     def_user: def_darkUser,
+    product_title: "#7A94AD",
     transition: 'all 0.3s ease-in-out',
 }

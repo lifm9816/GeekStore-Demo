@@ -15,6 +15,7 @@ export const Formulario = styled.form`
 
     @media(max-width: 800px){
         margin: 25% 10px;
+        padding-top: 40px;
     }
 
     @media (max-width: 950px)
@@ -43,15 +44,17 @@ export const Input = styled(CampoTexto)`
 `
 
 export const BtnCuenta = styled(Btn)`
-    font-size: 18px;
+    font-size: 20px;
     transition: all .5s ease-in-out;
     border-radius: 10px;
     width: max-content;
     height: auto;
-    padding: 10px;
-    font-weight: normal;
-
+    margin-top: 20px;
     
+    @media(max-width: 800px){
+        margin-top: 10px;
+        margin-bottom: 30px;
+    }
 `
 
 export const IniciarSesion = styled(BtnCuenta)`
@@ -78,6 +81,7 @@ export const DivInput = styled.div`
     flex-direction: column;
     align-items: start;
     margin: 0 15%;
+
 `
 
 export const DivBtn = styled.div`
@@ -86,6 +90,7 @@ export const DivBtn = styled.div`
     align-items: center;
     flex-direction: row;
     justify-content: center;
+
 
     @media(max-width: 600px)
     {
