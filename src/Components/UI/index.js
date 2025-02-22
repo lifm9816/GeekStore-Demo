@@ -87,6 +87,6 @@ export const Formulario = styled.form`
     @media (max-width: 929px)
     {
         flex-direction: column;
-        align-items: start;
+        align-items: center
     }
 `

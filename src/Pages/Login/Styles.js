@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { colorPrimario, btnSignIn } from "../../Components/UI/Variables";
-import { Btn , CampoTexto } from "../../Components/UI";
+import { Btn , CampoTexto, Contenedor } from "../../Components/UI";
 
 export const Formulario = styled.form`
     background-color: ${ ({ theme }) => theme.primary };
@@ -13,7 +13,7 @@ export const Formulario = styled.form`
     border-radius: 20px;
     width: fit-content;
 
-    @media(max-width: 800px){
+    /*@media(max-width: 800px){
         margin: 25% 10px;
         padding-top: 40px;
     }
@@ -31,7 +31,7 @@ export const Formulario = styled.form`
     @media (min-width: 1100px)
     {
         margin-top: 5%;
-    }
+    }*/
 `
 
 export const Etiqueta = styled.label`

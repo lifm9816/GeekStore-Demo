@@ -9,10 +9,10 @@ export const CrearCuenta = styled(Btn)`
 
 
     background-color: ${ ({ theme }) => theme.secondary };
-    font-size: 25px;
-    padding: 20px;
+    font-size: 18px;
+    padding: 12px;
     transition: all .5s ease-in-out;
-    border-radius: 20px;
+    border-radius: 10px;
     width: auto;
     height: auto;
     margin-bottom: 100px;
@@ -24,13 +24,13 @@ export const CrearCuenta = styled(Btn)`
 `
 
 export const DivFoto = styled.div`
-    @media (min-width: 495px)
-    {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width:-webkit-fill-available;
-    }
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width:-webkit-fill-available;
+    
+    
 `
 
 export const InputFoto = styled.label`
@@ -41,7 +41,7 @@ export const InputFoto = styled.label`
     border-radius: 100%;
     background: ${ ({ theme }) =>  `url(${theme.def_user})`} center center / cover no-repeat;
     cursor: pointer;
-    margin: 15px 40%;
+    margin: 15px 0px;
     overflow: hidden;
     input{
         display: none;
@@ -135,6 +135,10 @@ export const PasswordInput = styled.input`
     margin-bottom: 30px;
     margin-top: 10px;
     outline: none;
+
+    @media(max-width:930px){
+        width: calc(100% - 40px);
+    }
 `;
 
 export const ShowPasswordButton = styled.button`
@@ -146,3 +150,21 @@ export const ShowPasswordButton = styled.button`
     font-size: 18px;
     cursor: pointer;
 `;
+
+export const PasswordDiv = styled.div`
+
+    box-sizing: border-box;
+    width: auto;
+    display:block; 
+    
+
+
+    @media (min-width: 930px) 
+    {
+        width: 50%;
+        padding: 0 80px;
+    }
+    @media(max-width: 930px){
+        margin-left: 5%;
+    }
+`

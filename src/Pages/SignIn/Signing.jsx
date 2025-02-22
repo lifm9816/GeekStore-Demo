@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import AvatarEditor from 'react-avatar-editor';
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { Formulario, Contenedor, Etiqueta, CampoTexto} from "../../Components/UI";
-import { CrearCuenta, DivFoto, InputFoto, DivBtn, Div, CropContainer, CropPreview, ErrorMessage, ConfirmMessage, PasswordInput, ShowPasswordButton } from "./Styles";
+import { CrearCuenta, DivFoto, InputFoto, DivBtn, Div, CropContainer, CropPreview, ErrorMessage, ConfirmMessage, PasswordInput, ShowPasswordButton, PasswordDiv } from "./Styles";
 import def_user from "../../assets/Images/def-user.png"
 import portada from "../../assets/Images/portada_miles.jpeg"
 import { validateName, validateLastName, validateEmail, validatePhone, ValidatePassword, confirmPassword } from "../../Validations/Validations";
@@ -271,7 +271,7 @@ const SignIn = (props) => {
                     )}
                 </Div>
 
-                <Div>
+                <PasswordDiv>
                     <Etiqueta htmlFor="password">Contraseña: </Etiqueta>
                     <PasswordInput 
                         id="password" 
@@ -293,9 +293,9 @@ const SignIn = (props) => {
                     { errorPassword.password.error && (
                         <ErrorMessage> {errorPassword.password.message} </ErrorMessage>
                     )}
-                </Div>
+                </PasswordDiv>
             
-                <Div>
+                <PasswordDiv>
                     <Etiqueta htmlFor="password-confirm">Confirmar contraseña: </Etiqueta>
                     <PasswordInput 
                         id="password-confirm" 
@@ -320,7 +320,7 @@ const SignIn = (props) => {
                     { errorConfPass.confPass.verify && (
                         <ConfirmMessage> {errorConfPass.confPass.message} </ConfirmMessage>
                     )}
-                </Div>
+                </PasswordDiv>
 
                 <DivBtn>
                     <CrearCuenta onClick={handleSubmit} >Crear cuenta</CrearCuenta>
