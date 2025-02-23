@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Formulario, Etiqueta, Input, BtnCuenta, IniciarSesion, CrearCuenta, DivBtn, DivInput } from "./Styles";
+import { Formulario, Etiqueta, Input,  IniciarSesion, CrearCuenta, DivBtn, DivInput, LoginContainer } from "./Styles";
 import { Contenedor } from "../../Components/UI";
 import { useSession } from "../../Contexts/SessionContext";
 
@@ -34,7 +34,7 @@ const Login = ({ users }) =>{
       };
 
     return(
-        <Contenedor>
+        <LoginContainer>
             <Formulario onSubmit={handleLogin}>
                 <DivInput>
                     <Etiqueta htmlFor="correo">Correo:</Etiqueta>
@@ -61,7 +61,7 @@ const Login = ({ users }) =>{
                     <IniciarSesion >Iniciar Sesión</IniciarSesion>
                 </DivBtn>
             </Formulario>    
-        </Contenedor>
+        </LoginContainer>
     )
 }
 

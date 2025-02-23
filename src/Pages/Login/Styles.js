@@ -1,6 +1,18 @@
 import styled from "styled-components";
-import { colorPrimario, btnSignIn } from "../../Components/UI/Variables";
-import { Btn , CampoTexto, Contenedor } from "../../Components/UI";
+import { Btn , CampoTexto } from "../../Components/UI";
+
+export const LoginContainer = styled.div`
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 74vh;
+
+    @media(max-height: 630px){
+        margin: 10% 0 20% 0;
+    }
+`
 
 export const Formulario = styled.form`
     background-color: ${ ({ theme }) => theme.primary };
@@ -46,6 +58,7 @@ export const Etiqueta = styled.label`
 
 export const Input = styled(CampoTexto)`
     margin-right: 0;
+    width: -webkit-fill-available;
 `
 
 export const BtnCuenta = styled(Btn)`
