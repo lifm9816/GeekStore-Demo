@@ -5,6 +5,10 @@ import "./About.css"
 export const SobreDiv = styled.div`
     color: ${ ({ theme }) => theme.text_about};
     margin: 20px 10% 10% 10%;  
+
+    @media(max-width: 1200px){
+        margin-bottom: 30%;
+    }
 `
 
 export const Titulo = styled.h1`

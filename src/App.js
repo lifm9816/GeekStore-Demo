@@ -108,6 +108,32 @@ function App() {
   }, []);
 
   useEffect(() => {
+    // Cambia el color de fondo del body cuando cambie el tema
+    if (theme === "light") {
+      document.body.style.backgroundColor = themeStyle.body.backgroundColor || "#19222D";
+    } else {
+      document.body.style.backgroundColor = themeStyle.body.backgroundColor || "#0E141A";
+    }
+
+    // Cambiar el color del meta tag theme-color para la Dynamic Island
+    const headerColor = theme === "light" ? "#19222D" : "#0E141A";
+
+    // Si tienes un color específico del header en tus temas, úsalo en lugar del predeterminado
+    // Intenta acceder de forma segura a las propiedades
+
+    if (themeStyle && themeStyle.colors && themeStyle.colors.header) {
+      // Ajusta esta ruta según la estructura real de tu objeto themeStyle
+      headerColor = themeStyle.colors.header;
+    }
+
+    // Selecciona el meta tag theme-color y actualiza su contenido
+    const metaThemeColor = document.querySelector("meta[name=theme-color]");
+    if (metaThemeColor) {
+      metaThemeColor.setAttribute("content", headerColor);
+    }
+  }, [theme, themeStyle]);
+
+  useEffect(() => {
     localStorage.setItem("products", JSON.stringify(products));
   }, [products]);
 

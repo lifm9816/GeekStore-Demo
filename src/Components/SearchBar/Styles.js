@@ -13,6 +13,11 @@ export const Search_Bar = styled.div`
         margin: 10px auto;
     }
 
+    @media (max-height: 500px){
+        padding: 0 5%;
+        background-color: ${ ({theme }) => theme.body };
+    }
+
 `
 
 export const Search_Container = styled.div`
@@ -36,6 +41,11 @@ export const Search = styled.input`
     font-size: 16px;
     padding: 10px 40px 10px 10px;
     border-radius: 5px;
+    
+    @media(max-height: 500px){
+        padding: 15px;
+        border-radius: 0;
+    }
 `
 
 export const Button = styled.button`

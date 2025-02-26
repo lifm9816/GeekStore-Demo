@@ -13,4 +13,8 @@ export const ProductDiv = styled.div`
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
+
+    @media(max-height: 500px){
+        padding: 0 2%;
+    }
 `

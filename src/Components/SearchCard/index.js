@@ -1,7 +1,15 @@
+import { useNavigate } from "react-router-dom";
 import { Card, ImageDiv, ProductImage, Info, Title, Price, BtnDiv, AddBtn, ViewBtn } from "./Styles"
 
 const SearchCard = (props) => {
+    
+    const navigate = useNavigate();
+    
     const { photo, title, description, price } = props.data;
+
+    const handleViewProduct = () => {
+        navigate(`/product/${props.data.id}`)
+    }
 
     return (
         <Card>
@@ -13,7 +21,7 @@ const SearchCard = (props) => {
                 <Price> { `$ ${price.toFixed(2)}` } </Price>
                 <BtnDiv>
                     <AddBtn>Agregar</AddBtn>
-                    <ViewBtn>Ver</ViewBtn>
+                    <ViewBtn onClick = { handleViewProduct } >Ver</ViewBtn>
                 </BtnDiv>
             </Info>
         </Card>
