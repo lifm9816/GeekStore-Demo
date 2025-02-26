@@ -58,9 +58,9 @@ function App() {
   ]);
 
   const [products, updateProducts] = useState(() => getStoredData("products", [
-    { id: uuid(), brand: "PlayStation", photo: sm2, title: "Spider-Man 2", description: "Juego para PS5", price: 1400, stock: 15 },
-    { id: uuid(), brand: "Xbox", photo: gow4, title: "Gears of War 4", description: "Juego para Xbox ONE/Series X", price: 700, stock: 15 },
-    { id: uuid(), brand: "Nintendo", photo: mario, title: "Super Mario Bros. Wonder", description: "Juego para Nintendo Switch", price: 1050, stock: 15 }
+    { id: uuid(), brand: "PlayStation", photo: sm2, title: "Spider-Man 2", subtitle: "Ser mejores juntos", description: "Los Spider-Men Peter Parker y Miles Morales regresan para una nueva y emocionante aventura de la aclamada franquicia Marvel's Spider-Man para PS5.Balancéate, salta y utiliza las nuevas alas de telaraña para recorrer toda la ciudad de Nueva York de Marvel. También podrás cambiar rápidamente entre Peter Parker y Miles Morales para vivir diferentes historias y canalizar poderes nuevos y épicos, mientras el emblemático villano Venom amenaza con destruir sus vidas, la ciudad y a todos sus seres queridos.", price: 1400, stock: 15 },
+    { id: uuid(), brand: "Xbox", photo: gow4, title: "Gears of War 4", subtitle: "Unidos por la sangre", description: "Juego para Xbox ONE/Series X", price: 700, stock: 15 },
+    { id: uuid(), brand: "Nintendo", photo: mario, title: "Super Mario Bros. Wonder", subtitle: "Porque un Mario, nunca es suficiente", description: "Juego para Nintendo Switch", price: 1050, stock: 15 }
   ]));
 
   const [users, updateUsers] = useState([
@@ -150,6 +150,7 @@ function App() {
                       products = {products.map((product) => ({
                         id: product.id,
                         title: product.title,
+                        subtitle: product.subtitle,
                         photo: product.photo,
                         description: product.description,
                         price: product.price,
@@ -163,6 +164,7 @@ function App() {
                       products = {products.map((product) => ({
                         id: product.id,
                         title: product.title,
+                        subtitle: product.subtitle,
                         photo: product.photo,
                         description: product.description,
                         price: product.price,
@@ -198,6 +200,7 @@ function App() {
                       products = {products.map((product) => ({
                         id: product.id,
                         title: product.title,
+                        subtitle: product.subtitle,
                         photo: product.photo,
                         description: product.description,
                         price: product.price,
